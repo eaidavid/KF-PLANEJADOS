@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lenis from 'lenis';
 import { ArrowRight, Phone, Mail, MapPin, Instagram, Facebook, LayoutGrid, Award, ShieldCheck, X, ChevronRight, ChevronLeft, Upload, CheckCircle2 } from 'lucide-react';
+import { siteConfig } from './siteConfig';
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    // Injetar cores dinamicamente no CSS variáveis
+    document.documentElement.style.setProperty('--color-primary', siteConfig.colors.primary);
+    document.documentElement.style.setProperty('--color-secondary', siteConfig.colors.secondary);
+
     const lenis = new Lenis();
     function raf(time) {
       lenis.raf(time);
@@ -180,7 +185,7 @@ const QuoteModal = ({ onClose }) => {
     },
     {
       id: 7,
-      title: "Estamos quase lá...",
+      title: siteConfig.modal.finalTitle || "Estamos quase lá...",
       content: (
         <div className="space-y-4">
           <input type="text" placeholder="Seu Nome" className="w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-primary" onChange={(e) => updateData('nome', e.target.value)} />
@@ -190,7 +195,7 @@ const QuoteModal = ({ onClose }) => {
             className="w-full py-5 bg-primary text-black font-black uppercase tracking-widest mt-8 hover:bg-white transition-colors"
             onClick={handleSubmit}
           >
-            Enviar Solicitação de Luxo
+            {siteConfig.modal.submitLabel || "Enviar Solicitação de Luxo"}
           </button>
         </div>
       )
@@ -232,15 +237,15 @@ const QuoteModal = ({ onClose }) => {
                 className="text-center py-20"
               >
                 <CheckCircle2 size={80} className="mx-auto text-primary mb-8" />
-                <h2 className="text-4xl font-serif italic mb-4">Recebemos seu pedido!</h2>
-                <p className="text-gray-400 mb-12">Em breve entraremos em contato com você.</p>
+                <h2 className="text-4xl font-serif italic mb-4">{siteConfig.modal.successTitle || "Recebemos seu pedido!"}</h2>
+                <p className="text-gray-400 mb-12">{siteConfig.modal.successSubtitle || "Em breve entraremos em contato com você."}</p>
 
                 <a
-                  href="https://wa.me/5562991009746?text=Recebeu%20meu%20pedido%3F"
+                  href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(siteConfig.modal.whatsappMessage)}`}
                   target="_blank"
                   className="inline-flex items-center gap-4 px-10 py-4 border border-primary text-primary font-bold uppercase text-xs tracking-widest hover:bg-primary hover:text-black transition-all"
                 >
-                  Ir para o Whatsapp <ArrowRight size={14} />
+                  {siteConfig.modal.whatsappMessage} <ArrowRight size={14} />
                 </a>
               </motion.div>
             ) : (
@@ -302,7 +307,7 @@ const QuoteModal = ({ onClose }) => {
 const Navbar = ({ onOpenQuote }) => (
   <nav className="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-gradient-to-b from-black/50 to-transparent backdrop-blur-sm">
     <div className="flex items-center gap-2">
-      <img src="/assets/logo-kf.png" alt="Logo" className="h-10" />
+      <img src={siteConfig.brand.logo} alt="Logo" className="h-10" />
     </div>
     <div className="hidden md:flex gap-8 text-xs font-semibold tracking-widest uppercase">
       {['Home', 'Sobre', 'Portfólio', 'Contato'].map((item) => (
@@ -321,7 +326,7 @@ const Hero = ({ onOpenQuote }) => {
       <div className="absolute inset-0 bg-black/50 z-10" />
       <div
         className="absolute inset-0 bg-cover bg-center blur-[6px] scale-105"
-        style={{ backgroundImage: "url('/assets/asweb-b0567458e9becbefca45ef6c00b622b30.jpg')" }}
+        style={{ backgroundImage: `url('${siteConfig.hero.bgImage}')` }}
       />
 
       <div className="relative z-20 text-center px-4">
@@ -343,29 +348,28 @@ const Hero = ({ onOpenQuote }) => {
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             className="text-primary font-bold tracking-[0.3em] uppercase text-[10px] mb-4 block"
           >
-            Marcenaria de Alto Padrão
+            {siteConfig.hero.tagline}
           </motion.span>
           <motion.h1
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
             className="text-6xl md:text-9xl font-serif mb-6 leading-[0.9] italic"
-          >
-            Exclusividade <br /> Atemporal.
-          </motion.h1>
+            dangerouslySetInnerHTML={{ __html: siteConfig.hero.title }}
+          />
           <motion.p
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             className="max-w-xl mx-auto text-gray-400 text-lg mb-12 font-light italic"
           >
-            Onde a tradição da marcenaria encontra a sofisticação do design contemporâneo.
+            {siteConfig.hero.subtitle}
           </motion.p>
           <motion.div
             variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}
             className="flex flex-col md:flex-row gap-6 justify-center items-center"
           >
             <button onClick={onOpenQuote} className="group relative px-12 py-5 bg-primary text-black font-bold text-xs tracking-widest uppercase overflow-hidden">
-              <span className="relative z-10">Agendar Consultoria</span>
+              <span className="relative z-10">{siteConfig.hero.cta}</span>
               <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
             </button>
-            <a href="#portfolio" className="text-white text-[10px] uppercase font-bold tracking-widest border-b border-white/20 pb-2 hover:border-primary transition-colors">Portfólio 2026</a>
+            <a href="#portfolio" className="text-white text-[10px] uppercase font-bold tracking-widest border-b border-white/20 pb-2 hover:border-primary transition-colors">{siteConfig.hero.portfolioLink}</a>
           </motion.div>
         </motion.div>
       </div>
@@ -377,33 +381,28 @@ const About = () => (
   <section id="sobre" className="py-24 px-6 md:px-24 bg-white text-black">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
       <div className="relative">
-        <img src="/assets/asweb-9fc95c794c35b6f987d609f1abf2396b0.jpg" alt="Marcenaria" className="grayscale hover:grayscale-0 transition-all duration-700" />
+        <img src={siteConfig.about.image} alt="Sobre" className="grayscale hover:grayscale-0 transition-all duration-700" />
         <div className="absolute -bottom-10 -right-10 bg-primary p-12 hidden md:block">
-          <h3 className="text-5xl font-serif italic">35</h3>
-          <p className="text-xs uppercase font-bold tracking-widest">Anos de História</p>
+          <h3 className="text-5xl font-serif italic">{siteConfig.about.stats.value}</h3>
+          <p className="text-xs uppercase font-bold tracking-widest">{siteConfig.about.stats.label}</p>
         </div>
       </div>
       <div className="space-y-8">
-        <span className="text-primary font-bold uppercase text-xs tracking-widest">Nossa Essência</span>
-        <h2 className="text-5xl font-serif">Móveis 100% MDF <br /> Feitos Para Durar.</h2>
+        <span className="text-primary font-bold uppercase text-xs tracking-widest">{siteConfig.about.tagline}</span>
+        <h2 className="text-5xl font-serif" dangerouslySetInnerHTML={{ __html: siteConfig.about.title }} />
         <p className="text-gray-600 leading-relaxed font-light text-lg">
-          Fundada por Kássio Fernando de Souza, a KF Planejados une a maestria da marcenaria tradicional às tendências do design moderno. Nossa parceria com os melhores arquitetos garante resultados que são verdadeiras obras de arte.
+          {siteConfig.about.description}
         </p>
         <div className="grid grid-cols-2 gap-8 pt-8">
-          <div className="flex gap-4 items-start">
-            <ShieldCheck className="text-primary shrink-0" />
-            <div>
-              <h4 className="font-bold text-sm uppercase">Garantia Premium</h4>
-              <p className="text-xs text-gray-500">Materiais certificados e duráveis.</p>
+          {siteConfig.about.features.map(f => (
+            <div key={f.title} className="flex gap-4 items-start">
+              <ShieldCheck className="text-primary shrink-0" />
+              <div>
+                <h4 className="font-bold text-sm uppercase">{f.title}</h4>
+                <p className="text-xs text-gray-500">{f.description}</p>
+              </div>
             </div>
-          </div>
-          <div className="flex gap-4 items-start">
-            <Award className="text-primary shrink-0" />
-            <div>
-              <h4 className="font-bold text-sm uppercase">Excelência</h4>
-              <p className="text-xs text-gray-500">Referência no mercado de Goiânia.</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
@@ -411,27 +410,18 @@ const About = () => (
 );
 
 const Portfolio = ({ onOpenQuote }) => {
-  const projects = [
-    { id: 1, title: 'Cozinha Gourmet', img: '/assets/asweb-20fc625b081546ce6680e515e4aa7d410.jpg', type: 'Moderna', size: 'large' },
-    { id: 2, title: 'Living Suave', img: '/assets/asweb-70f1f67c8b12293745b6deb62322b5550.jpg', type: 'Design', size: 'small' },
-    { id: 3, title: 'Suíte Luxo', img: '/assets/asweb-67a2df494bf367e5281e4b79fe2515900.jpg', type: 'Private', size: 'small' },
-    { id: 4, title: 'Office Design', img: '/assets/asweb-ca17aaea3b8014aac4e882733a915b990.jpg', type: 'Executive', size: 'large' },
-    { id: 5, title: 'Área Gourmet', img: '/assets/asweb-0d2895ee9ea3a29c0936034380694c3e0.jpg', type: 'Lazer', size: 'small' },
-    { id: 6, title: 'Painel Ripado', img: '/assets/asweb-3f2a0385eb24e988702ca3ea38214a2c0.jpg', type: 'Detalhe', size: 'small' },
-  ];
-
   return (
     <section id="portfolio" className="py-24 bg-secondary">
       <div className="px-6 mb-16 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-8">
         <div>
-          <span className="text-primary font-bold uppercase text-xs tracking-[0.5em]">The Signature Collection</span>
-          <h2 className="text-6xl font-serif mt-4 italic">Obras Primas</h2>
+          <span className="text-primary font-bold uppercase text-xs tracking-[0.5em]">{siteConfig.portfolio.tagline}</span>
+          <h2 className="text-6xl font-serif mt-4 italic">{siteConfig.portfolio.title}</h2>
         </div>
-        <p className="max-w-xs text-gray-500 text-sm font-light">Uma seleção curada de nossos projetos mais emblemáticos, onde a forma encontra a função em perfeita harmonia.</p>
+        <p className="max-w-xs text-gray-500 text-sm font-light">{siteConfig.portfolio.description}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 px-4 max-w-[1600px] mx-auto">
-        {projects.map((p, idx) => (
+        {siteConfig.portfolio.projects.map((p, idx) => (
           <motion.div
             key={p.id}
             initial={{ opacity: 0, scale: 0.95 }}
@@ -487,32 +477,32 @@ const Footer = ({ onOpenQuote }) => (
   <footer id="contato" className="bg-[#050505] pt-24 pb-12 px-6">
     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
       <div className="md:col-span-2 space-y-8">
-        <img src="/assets/logo-rodape.png" alt="Logo" className="h-16" />
+        <img src={siteConfig.brand.logoFooter} alt="Logo" className="h-16" />
         <p className="text-gray-500 max-w-sm font-light">
-          Kassio Fernando de Souza - Elevando o padrão de marcenaria brasileira com design autoral e paixão pelo artesanal.
+          {siteConfig.brand.name} - Elevando o padrão de marcenaria brasileira com design autoral e paixão pelo artesanal.
         </p>
         <div className="flex gap-4">
-          <a href="#" className="p-3 border border-white/10 hover:border-white transition-colors"><Instagram size={18} /></a>
-          <a href="#" className="p-3 border border-white/10 hover:border-white transition-colors"><Facebook size={18} /></a>
+          <a href={siteConfig.contact.social.instagram} className="p-3 border border-white/10 hover:border-white transition-colors"><Instagram size={18} /></a>
+          <a href={siteConfig.contact.social.facebook} className="p-3 border border-white/10 hover:border-white transition-colors"><Facebook size={18} /></a>
         </div>
       </div>
       <div className="space-y-6">
         <h4 className="font-bold flex gap-2 items-center"><MapPin className="text-primary" size={18} /> Visite-nos</h4>
         <p className="text-gray-500 text-sm leading-loose">
-          Avenida França - Ville de France<br />Goiânia / GO - 74.890-711
+          {siteConfig.contact.address}
         </p>
       </div>
       <div className="space-y-6">
         <h4 className="font-bold flex gap-2 items-center"><Phone className="text-primary" size={18} /> Conecte-se</h4>
         <p className="text-gray-500 text-sm">
-          (62) 99100-9746 <br />
-          contato@kfplanejados.com.br
+          {siteConfig.contact.phone} <br />
+          {siteConfig.contact.email}
         </p>
         <button onClick={onOpenQuote} className="flex items-center gap-2 text-xs font-bold text-primary group">Agendar Visita <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" /></button>
       </div>
     </div>
     <div className="text-center pt-8 border-t border-white/5 text-[10px] uppercase tracking-widest text-gray-600">
-      &copy; 2026 KF Planejados. Crafting Excellence in Wood.
+      &copy; 2026 {siteConfig.brand.name}. Crafting Excellence in Wood.
     </div>
   </footer>
 );

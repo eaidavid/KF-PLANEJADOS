@@ -1,12 +1,17 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
-@theme {
+:root {
   --color-primary: #C5A059;
   --color-secondary: #0a0a0a;
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
   --color-luxury-charcoal: #1a1a1a;
   --color-luxury-ivory: #f9f9f9;
-  --color-luxury-gold: #C5A059;
+  --color-luxury-gold: var(--color-primary);
   --color-luxury-gold-light: #D4BC9A;
   
   --font-serif: "Playfair Display", serif;
