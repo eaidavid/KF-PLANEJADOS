@@ -16,7 +16,7 @@ export const siteConfig = {
   hero: {
     eyebrow: "47 anos · móveis planejados",
     headline: "Qualidade sob medida, preço justo.",
-    bgImage: "/assets/asweb-b0567458e9becbefca45ef6c00b622b30.jpg",
+    bgImage: "/assets/hero-cozinha.jpg",
     cta: "Solicitar Orçamento",
     portfolioLink: "Portfólio",
   },
