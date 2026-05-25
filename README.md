@@ -1,16 +1,32 @@
-# React + Vite
+# Art Móveis Interiores — Site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Landing page institucional para a **Art Móveis Interiores** (móveis planejados), com portfólio, formulário de orçamento em etapas e integração com WhatsApp/Instagram.
 
-Currently, two official plugins are available:
+## Desenvolvimento
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Abra [http://localhost:5173](http://localhost:5173).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Personalização
 
-## Expanding the ESLint configuration
+Edite `src/siteConfig.js` para alterar:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Textos, cores e imagens
+- Links de redes sociais (Instagram, WhatsApp, e-mail)
+- Número do WhatsApp (`contact.whatsapp` — formato: `55DDDNUMERO`, sem símbolos)
+- Endereço e contatos reais
+
+O logo está em `public/assets/logo-art-moveis.png`.
+
+## Build
+
+```bash
+npm run build
+npm run preview
+```
+
+Arquivos estáticos em `dist/` — prontos para hospedar na Vercel, Netlify, etc.

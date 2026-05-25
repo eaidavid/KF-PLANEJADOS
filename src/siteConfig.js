@@ -1,70 +1,137 @@
 export const siteConfig = {
-    brand: {
-        name: "KF Planejados",
-        logo: "/assets/logo-kf.png",
-        logoFooter: "/assets/logo-rodape.png",
-        favicon: "/assets/logo-kf.png",
+  brand: {
+    name: "Art Móveis Interiores",
+    shortName: "art móveis.",
+    tagline: "móveis planejados",
+    logo: "/assets/logo-art-moveis.png",
+    logoFooter: "/assets/logo-art-moveis.png",
+    favicon: "/assets/logo-art-moveis.png",
+  },
+  colors: {
+    primary: "#C8232C",
+    secondary: "#1a1a1a",
+    accent: "#ffffff",
+    surface: "#e8e8e8",
+  },
+  hero: {
+    eyebrow: "47 anos · móveis planejados",
+    headline: "Qualidade sob medida, preço justo.",
+    bgImage: "/assets/asweb-b0567458e9becbefca45ef6c00b622b30.jpg",
+    cta: "Solicitar Orçamento",
+    portfolioLink: "Portfólio",
+  },
+  about: {
+    tagline: "Nossa História",
+    title: "Móveis planejados <br /> com tradição e precisão.",
+    description:
+      "Há 47 anos a Art Móveis Interiores fabrica móveis planejados sob medida. Unimos marcenaria de qualidade, design personalizado e preços justos para entregar ambientes que combinam beleza, funcionalidade e durabilidade.",
+    image: "/assets/nossa-fabrica.jpg",
+    stats: {
+      value: "47",
+      label: "Anos de Experiência",
     },
-    colors: {
-        primary: "#C5A059", // Dourado
-        secondary: "#0a0a0a", // Preto Fundo
-        accent: "#ffffff", // Branco/Destaque
+    features: [
+      {
+        title: "Projetos Personalizados",
+        description: "Cada ambiente pensado para você.",
+      },
+      {
+        title: "Qualidade Acessível",
+        description: "Excelência que cabe no seu bolso.",
+      },
+    ],
+  },
+  portfolio: {
+    tagline: "Nossos Projetos",
+    title: "Portfólio",
+    description:
+      "Conheça alguns dos ambientes que criamos — cozinhas, quartos, salas e muito mais.",
+    projects: [
+      {
+        id: 1,
+        title: "Cozinha Planejada",
+        img: "/assets/projeto-cozinha.jpg",
+        type: "Cozinha",
+        size: "large",
+      },
+      {
+        id: 2,
+        title: "Quarto com Painel",
+        img: "/assets/projeto-quarto-painel.jpg",
+        type: "Quarto",
+        size: "small",
+      },
+      {
+        id: 3,
+        title: "Living Suave",
+        img: "/assets/asweb-70f1f67c8b12293745b6deb62322b5550.jpg",
+        type: "Sala",
+        size: "small",
+      },
+      {
+        id: 4,
+        title: "Home Office",
+        img: "/assets/asweb-ca17aaea3b8014aac4e882733a915b990.jpg",
+        type: "Escritório",
+        size: "large",
+      },
+    ],
+  },
+  services: [
+    {
+      title: "Cozinhas Planejadas",
+      description: "Layouts funcionais com acabamento impecável.",
+      icon: "kitchen",
     },
-    hero: {
-        tagline: "Marcenaria de Alto Padrão",
-        title: "Exclusividade <br /> Atemporal.",
-        subtitle: "Onde a tradição da marcenaria encontra a sofisticação do design contemporâneo.",
-        bgImage: "/assets/asweb-b0567458e9becbefca45ef6c00b622b30.jpg",
-        cta: "Agendar Consultoria",
-        portfolioLink: "Portfólio 2026"
+    {
+      title: "Quartos e Closets",
+      description: "Organização inteligente para o dia a dia.",
+      icon: "bed",
     },
-    about: {
-        tagline: "Nossa Essência",
-        title: "Móveis 100% MDF <br /> Feitos Para Durar.",
-        description: "Fundada por Kássio Fernando de Souza, a KF Planejados une a maestria da marcenaria tradicional às tendências do design moderno.",
-        image: "/assets/asweb-9fc95c794c35b6f987d609f1abf2396b0.jpg",
-        stats: {
-            value: "35",
-            label: "Anos de História"
-        },
-        features: [
-            { title: "Garantia Premium", description: "Materiais certificados." },
-            { title: "Excelência", description: "Referência em Goiânia." }
-        ]
+    {
+      title: "Salas e Painéis",
+      description: "Ambientes elegantes que valorizam seu espaço.",
+      icon: "sofa",
     },
-    portfolio: {
-        tagline: "The Signature Collection",
-        title: "Obras Primas",
-        description: "Uma seleção curada de nossos projetos mais emblemáticos.",
-        projects: [
-            { id: 1, title: 'Cozinha Gourmet', img: '/assets/asweb-20fc625b081546ce6680e515e4aa7d410.jpg', type: 'Moderna', size: 'large' },
-            { id: 2, title: 'Living Suave', img: '/assets/asweb-70f1f67c8b12293745b6deb62322b5550.jpg', type: 'Design', size: 'small' },
-            { id: 3, title: 'Suíte Luxo', img: '/assets/asweb-67a2df494bf367e5281e4b79fe2515900.jpg', type: 'Private', size: 'small' },
-            { id: 4, title: 'Office Design', img: '/assets/asweb-ca17aaea3b8014aac4e882733a915b990.jpg', type: 'Executive', size: 'large' },
-        ]
+    {
+      title: "Escritórios",
+      description: "Produtividade com design sob medida.",
+      icon: "desk",
     },
-    contact: {
-        address: "Avenida França - Ville de France, Goiânia / GO",
-        phone: "(62) 99100-9746",
-        email: "contato@kfplanejados.com.br",
-        social: {
-            instagram: "#",
-            facebook: "#"
-        },
-        whatsapp: "5562991009746"
+  ],
+  testimonials: [
+    {
+      quote:
+        "Projeto lindo, entrega no prazo e equipe muito atenciosa. Recomendo a Art Móveis para quem quer qualidade com preço justo.",
+      author: "Cliente Satisfeito",
+      location: "Brasil",
     },
-    modal: {
-        totalSteps: 7,
-        whatsappMessage: "Recebeu meu pedido?",
-        steps: [
-            {
-                id: 1,
-                title: "O que você precisa?",
-                subtitle: "Selecione o tipo de serviço",
-                field: "tipo",
-                options: ["Cozinha planejada", "Guarda-roupa", "Painel de TV", "Escritório", "Outro"]
-            },
-            // ... as outras etapas seriam configuradas aqui para total flexibilidade
-        ]
-    }
+  ],
+  contact: {
+    address: "Consulte nosso endereço pelo WhatsApp ou Instagram",
+    phone: "Fale conosco pelo WhatsApp",
+    email: "contato@artmoveisinteriores.com.br",
+    social: {
+      instagram: "https://www.instagram.com/artmoveisinteriores/",
+      pinterest: "https://www.pinterest.com/",
+      whatsapp: "https://wa.me/5500000000000",
+      email: "mailto:contato@artmoveisinteriores.com.br",
+    },
+    whatsapp: "5500000000000",
+  },
+  modal: {
+    totalSteps: 7,
+    whatsappMessage: "Olá! Acabei de enviar uma solicitação de orçamento pelo site.",
+    submitLabel: "Enviar Solicitação",
+    successTitle: "Recebemos seu pedido!",
+    successSubtitle: "Em breve nossa equipe entrará em contato com você.",
+    finalTitle: "Quase lá! Deixe seus dados",
+  },
+  marquee: [
+    "Móveis Planejados",
+    "47 Anos de Experiência",
+    "Projetos Personalizados",
+    "Design Acessível",
+    "Qualidade Garantida",
+  ],
 };
