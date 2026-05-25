@@ -22,6 +22,16 @@ Edite `src/siteConfig.js` para alterar:
 
 O logo está em `public/assets/logo-art-moveis.png`.
 
+## Link na bio
+
+Página estilo Linktree em **`/link-bio`** (site principal continua na raiz `/`).
+
+```text
+http://localhost:5173/link-bio
+```
+
+Links e textos: `siteConfig.linkBio` em `src/siteConfig.js`.
+
 ## Build
 
 ```bash
@@ -29,4 +39,4 @@ npm run build
 npm run preview
 ```
 
-Arquivos estáticos em `dist/` — prontos para hospedar na Vercel, Netlify, etc.
+Arquivos estáticos em `dist/` — prontos para hospedar na Vercel, Netlify, etc. O arquivo `public/_redirects` e `vercel.json` garantem que `/link-bio` funcione em produção.

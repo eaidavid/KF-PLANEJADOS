@@ -59,7 +59,21 @@ const App = () => {
       rafId = requestAnimationFrame(raf);
     }
     rafId = requestAnimationFrame(raf);
-    return () => cancelAnimationFrame(rafId);
+
+    const scrollToHash = () => {
+      const id = window.location.hash.replace('#', '');
+      if (!id) return;
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 400);
+    };
+    scrollToHash();
+    window.addEventListener('hashchange', scrollToHash);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('hashchange', scrollToHash);
+    };
   }, []);
 
   return (

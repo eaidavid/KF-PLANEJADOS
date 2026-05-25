@@ -134,4 +134,35 @@ export const siteConfig = {
     "Design Acessível",
     "Qualidade Garantida",
   ],
+  linkBio: {
+    bio: [
+      "47 anos de experiência em marcenaria.",
+      "Design e excelência que cabe no seu bolso.",
+    ],
+    featuredLogo: "/assets/logo-art-moveis.png",
+    links: [
+      {
+        id: "portfolio",
+        label: "Descubra nosso portfólio",
+        href: "/#portfolio",
+        internal: true,
+      },
+      {
+        id: "orcamento",
+        label: "Solicite um Orçamento",
+        href: "whatsapp",
+        external: true,
+      },
+      {
+        id: "endereco",
+        label: "Nosso Endereço",
+        href: "instagram",
+        external: true,
+      },
+    ],
+    siteLink: {
+      label: "Visitar site completo",
+      href: "/",
+    },
+  },
 };
