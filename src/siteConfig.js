@@ -118,6 +118,8 @@ export const siteConfig = {
       email: "mailto:contato@artmoveisinteriores.com.br",
     },
     whatsapp: "5500000000000",
+    localizacao: "https://www.google.com/maps/place/Art+Móveis+Interiores/@-23.5498185,-46.635053,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59c8da0aa315:0x1c5cc3e1f2deecb3!8m2!3d-23.5498185!4d-46.6328643!16s%2Fg%2F11c48_qmgb?entry=ttu&g_ep=EgoyMDI2MDIyMi4wIKXMDSoASAFQAw%3D%3D",
+    site: "https://www.artmoveisinteriores.com.br/",
   },
   modal: {
     totalSteps: 7,
@@ -142,21 +144,27 @@ export const siteConfig = {
     featuredLogo: "/assets/logo-art-moveis.png",
     links: [
       {
+        id: "site",
+        label: "Visite nosso site completo",
+        href: "/",
+        internal: true,
+      },
+      {
         id: "portfolio",
         label: "Descubra nosso portfólio",
-        href: "/#portfolio",
-        internal: true,
+        href: "https://www.instagram.com/artmoveisinteriores/",
+        external: true,
       },
       {
         id: "orcamento",
         label: "Solicite um Orçamento",
-        href: "whatsapp",
+        href: "https://wa.me/5500000000000",
         external: true,
       },
       {
         id: "endereco",
         label: "Nosso Endereço",
-        href: "instagram",
+        href: "https://maps.app.goo.gl/yMh6Ub1Q8F75V8W87",
         external: true,
       },
     ],
