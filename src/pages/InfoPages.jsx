@@ -15,12 +15,14 @@ export function Privacy() {
         com clareza.
       </h1>
       <p>Atualizado em 14 de outubro de 2026.</p>
-      <h2>Referências e rascunho</h2>
+      <h2>Seu caderno e o rascunho</h2>
       <p>
-        As referências salvas e o rascunho do briefing ficam no armazenamento
-        local deste navegador. Eles não são enviados automaticamente à ART. O
-        rascunho pode conter nome, cidade, telefone opcional e detalhes do
-        projeto. Use “Apagar rascunho” na página do briefing para removê-lo.
+        As escolhas de rotina, as referências salvas e o rascunho do briefing
+        ficam no armazenamento local deste navegador. Eles não são enviados
+        automaticamente à ART. O rascunho pode conter nome, cidade, telefone
+        opcional e detalhes do projeto. Use “Apagar rascunho” na página do
+        briefing para removê-lo. Você pode limpar as escolhas de rotina no
+        caderno ou remover todos os dados pelo controle abaixo.
       </p>
       <h2>Conversa pelo WhatsApp</h2>
       <p>
@@ -44,9 +46,10 @@ export function Privacy() {
       </p>
       <h2>Remover informações deste navegador</h2>
       <p>
-        Você pode remover todas as referências, o rascunho e a origem de
-        campanha usando o controle abaixo. Arquivos já baixados e mensagens
-        enviadas devem ser gerenciados nos respectivos dispositivos e serviços.
+        Você pode remover as escolhas de rotina, todas as referências, o
+        rascunho e a origem de campanha usando o controle abaixo. Arquivos já
+        baixados e mensagens enviadas devem ser gerenciados nos respectivos
+        dispositivos e serviços.
       </p>
       <ClearData />
       <h2>Contato</h2>
@@ -76,6 +79,7 @@ function ClearData() {
           try {
             localStorage.removeItem("art-saved");
             localStorage.removeItem("art-draft");
+            localStorage.removeItem("art-personal");
             sessionStorage.removeItem("art-attribution");
             window.dispatchEvent(new Event("art-storage-clear"));
             setCleared(true);
@@ -88,7 +92,7 @@ function ClearData() {
       </button>
       {cleared && (
         <p role="status">
-          Referências, rascunho e origem de campanha removidos.
+          Caderno, referências, rascunho e origem de campanha removidos.
         </p>
       )}
     </div>

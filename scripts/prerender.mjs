@@ -13,10 +13,9 @@ const escape = (text) =>
 const routes = [
   {
     path: "/",
-    title:
-      "ART Móveis Interiores | Móveis planejados para o seu jeito de viver",
+    title: "ART Móveis Interiores | Ninguém mora como você",
     description:
-      "Explore cozinhas, quartos, salas e home offices do acervo ART Móveis. Salve referências e organize seu briefing para conversar sobre móveis planejados.",
+      "Móveis planejados que começam pelo seu jeito de viver. Escolha o que importa, reúna referências no seu caderno e converse com a ART sobre sua casa.",
     image: "cozinha-integrada",
   },
   {

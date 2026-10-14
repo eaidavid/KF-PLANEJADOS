@@ -49,6 +49,34 @@ for (const path of paths) {
     passes: result.passes.length,
   });
 }
+await page.goto(base, { waitUntil: "networkidle" });
+await page
+  .getByRole("button", { name: "Mais lugar para guardar", exact: true })
+  .click();
+await page.getByRole("button", { name: /^Meu caderno/ }).click();
+await page.addScriptTag({ content: axe });
+const notebookAudit = await page.evaluate(() =>
+  axe.run(document, {
+    runOnly: {
+      type: "tag",
+      values: ["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"],
+    },
+  }),
+);
+audit.push({
+  path: "/ [caderno aberto]",
+  violations: notebookAudit.violations.map((v) => ({
+    id: v.id,
+    impact: v.impact,
+    help: v.help,
+    nodes: v.nodes.map((n) => ({
+      target: n.target,
+      summary: n.failureSummary,
+    })),
+  })),
+  passes: notebookAudit.passes.length,
+});
+await page.keyboard.press("Escape");
 const seo = [];
 for (const path of [
   ...paths,
@@ -70,6 +98,7 @@ for (const path of [
 await page.setViewportSize({ width: 320, height: 900 });
 const responsive = [];
 for (const path of [
+  "/",
   "/ambientes",
   "/blog",
   "/sobre",
@@ -78,7 +107,7 @@ for (const path of [
   "/privacidade",
   "/link-bio",
 ]) {
-  await page.goto(base + path, { waitUntil: 'networkidle' });
+  await page.goto(base + path, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
   responsive.push({
     path,
@@ -86,6 +115,9 @@ for (const path of [
       () => document.documentElement.scrollWidth > innerWidth,
     ),
   });
+  await page.addScriptTag({content:axe});
+  const mobileResult=await page.evaluate(()=>axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}}));
+  audit.push({path:`${path} [320 px]`,violations:mobileResult.violations.map(v=>({id:v.id,impact:v.impact,help:v.help,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})),passes:mobileResult.passes.length});
 }
 await browser.close();
 const report = { base, audit, seo, responsive };

@@ -13,7 +13,9 @@ const page = await browser.newPage({
 const errors = [];
 page.on("pageerror", (e) => errors.push(e.message));
 page.on("console", (msg) => {
-  const expected404 = msg.location().url.endsWith('/pagina-inexistente') && /status of 404/.test(msg.text());
+  const expected404 =
+    msg.location().url.endsWith("/pagina-inexistente") &&
+    /status of 404/.test(msg.text());
   if (msg.type() === "error" && !expected404) errors.push(msg.text());
 });
 const base = process.env.ART_QA_URL || "http://127.0.0.1:5173";
@@ -199,6 +201,67 @@ verify(
   (await page.locator("#mobile-nav").count()) === 0,
   "Escape closes mobile menu",
 );
+await page.getByRole("button", { name: "Ter tudo à mão", exact: true }).click();
+verify(
+  (await page.locator(".life-hero-photo").getAttribute("src")).includes(
+    "quarto-madeira",
+  ),
+  "Lifestyle selection changes photographic scene",
+);
+await page
+  .getByRole("button", { name: "Mais lugar para guardar", exact: true })
+  .click();
+await page.getByRole("button", { name: /^Meu caderno/ }).click();
+verify(await page.getByRole("dialog").isVisible(), "Personal notebook opens");
+verify(
+  (await page.locator(".notebook-scene").textContent()) === "Ter tudo à mão.",
+  "Notebook carries selected lifestyle",
+);
+verify(
+  (await page.locator(".notebook-notes li").textContent()) ===
+    "Mais lugar para guardar",
+  "Notebook carries personal priority",
+);
+await page.screenshot({ path: "qa/notebook-mobile.png" });
+await page.keyboard.press("Tab");
+verify(
+  await page.evaluate(() => !!document.activeElement.closest("dialog")),
+  "Notebook retains keyboard focus",
+);
+await page.keyboard.press("Escape");
+verify(!(await page.getByRole("dialog").isVisible()), "Escape closes notebook");
+verify(
+  await page
+    .getByRole("button", { name: /^Meu caderno/ })
+    .evaluate((e) => e === document.activeElement),
+  "Notebook restores trigger focus",
+);
+await page.reload();
+verify(
+  (await page
+    .getByRole("button", { name: "Ter tudo à mão", exact: true })
+    .getAttribute("aria-pressed")) === "true",
+  "Lifestyle survives reload",
+);
+verify(
+  (await page
+    .getByRole("button", { name: "Mais lugar para guardar", exact: true })
+    .getAttribute("aria-pressed")) === "true",
+  "Personal priority survives reload",
+);
+await page.goto(base + "/orcamento");
+await page.getByRole("button", { name: "Continuar", exact: true }).click();
+await page.getByRole("button", { name: "Continuar", exact: true }).click();
+const personalLink = await page
+  .getByRole("link", { name: "Abrir conversa no WhatsApp", exact: true })
+  .getAttribute("href");
+verify(
+  new URL(personalLink).searchParams.get("text").includes("Ter tudo à mão") &&
+    new URL(personalLink).searchParams
+      .get("text")
+      .includes("Mais lugar para guardar"),
+  "Personal choices accompany WhatsApp briefing",
+);
 await page.emulateMedia({ reducedMotion: "reduce" });
 verify(
   (await page.evaluate(
@@ -214,13 +277,15 @@ verify(
   await page.evaluate(
     () =>
       localStorage.getItem("art-saved") === null &&
-      localStorage.getItem("art-draft") === null,
+      localStorage.getItem("art-draft") === null &&
+      localStorage.getItem("art-personal") === null,
   ),
   "Privacy clears data",
 );
 const response = await page.goto(base + "/pagina-inexistente");
 verify(response.status() === 404, "Unknown route is HTTP 404");
-if (errors.length) console.log(JSON.stringify({ browserErrors: errors }, null, 2));
+if (errors.length)
+  console.log(JSON.stringify({ browserErrors: errors }, null, 2));
 verify(errors.length === 0, "No browser errors or hydration failures");
 const report = { base, checks, errors };
 await writeFile("qa/report.json", JSON.stringify(report, null, 2));

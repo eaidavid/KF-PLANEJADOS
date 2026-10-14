@@ -1,4 +1,5 @@
 import { brand, projects } from "../data/catalog";
+import { personalSummary } from "../data/lifestyle";
 
 export function readStorage(key, fallback) {
   try {
@@ -35,7 +36,7 @@ export function captureAttribution() {
     return source;
   }
 }
-export function buildBriefing(data, saved, attribution = {}) {
+export function buildBriefing(data, saved, attribution = {}, personal = {}) {
   const references = projects.filter((p) => saved.includes(p.id));
   return [
     "Olá, ART Móveis! Gostaria de conversar sobre meu projeto.",
@@ -47,6 +48,7 @@ export function buildBriefing(data, saved, attribution = {}) {
     `Momento: ${data.timing}`,
     `Medidas: ${data.measurements || "Ainda não tenho"}`,
     ...(data.notes ? [`Observações: ${data.notes}`] : []),
+    ...personalSummary(personal),
     ...(references.length
       ? [
           "",

@@ -2,6 +2,8 @@
 
 Site de móveis planejados com acervo, referências salvas, journal e briefing. Mantém Vite/React da base original e gera HTML completo para todas as páginas em produção.
 
+A direção atual é **Ninguém mora como você**: cenas de rotina, escolhas de prioridades e um caderno pessoal que acompanha o visitante até a conversa sobre o projeto. A home usa fotografia imersiva do acervo, tipografia Manrope em grande escala e composição de atelier; o catálogo é uma etapa da experiência.
+
 ## Rodar e publicar
 
 ```bash
@@ -26,6 +28,10 @@ O preview estático em `http://127.0.0.1:5173` corresponde ao HTML publicado. O 
 Adicionar projetos/artigos ao conteúdo e executar o build atualiza as páginas e o sitemap. Fotos selecionadas do acervo original, sem novas imagens de projetos inventados. Nomes editoriais não representam clientes/localidades. WhatsApp `(14) 99851-5849` confirmado no Linktree da marca em 14/10/2026: https://linktr.ee/artmoveisinteriores_. Não foram inventados endereço, garantia, prazo, avaliações ou métricas comerciais.
 
 ## Briefing e prospecção
+
+### Caderno pessoal
+
+O visitante escolhe entre receber à mesa, ter tudo à mão e encontrar seu canto; a cena muda a fotografia e o contexto da abertura. As prioridades são opcionais e múltiplas. Cena, prioridades e referências ficam no caderno acessível pelo cabeçalho. Elas persistem localmente e entram no resumo do briefing para WhatsApp/CSV. O painel usa `dialog` nativo com foco contido, Escape e retorno de foco. Em dispositivos móveis ele ocupa a largura disponível; a superfície permanece opaca durante a entrada. Todas as escolhas podem ser removidas.
 
 O visitante escolhe ambientes, informa o contexto e revisa o resumo. A ação final abre o WhatsApp com o texto pronto; a pessoa decide enviar. Favoritos e rascunho são locais, removíveis em `/privacidade`. Não há confirmação falsa de recebimento.
 

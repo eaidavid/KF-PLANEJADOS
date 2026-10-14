@@ -11,10 +11,14 @@ import Project from "./pages/Project";
 import About from "./pages/About";
 import { Journal, Article } from "./pages/Journal";
 import { Privacy, LinkBio, NotFound } from "./pages/InfoPages";
+import { emptyPersonal, normalizePersonal } from "./data/lifestyle";
+import PersonalNotebook from "./components/PersonalNotebook";
 
 export default function App({ path = "/" }) {
   const [saved, setSaved] = useState([]);
   const [notice, setNotice] = useState("");
+  const [personal, setPersonal] = useState(emptyPersonal);
+  const [notebookOpen, setNotebookOpen] = useState(false);
   useEffect(() => {
     const initial = readStorage("art-saved", []);
     setSaved(
@@ -23,7 +27,11 @@ export default function App({ path = "/" }) {
         : [],
     );
     captureAttribution();
-    const onClear = () => setSaved([]);
+    setPersonal(normalizePersonal(readStorage("art-personal", emptyPersonal)));
+    const onClear = () => {
+      setSaved([]);
+      setPersonal(emptyPersonal);
+    };
     window.addEventListener("art-storage-clear", onClear);
     return () => window.removeEventListener("art-storage-clear", onClear);
   }, []);
@@ -46,6 +54,14 @@ export default function App({ path = "/" }) {
         : "Seleção atualizada. Este navegador não permitiu salvar para depois.",
     );
   };
+  const changePersonal = (value) => {
+    const next = normalizePersonal(value);
+    setPersonal(next);
+    if (!writeStorage("art-personal", next))
+      setNotice(
+        "Suas escolhas estão aqui. Este navegador não permitiu guardá-las para depois.",
+      );
+  };
   const cleanPath = path.replace(/\/$/, "") || "/";
   const environment = environments.find(
     (e) => cleanPath === `/ambientes/${e.slug}`,
@@ -53,7 +69,16 @@ export default function App({ path = "/" }) {
   const project = projects.find((p) => cleanPath === `/projetos/${p.id}`);
   const article = articles.find((a) => cleanPath === `/blog/${a.slug}`);
   let page;
-  if (cleanPath === "/") page = <Home saved={saved} toggle={toggle} />;
+  if (cleanPath === "/")
+    page = (
+      <Home
+        saved={saved}
+        toggle={toggle}
+        personal={personal}
+        changePersonal={changePersonal}
+        openNotebook={() => setNotebookOpen(true)}
+      />
+    );
   else if (cleanPath === "/ambientes" || environment)
     page = (
       <Collection environment={environment} saved={saved} toggle={toggle} />
@@ -65,7 +90,8 @@ export default function App({ path = "/" }) {
   else if (cleanPath === "/blog") page = <Journal />;
   else if (article) page = <Article article={article} />;
   else if (cleanPath === "/sobre") page = <About />;
-  else if (cleanPath === "/orcamento") page = <QuoteForm saved={saved} />;
+  else if (cleanPath === "/orcamento")
+    page = <QuoteForm saved={saved} personal={personal} />;
   else if (cleanPath === "/privacidade") page = <Privacy />;
   else if (cleanPath === "/link-bio") page = <LinkBio />;
   else page = <NotFound />;
@@ -74,16 +100,30 @@ export default function App({ path = "/" }) {
       <a href="#conteudo" className="skip-link">
         Pular para o conteúdo
       </a>
-      <Header path={cleanPath} count={saved.length} />
+      <Header
+        path={cleanPath}
+        count={
+          saved.length + personal.priorities.length + (personal.scene ? 1 : 0)
+        }
+        openNotebook={() => setNotebookOpen(true)}
+      />
       <main id="conteudo">{page}</main>
       <Footer />
+      <PersonalNotebook
+        open={notebookOpen}
+        close={() => setNotebookOpen(false)}
+        personal={personal}
+        saved={saved}
+        toggle={toggle}
+        clear={() => changePersonal(emptyPersonal)}
+      />
       {notice && (
         <div className="toast" role="status">
           <Check size={17} />
           {notice}
         </div>
       )}
-      {cleanPath !== "/orcamento" && (
+      {cleanPath !== "/orcamento" && cleanPath !== "/" && (
         <a
           className="floating-contact"
           href="/orcamento"

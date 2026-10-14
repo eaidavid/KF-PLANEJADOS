@@ -10,6 +10,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { environments, projects } from "../data/catalog";
+import { scenes, personalSummary } from "../data/lifestyle";
 import {
   readStorage,
   writeStorage,
@@ -29,7 +30,7 @@ const blank = {
   city: "",
   phone: "",
 };
-export default function QuoteForm({ saved }) {
+export default function QuoteForm({ saved, personal }) {
   const [data, setData] = useState(blank),
     [step, setStep] = useState(1),
     [error, setError] = useState(""),
@@ -57,7 +58,10 @@ export default function QuoteForm({ saved }) {
         : { ...blank };
     const env = environments.find(
       (e) =>
-        e.slug === new URLSearchParams(window.location.search).get("ambiente"),
+        e.slug ===
+        (new URLSearchParams(window.location.search).get("ambiente") ||
+          scenes.find((s) => s.id === readStorage("art-personal", null)?.scene)
+            ?.environment),
     );
     if (env && !restored.environments.includes(env.name))
       restored.environments = [...restored.environments, env.name];
@@ -92,7 +96,7 @@ export default function QuoteForm({ saved }) {
     setStep(step + 1);
     requestAnimationFrame(() => document.getElementById("step-title")?.focus());
   };
-  const text = buildBriefing(data, saved, attribution);
+  const text = buildBriefing(data, saved, attribution, personal);
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(text);
@@ -120,6 +124,14 @@ export default function QuoteForm({ saved }) {
           Um pequeno briefing para organizar suas ideias e levar a conversa
           adiante.
         </p>
+        {(personal.scene || personal.priorities.length > 0) && (
+          <div className="quote-personal-note">
+            <span>Do seu caderno</span>
+            {personalSummary(personal).map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
+        )}
         <ol className="steps" aria-label="Etapas do briefing">
           {["Seu espaço", "Os detalhes", "Revisar & conversar"].map((t, i) => (
             <li
@@ -322,6 +334,12 @@ export default function QuoteForm({ saved }) {
                   <dt>Medidas</dt>
                   <dd>{data.measurements || "Ainda não tenho"}</dd>
                 </div>
+                {personalSummary(personal).length > 0 && (
+                  <div>
+                    <dt>Seu caderno</dt>
+                    <dd>{personalSummary(personal).join("\n")}</dd>
+                  </div>
+                )}
                 {data.notes && (
                   <div>
                     <dt>Observações</dt>

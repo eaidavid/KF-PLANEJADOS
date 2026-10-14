@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
-import { ArrowUpRight, Menu, X, Heart } from "lucide-react";
+import { ArrowUpRight, Menu, X, BookOpen } from "lucide-react";
 import { brand } from "../data/catalog";
 import { whatsappUrl } from "../lib/briefing";
 
 export function Logo({ light = false }) {
   return (
-    <a
-      className={`brand ${light ? "brand-light" : ""}`}
-      href="/"
-    >
+    <a className={`brand ${light ? "brand-light" : ""}`} href="/">
       <svg viewBox="0 0 40 40" aria-hidden="true">
         <path d="M4 17 17 11v25L4 39z" fill="currentColor" opacity=".45" />
         <path d="m20 9 13-6 4 2v30l-17-5z" fill="var(--primary)" />
@@ -21,7 +18,7 @@ export function Logo({ light = false }) {
     </a>
   );
 }
-export function Header({ path, count }) {
+export function Header({ path, count, openNotebook }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     if (!open) return;
@@ -54,14 +51,14 @@ export function Header({ path, count }) {
           ))}
         </nav>
         <div className="header-actions">
-          <a
+          <button
             className="favorite-nav"
-            href="/favoritos"
-            aria-label={`Referências salvas: ${count}`}
+            onClick={openNotebook}
+            aria-label={`Meu caderno${count > 0 ? ` (${count})` : ""}`}
           >
-            <Heart size={19} />
-            <span>{count > 0 ? count : "Salvar ideias"}</span>
-          </a>
+            <BookOpen size={19} />
+            <span>Meu caderno{count > 0 ? ` (${count})` : ""}</span>
+          </button>
           <a className="button button-small" href="/orcamento">
             Vamos planejar <ArrowUpRight size={16} />
           </a>
