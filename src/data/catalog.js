@@ -14,9 +14,8 @@ export const environments = [
     name: "Cozinhas",
     singular: "Cozinha",
     image: "cozinha-integrada",
-    title: "O encontro começa na cozinha.",
-    description:
-      "Bancadas, armários e circulação pensados juntos. Uma cozinha que acompanha o seu jeito de cozinhar, receber e viver.",
+    title: "Cozinhas planejadas",
+    description: "Projetos com armários, bancadas e áreas de refeições.",
     considerations: [
       "Onde ficam os pontos de água, gás e energia?",
       "Quais eletrodomésticos precisam entrar no projeto?",
@@ -28,9 +27,8 @@ export const environments = [
     name: "Quartos e closets",
     singular: "Quarto e closet",
     image: "quarto-madeira",
-    title: "Um lugar para desacelerar.",
-    description:
-      "Guarda-roupas, cabeceiras e soluções para guardar o que importa. Cada compartimento começa pela sua rotina.",
+    title: "Quartos e closets",
+    description: "Referências de armários, gavetas e painéis para quartos.",
     considerations: [
       "Você prefere portas de abrir ou de correr?",
       "Quanto espaço precisa para cabides, gavetas e sapatos?",
@@ -42,9 +40,8 @@ export const environments = [
     name: "Salas e painéis",
     singular: "Sala",
     image: "sala-ripada",
-    title: "Espaço para estar junto.",
-    description:
-      "Painéis, estantes e racks que organizam o ambiente sem tirar o protagonismo da vida que acontece nele.",
+    title: "Salas e painéis",
+    description: "Painéis de TV, estantes e módulos de armazenamento.",
     considerations: [
       "Qual é o tamanho da TV e a distância até o sofá?",
       "Quais equipamentos e cabos precisam ficar acessíveis?",
@@ -56,9 +53,8 @@ export const environments = [
     name: "Home offices",
     singular: "Home office",
     image: "escritorio-musica",
-    title: "O trabalho encontra seu lugar.",
-    description:
-      "Bancadas e armazenamento sob medida para trabalhar, estudar e criar. Mesmo quando o espaço precisa cumprir mais de uma função.",
+    title: "Escritórios e home offices",
+    description: "Bancadas de trabalho e armazenamento para escritórios.",
     considerations: [
       "Quantas pessoas vão usar a bancada?",
       "Quais equipamentos, livros e materiais precisam de espaço?",
@@ -70,9 +66,8 @@ export const environments = [
     name: "Banheiros",
     singular: "Banheiro",
     image: "banheiro-escuro",
-    title: "O cuidado mora nos detalhes.",
-    description:
-      "Gabinetes e armários que aproveitam o espaço disponível, respeitam as instalações e facilitam a organização do dia a dia.",
+    title: "Gabinetes para banheiros",
+    description: "Projetos com portas e gavetas sob a bancada.",
     considerations: [
       "Onde ficam o sifão e os pontos hidráulicos?",
       "Qual bancada e cuba serão utilizadas?",
@@ -85,92 +80,92 @@ export const projects = [
   {
     id: "cozinha-integrada",
     category: "cozinhas",
-    title: "Cozinha que reúne",
-    subtitle: "Armários, bancada e mesa em sintonia",
+    title: "Cozinha com mesa",
+    subtitle: "Armários e área de refeições",
     image: "cozinha-integrada",
     description:
-      "O mobiliário acompanha a bancada e se conecta ao espaço de refeições. Os armários superiores aproveitam a parede, enquanto os volumes inferiores organizam a área de preparo.",
+      "Armários superiores claros, módulos inferiores vermelhos e bancada com cooktop junto à mesa de refeições.",
   },
   {
     id: "sala-ripada",
     category: "salas",
-    title: "Madeira em primeiro plano",
-    subtitle: "Painel, nichos e espaço para guardar",
+    title: "Painel ripado com estante",
+    subtitle: "Painel de TV e módulos inferiores",
     image: "sala-ripada",
     description:
-      "Um painel com composição de madeira, nichos abertos e módulos inferiores. O desenho reúne a TV e os objetos de uso diário em uma mesma parede.",
+      "Painel ripado ao fundo, nichos abertos na lateral e módulo inferior com frentes amadeiradas.",
   },
   {
     id: "quarto-madeira",
     category: "quartos",
-    title: "Um quarto, bem resolvido",
-    subtitle: "Armário e painel na mesma composição",
+    title: "Quarto com armário espelhado",
+    subtitle: "Armário e painel amadeirado",
     image: "quarto-madeira",
     description:
-      "O painel de madeira cria continuidade com o guarda-roupa. As portas espelhadas ajudam a compor o ambiente e o armazenamento ocupa o espaço disponível na parede.",
+      "Armário com portas espelhadas à esquerda. A faixa amadeirada acompanha a parede da cabeceira e o apoio lateral.",
   },
   {
     id: "cozinha-linear",
     category: "cozinhas",
-    title: "Tudo no seu lugar",
-    subtitle: "Uma composição linear para a rotina",
+    title: "Cozinha linear",
+    subtitle: "Armários cinza e torre de eletrodomésticos",
     image: "cozinha-linear",
     description:
-      "Armários alinhados com os eletrodomésticos e a bancada de preparo. Uma referência para pensar acesso, organização e continuidade visual na cozinha.",
+      "Armários cinza ao longo da bancada. Forno e micro-ondas ficam na torre à esquerda; a geladeira ocupa o trecho central.",
   },
   {
     id: "escritorio-musica",
     category: "escritorios",
-    title: "Espaço para criar",
-    subtitle: "Trabalho, música e referências pessoais",
+    title: "Escritório com bancada",
+    subtitle: "Bancada e painel para instrumentos",
     image: "escritorio-musica",
     description:
-      "Uma bancada com espaço para equipamentos e uma composição que acolhe instrumentos e objetos pessoais. O uso do ambiente orienta cada escolha do mobiliário.",
+      "Bancada amadeirada, armários laterais e painel azul com instrumentos expostos.",
   },
   {
     id: "banheiro-escuro",
     category: "banheiros",
-    title: "Organização discreta",
-    subtitle: "Gabinete com gavetas sob a bancada",
+    title: "Gabinete cinza",
+    subtitle: "Gavetas e portas sob a bancada",
     image: "banheiro-escuro",
     description:
-      "O gabinete ocupa a área sob a bancada com gavetas e portas. O projeto precisa considerar o acesso às instalações e a organização dos itens de uso diário.",
+      "Gabinete cinza sob a bancada escura, com gavetas no lado esquerdo e portas ao lado.",
   },
   {
     id: "sala-natural",
     category: "salas",
-    title: "A casa acontece aqui",
-    subtitle: "Painel e armazenamento para o living",
+    title: "Sala com painel de TV",
+    subtitle: "Painel e armários inferiores",
     image: "sala-natural",
     description:
-      "O painel delimita a área da TV e os módulos inferiores criam apoio para objetos. A composição se integra ao espaço de convivência.",
+      "Painel alto para a TV e módulo baixo amadeirado, junto à janela da sala.",
   },
   {
     id: "escritorio-bancada",
     category: "escritorios",
-    title: "Uma bancada, muitos usos",
-    subtitle: "Apoio para trabalho e organização",
+    title: "Bancada com armários",
+    subtitle: "Bancada e armazenamento lateral",
     image: "escritorio-bancada",
     description:
-      "A bancada acompanha a parede e se conecta ao armazenamento lateral. Uma referência para aproveitar espaços de trabalho dentro de casa.",
+      "Bancada longa amadeirada, armários inferiores no lado esquerdo e módulos suspensos.",
   },
   {
     id: "quarto-claro",
     category: "quartos",
-    title: "Leveza para guardar",
-    subtitle: "Armário e gavetas em tons claros",
+    title: "Armário com gavetas",
+    subtitle: "Portas claras e gavetas internas",
     image: "quarto-claro",
     description:
-      "Uma composição clara de armários e gavetas que aproveita a altura e a largura disponíveis. A divisão interna deve acompanhar o que você precisa guardar.",
+      "Armário de portas claras, com gavetas na parte inferior e espelho na lateral.",
   },
   {
     id: "banheiro-claro",
     category: "banheiros",
-    title: "O essencial, organizado",
-    subtitle: "Armazenamento junto à bancada",
+    title: "Gabinete branco",
+    subtitle: "Portas sob a bancada",
     image: "banheiro-claro",
     description:
-      "O armário se integra à bancada, com portas e gavetas para organizar os itens de cuidado pessoal. As dimensões finais dependem da cuba e das instalações.",
+      "Gabinete suspenso com portas brancas alinhadas sob a bancada cinza.",
   },
 ];
 

@@ -4,6 +4,8 @@ export function Photo({
   className = "",
   priority = false,
   sizes = "(max-width: 640px) 100vw, 60vw",
+  onLoad,
+  onError,
 }) {
   return (
     <img
@@ -17,6 +19,9 @@ export function Photo({
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : "auto"}
       decoding="async"
+      draggable={false}
+      onLoad={onLoad}
+      onError={onError}
     />
   );
 }

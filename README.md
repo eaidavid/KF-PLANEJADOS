@@ -1,50 +1,48 @@
 # ART Móveis Interiores
 
-Site de móveis planejados com acervo, referências salvas, journal e briefing. Mantém Vite/React da base original e gera HTML completo para todas as páginas em produção.
+Site de móveis planejados com explorador fotográfico, seleção de referências, guias e orçamento. Produção: https://artmoveis.vercel.app. Mantém a base Vite/React e gera HTML completo das 28 páginas.
 
-A direção atual é **Ninguém mora como você**: cenas de rotina, escolhas de prioridades e um caderno pessoal que acompanha o visitante até a conversa sobre o projeto. A home usa fotografia imersiva do acervo, tipografia Manrope em grande escala e composição de atelier; o catálogo é uma etapa da experiência.
-
-## Rodar e publicar
+## Executar
 
 ```bash
 npm ci
 npm run dev
+npm run lint
 npm run build
 node scripts/serve.mjs
 vercel deploy --prod --yes
 ```
 
-O preview estático em `http://127.0.0.1:5173` corresponde ao HTML publicado. O build gera o cliente, um bundle de renderização e 28 páginas em `dist`. Projeto Vercel: `kf-planejados`; endereço público `https://artmoveis.vercel.app`. URLs limpas e 404 real, sem redirecionamento geral à página inicial.
+O servidor estático em http://127.0.0.1:5173 corresponde à saída publicada. Projeto Vercel `kf-planejados`, URLs limpas e página 404 real. A Vercel executa o build antes de publicar.
 
-## Editar
+## Experiência e edição
 
-- `src/data/catalog.js`: marca, contato, categorias, projetos e perguntas.
-- `src/data/articles.js`: artigos completos e conteúdo editorial.
-- `src/pages/`: páginas com responsabilidades próprias.
-- `src/components/`: navegação, fotos, projetos e briefing.
-- `src/index.css`: tokens e layouts responsivos.
-- `scripts/prerender.mjs`: rotas, metadados, schema, sitemap e robots.
+A home exibe uma fotografia por vez, com zoom, arraste, pontos de detalhe, foto inteira, tela cheia quando disponível e navegação anterior/próxima. O índice filtra por ambiente. A seleção acompanha o pedido de orçamento. `?projeto=sala-ripada` abre uma referência específica; as UTMs são preservadas ao mudar de foto. As páginas internas têm acervo em lista e quatro guias completos com busca.
 
-Adicionar projetos/artigos ao conteúdo e executar o build atualiza as páginas e o sitemap. Fotos selecionadas do acervo original, sem novas imagens de projetos inventados. Nomes editoriais não representam clientes/localidades. WhatsApp `(14) 99851-5849` confirmado no Linktree da marca em 14/10/2026: https://linktr.ee/artmoveisinteriores_. Não foram inventados endereço, garantia, prazo, avaliações ou métricas comerciais.
+- `src/data/catalog.js`: marca, contato, categorias e projetos.
+- `src/data/atlas.js`: rótulos e posições dos detalhes nas fotografias.
+- `src/data/articles.js`: guias e conteúdo editorial.
+- `src/lib/usePhotoCamera.js`: enquadramento, limites, zoom e arraste.
+- `src/atlas.css`: explorador e tokens da direção atual.
+- `src/personal-home.css`: seleção, formulário e páginas editoriais; mantém o nome de arquivo da versão anterior.
+- `scripts/prerender.mjs`: páginas, SEO, schema, sitemap e robots.
 
-## Briefing e prospecção
+Adicionar conteúdo e executar o build atualiza as páginas e o sitemap. Use fotografias do acervo autorizado. Pontos são coordenadas normalizadas na imagem, não medidas do ambiente. Nomes descrevem o que aparece na foto; não representam clientes ou localidades. WhatsApp `(14) 99851-5849` confirmado no Linktree da marca em 14/10/2026: https://linktr.ee/artmoveisinteriores_.
 
-### Caderno pessoal
+## Orçamento e prospecção
 
-O visitante escolhe entre receber à mesa, ter tudo à mão e encontrar seu canto; a cena muda a fotografia e o contexto da abertura. As prioridades são opcionais e múltiplas. Cena, prioridades e referências ficam no caderno acessível pelo cabeçalho. Elas persistem localmente e entram no resumo do briefing para WhatsApp/CSV. O painel usa `dialog` nativo com foco contido, Escape e retorno de foco. Em dispositivos móveis ele ocupa a largura disponível; a superfície permanece opaca durante a entrada. Todas as escolhas podem ser removidas.
+O visitante escolhe ambientes, informa dados do imóvel e revisa o resumo. A última ação abre o WhatsApp com o texto pronto; cabe ao visitante enviá-lo. Seleção e rascunho persistem localmente e podem ser removidos em `/privacidade`. As preferências existentes da versão anterior continuam recuperáveis; a nova home não solicita escolhas de rotina.
 
-O visitante escolhe ambientes, informa o contexto e revisa o resumo. A ação final abre o WhatsApp com o texto pronto; a pessoa decide enviar. Favoritos e rascunho são locais, removíveis em `/privacidade`. Não há confirmação falsa de recebimento.
-
-Parâmetros UTM são preservados na sessão e incluídos no resumo. Exemplo para prospecção:
+UTMs persistem na sessão e entram no resumo. Exemplo:
 
 ```text
 https://artmoveis.vercel.app/?utm_source=prospeccao&utm_medium=whatsapp&utm_campaign=planejados
 ```
 
-O download CSV usa as 19 colunas posicionais do `ImportController` de `eaidavid/SAAS---LEADS`. Nome na coluna E, cidade/endereço na F, telefone na I/K, categoria na O, briefing/origem na Q. O arquivo não é enviado automaticamente ao CRM. Esta versão não conecta bancos, não cria leads no servidor e não envia mensagens automaticamente. Telefone é opcional; o resumo enviado pelo WhatsApp identifica a pessoa na conversa.
+O CSV utiliza as 19 colunas posicionais do importador de `eaidavid/SAAS---LEADS`: nome E, cidade/endereço F, telefone I/K, categoria O e briefing/origem Q. O arquivo é baixado pelo visitante e não é enviado automaticamente ao CRM. Não há banco de dados, mensagens automáticas ou confirmação de recebimento neste site.
 
-## Verificações
+## Verificação
 
-QA utiliza Chrome instalado e Playwright do runtime disponível neste computador. `scripts/qa.mjs` exercita filtros, favoritos, rascunho, validação, exportação, UTM, menu, navegação e 404. `scripts/quality.mjs` verifica HTML e aplica axe às rotas principais. Ferramentas de auditoria, relatórios e capturas ficam em `qa/`, fora do bundle e do Git.
+`scripts/qa.mjs` testa navegador, câmera, zoom, arraste, URL, índice, seleção, tela cheia, orçamento, exportação, UTM, busca, privacidade, falha de foto/nova tentativa e HTTP 404. `scripts/quality.mjs` audita HTML/SEO, overflow e WCAG A/AA com axe. Ambos usam Chrome e Playwright disponíveis no computador. Axe e Lighthouse ficam no diretório ignorado `qa`; não entram no bundle. `ART_QA_URL` permite validar a publicação.
 
-Fontes Literata e Manrope são locais, sob SIL Open Font License; origem em `public/fonts/SOURCES.txt`. WebP locais responsivos. Serviços externos usam `noopener noreferrer`. Sem pixels de marketing, credenciais no cliente ou endpoint público de dados pessoais.
+Capturas e relatórios ficam em `qa/`. O relatório de entrega identifica medições da versão atual. Fontes locais sob SIL Open Font License, com fontes documentadas em `public/fonts/SOURCES.txt`. Sem pixels de publicidade nem credenciais no cliente.

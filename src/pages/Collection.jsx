@@ -31,27 +31,17 @@ export default function Collection({
           {favorites ? "Sua seleção" : "Móveis planejados"}
         </span>
         <h1>
-          {favorites ? (
-            <>
-              Ideias para levar
-              <br />
-              ao seu projeto.
-            </>
-          ) : environment ? (
-            environment.title
-          ) : (
-            <>
-              Sua casa, ambiente
-              <br />
-              por ambiente.
-            </>
-          )}
+          {favorites
+            ? "Referências salvas"
+            : environment
+              ? environment.title
+              : "Acervo de projetos"}
         </h1>
         <p>
           {favorites
-            ? "Reúna o que combina com você. Suas referências acompanham o briefing para a primeira conversa."
+            ? "Fotografias selecionadas para acompanhar seu pedido de orçamento."
             : (environment?.description ??
-              "Explore nosso acervo e descubra soluções para cozinhas, quartos, salas e espaços de trabalho.")}
+              "Filtre as fotografias por ambiente ou abra o explorador em tela cheia.")}
         </p>
       </div>
       <section className="collection-section">
@@ -95,7 +85,7 @@ export default function Collection({
         ) : (
           <div className="empty-state">
             <Heart size={30} />
-            <h2>Seu projeto começa com uma ideia.</h2>
+            <h2>Nenhuma referência salva.</h2>
             <p>
               {favorites
                 ? "Salve as fotos que chamarem sua atenção usando o coração ao lado de cada projeto."

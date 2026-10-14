@@ -9,13 +9,9 @@ export function Privacy() {
   return (
     <section className="policy section-space">
       <Breadcrumb items={[["Privacidade"]]} />
-      <h1>
-        Seus dados,
-        <br />
-        com clareza.
-      </h1>
+      <h1>Privacidade</h1>
       <p>Atualizado em 14 de outubro de 2026.</p>
-      <h2>Seu caderno e o rascunho</h2>
+      <h2>Seleção e rascunho do orçamento</h2>
       <p>
         As escolhas de rotina, as referências salvas e o rascunho do briefing
         ficam no armazenamento local deste navegador. Eles não são enviados
@@ -103,16 +99,12 @@ export function LinkBio() {
     <section className="link-bio">
       <Logo />
       <Photo name="cozinha-integrada" alt="Cozinha planejada ART" priority />
-      <h1>
-        Sua casa.
-        <br />
-        Do seu jeito.
-      </h1>
-      <p>Móveis planejados para os espaços e as histórias da sua vida.</p>
+      <h1>ART Móveis Interiores</h1>
+      <p>Projetos, guias de planejamento e contato.</p>
       {[
-        ["Vamos planejar seu ambiente", "/orcamento"],
-        ["Explore nosso acervo", "/ambientes"],
-        ["Leia o journal", "/blog"],
+        ["Solicitar orçamento", "/orcamento"],
+        ["Ver projetos", "/"],
+        ["Guias de planejamento", "/blog"],
         ["Converse no WhatsApp", whatsappUrl()],
         ["Instagram", brand.instagram],
         ["Como chegar", brand.maps],
@@ -139,11 +131,7 @@ export function NotFound() {
   return (
     <section className="not-found section-space">
       <span className="section-kicker">Página não encontrada</span>
-      <h1>
-        Vamos encontrar
-        <br />
-        um novo caminho.
-      </h1>
+      <h1>Página não encontrada</h1>
       <p>
         Este endereço não está no nosso acervo. Você pode explorar os ambientes
         ou começar pela página inicial.

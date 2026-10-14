@@ -42,17 +42,11 @@ export function Journal() {
   return (
     <>
       <section className="journal-intro section-space">
-        <Breadcrumb items={[["Journal"]]} />
-        <span className="section-kicker">Journal ART</span>
-        <h1>
-          Ideias para pensar.
-          <br />
-          Espaços para viver.
-        </h1>
+        <Breadcrumb items={[["Guias"]]} />
+        <h1>Guias de planejamento</h1>
         <p>
-          Guias, escolhas e perguntas que ajudam a planejar sua casa.
-          <br />
-          Sem complicar o que pode ser simples.
+          Medidas, materiais e informações para preparar um pedido de móveis
+          planejados.
         </p>
       </section>
       <section className="blog-list section-space">
@@ -73,10 +67,10 @@ export function Journal() {
             ))}
           </div>
           <label className="search-label">
-            <span className="sr-only">Buscar no journal</span>
+            <span className="sr-only">Buscar nos guias</span>
             <input
               type="search"
-              placeholder="Buscar uma ideia…"
+              placeholder="Buscar um assunto"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               maxLength={100}
@@ -116,7 +110,7 @@ export function Article({ article }) {
   return (
     <article>
       <header className="article-header section-space">
-        <Breadcrumb items={[["Journal", "/blog"], [article.category]]} />
+        <Breadcrumb items={[["Guias", "/blog"], [article.category]]} />
         <span className="article-meta">
           {article.category}
           <span>{article.minutes} min de leitura</span>
@@ -124,7 +118,7 @@ export function Article({ article }) {
         <h1>{article.title}</h1>
         <p>{article.intro}</p>
         <div className="article-byline">
-          Journal ART{" "}
+          ART Móveis{" "}
           <span>Guia de planejamento · Publicado em 14 de outubro de 2026</span>
         </div>
       </header>
@@ -167,17 +161,16 @@ export function Article({ article }) {
             </section>
           ))}
           <div className="article-end">
-            <span>Da leitura ao seu espaço</span>
-            <h2>Vamos colocar suas ideias no papel?</h2>
+            <h2>Preparar o orçamento</h2>
             <p>
               Reúna necessidades, medidas e referências em um briefing simples.
             </p>
             <a href={`/orcamento?ambiente=${env.slug}`} className="button">
-              Começar meu briefing <ArrowUpRight size={18} />
+              Preencher pedido <ArrowUpRight size={18} />
             </a>
           </div>
           <a href="/blog" className="text-link">
-            <ArrowLeft size={18} /> Voltar ao journal
+            <ArrowLeft size={18} /> Voltar aos guias
           </a>
         </div>
       </div>

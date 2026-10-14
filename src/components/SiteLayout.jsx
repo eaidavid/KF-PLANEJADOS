@@ -39,7 +39,7 @@ export function Header({ path, count, openNotebook }) {
           {[
             ["Ambientes", "/ambientes"],
             ["A ART", "/sobre"],
-            ["Journal", "/blog"],
+            ["Guias", "/blog"],
           ].map(([label, href]) => (
             <a
               key={href}
@@ -54,13 +54,13 @@ export function Header({ path, count, openNotebook }) {
           <button
             className="favorite-nav"
             onClick={openNotebook}
-            aria-label={`Meu caderno${count > 0 ? ` (${count})` : ""}`}
+            aria-label={`Seleção${count > 0 ? ` (${count})` : ""}`}
           >
             <BookOpen size={19} />
-            <span>Meu caderno{count > 0 ? ` (${count})` : ""}</span>
+            <span>Seleção{count > 0 ? ` (${count})` : ""}</span>
           </button>
           <a className="button button-small" href="/orcamento">
-            Vamos planejar <ArrowUpRight size={16} />
+            Orçamento <ArrowUpRight size={16} />
           </a>
           <button
             className="menu-toggle icon-button"
@@ -84,9 +84,9 @@ export function Header({ path, count, openNotebook }) {
             ["Início", "/"],
             ["Ambientes", "/ambientes"],
             ["A ART", "/sobre"],
-            ["Journal", "/blog"],
+            ["Guias", "/blog"],
             ["Minhas referências", "/favoritos"],
-            ["Começar meu projeto", "/orcamento"],
+            ["Solicitar orçamento", "/orcamento"],
           ].map(([label, href]) => (
             <a key={href} href={href}>
               {label}
@@ -103,12 +103,9 @@ export function Footer() {
     <footer className="site-footer">
       <div className="footer-top">
         <Logo light />
-        <p>
-          A sua vida dá as medidas.
-          <br />A gente dá forma.
-        </p>
+        <p>Móveis planejados</p>
         <a className="text-link light-link" href="/orcamento">
-          Converse sobre seu projeto <ArrowUpRight size={20} />
+          Solicitar orçamento <ArrowUpRight size={20} />
         </a>
       </div>
       <div className="footer-links">
@@ -116,7 +113,7 @@ export function Footer() {
           <span>Explore</span>
           <a href="/ambientes">Ambientes e projetos</a>
           <a href="/sobre">Conheça a ART</a>
-          <a href="/blog">Journal de interiores</a>
+          <a href="/blog">Guias de planejamento</a>
           <a href="/favoritos">Referências salvas</a>
         </div>
         <div>
@@ -133,18 +130,15 @@ export function Footer() {
           </a>
         </div>
         <div className="footer-note">
-          <span>Feito para o seu espaço</span>
-          <p>
-            Cozinhas, quartos, salas, banheiros e espaços de trabalho. Móveis
-            planejados a partir do que você precisa.
-          </p>
+          <span>Ambientes</span>
+          <p>Cozinhas, quartos, salas, banheiros e espaços de trabalho.</p>
         </div>
       </div>
       <div className="footer-bottom">
         <span>© 2026 Art Móveis Interiores</span>
         <a href="/privacidade">Privacidade</a>
         <a href="/link-bio">Todos os nossos links</a>
-        <span>Design que cabe na vida.</span>
+        <a href="/">Explorar acervo</a>
       </div>
     </footer>
   );
@@ -153,23 +147,18 @@ export function ContactBand() {
   return (
     <section className="contact-band">
       <div>
-        <span className="section-kicker">Agora, o seu espaço.</span>
-        <h2>
-          O próximo ambiente
-          <br />
-          pode ser o seu.
-        </h2>
+        <h2>Solicitar orçamento</h2>
       </div>
       <div>
         <p>
-          Conte como você vive, o que precisa guardar e o que quer mudar. Vamos
-          começar por aí.
+          Informe o ambiente, a cidade e as medidas disponíveis. Revise o resumo
+          antes de abrir a conversa no WhatsApp.
         </p>
         <a className="button" href="/orcamento">
-          Começar meu projeto <ArrowUpRight size={18} />
+          Preencher pedido <ArrowUpRight size={18} />
         </a>
         <span className="contact-footnote">
-          Um briefing simples. Uma conversa de verdade.
+          As referências salvas acompanham o pedido.
         </span>
       </div>
     </section>

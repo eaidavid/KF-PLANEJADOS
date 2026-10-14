@@ -65,6 +65,8 @@ export default function QuoteForm({ saved, personal }) {
     );
     if (env && !restored.environments.includes(env.name))
       restored.environments = [...restored.environments, env.name];
+    // The saved draft and campaign source exist only in this browser.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setData(restored);
     setAttribution(captureAttribution());
     setStorageReady(true);
@@ -113,16 +115,10 @@ export default function QuoteForm({ saved, personal }) {
         <a href="/ambientes" className="text-link">
           <ArrowLeft size={16} /> Voltar aos ambientes
         </a>
-        <span className="section-kicker">Vamos planejar</span>
-        <h1>
-          Comece contando.
-          <br />A gente começa
-          <br />
-          escutando.
-        </h1>
+        <h1>Orçamento</h1>
         <p>
-          Um pequeno briefing para organizar suas ideias e levar a conversa
-          adiante.
+          Informe os ambientes e os detalhes do imóvel. O resumo será aberto no
+          WhatsApp para você conferir e enviar.
         </p>
         {(personal.scene || personal.priorities.length > 0) && (
           <div className="quote-personal-note">
@@ -232,7 +228,7 @@ export default function QuoteForm({ saved, personal }) {
           {step === 2 && (
             <>
               <h2 id="step-title" tabIndex={-1}>
-                Os detalhes fazem diferença.
+                Dados do imóvel
               </h2>
               <p className="form-description">
                 O que você já sabe ajuda a primeira conversa.
@@ -303,7 +299,7 @@ export default function QuoteForm({ saved, personal }) {
           {step === 3 && (
             <>
               <h2 id="step-title" tabIndex={-1}>
-                Sua ideia já tem um começo.
+                Revise o pedido
               </h2>
               <p className="form-description">
                 Revise o resumo. Ao abrir o WhatsApp, você decide quando enviar

@@ -46,46 +46,39 @@ export default function PersonalNotebook({
     >
       <div className="notebook-header">
         <span>
-          <BookOpen size={17} /> Uma casa só sua
+          <BookOpen size={17} /> Seleção
         </span>
         <button
           className="icon-button"
           onClick={close}
-          aria-label="Fechar meu caderno"
+          aria-label="Fechar seleção"
         >
           <X size={22} />
         </button>
       </div>
-      <h2 id="notebook-title">
-        Seu caderno
-        <br />
-        de possibilidades.
-      </h2>
+      <h2 id="notebook-title">Referências salvas</h2>
       <p className="notebook-intro">
-        Guarde o que faz sentido para você. Rotina, prioridades e referências
-        ficam juntas para a conversa com a ART.
+        As fotografias selecionadas acompanham seu pedido de orçamento.
       </p>
-      <section className="notebook-notes">
-        <h3>O seu jeito</h3>
-        {scene ? (
-          <p className="notebook-scene">{scene.title}.</p>
-        ) : (
-          <p>Escolha uma cena da sua rotina na página inicial.</p>
-        )}
-        {personal.priorities.length > 0 && (
-          <ul>
-            {personal.priorities.map((p) => (
-              <li key={p}>{p}</li>
-            ))}
-          </ul>
-        )}
-        <a className="text-link" href="/#essencia" onClick={close}>
-          Escolher o que importa <ArrowUpRight size={16} />
-        </a>
-      </section>
+      {(scene || personal.priorities.length > 0) && (
+        <section className="notebook-notes">
+          <h3>Notas salvas</h3>
+          {scene ? <p className="notebook-scene">{scene.title}.</p> : null}
+          {personal.priorities.length > 0 && (
+            <ul>
+              {personal.priorities.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          )}
+          <a className="text-link" href="/orcamento" onClick={close}>
+            Continuar no orçamento <ArrowUpRight size={16} />
+          </a>
+        </section>
+      )}
       <section className="notebook-references">
         <h3>
-          As suas referências <span>{references.length}</span>
+          Fotografias <span>{references.length}</span>
         </h3>
         {references.length ? (
           <div>
@@ -108,19 +101,20 @@ export default function PersonalNotebook({
             ))}
           </div>
         ) : (
-          <p>Toque no coração de um ambiente para guardar a ideia aqui.</p>
+          <p>
+            Nenhuma referência salva. Use “Salvar” na fotografia que quiser
+            incluir.
+          </p>
         )}
       </section>
       <div className="notebook-bottom">
         <a href="/orcamento" className="button">
-          Continuar com meu projeto <ArrowUpRight size={18} />
+          Solicitar orçamento <ArrowUpRight size={18} />
         </a>
         <a href="/favoritos" className="text-link">
           <Heart size={16} /> Ver minhas referências
         </a>
-        <p>
-          Suas escolhas acompanham o briefing. Salvas apenas neste navegador.
-        </p>
+        <p>A seleção fica salva neste navegador.</p>
         {(personal.scene || personal.priorities.length > 0) && (
           <button className="text-link notebook-clear" onClick={clear}>
             <Trash2 size={13} /> Limpar escolhas de rotina

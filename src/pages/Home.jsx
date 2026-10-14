@@ -1,239 +1,351 @@
-import { ArrowUpRight, ArrowDown, Check, Plus, BookOpen } from "lucide-react";
-import { scenes, priorities } from "../data/lifestyle";
-import { faqs } from "../data/catalog";
-import { articles } from "../data/articles";
+import { useEffect, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Heart,
+  Maximize,
+  Minimize,
+  Menu,
+  Plus,
+  Minus,
+  X,
+  Scan,
+  List,
+  Bookmark,
+} from "lucide-react";
+import { environments, projects } from "../data/catalog";
+import { photoDetails } from "../data/atlas";
+import { usePhotoCamera } from "../lib/usePhotoCamera";
 import { Photo } from "../components/Photo";
-import ReferenceExplorer from "../components/ReferenceExplorer";
+import { Logo } from "../components/SiteLayout";
+import AtlasIndex from "../components/AtlasIndex";
 
-export default function Home({
-  saved,
-  toggle,
-  personal,
-  changePersonal,
-  openNotebook,
-}) {
-  const scene = scenes.find((s) => s.id === personal.scene) || scenes[0];
-  const togglePriority = (p) =>
-    changePersonal({
-      ...personal,
-      priorities: personal.priorities.includes(p)
-        ? personal.priorities.filter((x) => x !== p)
-        : [...personal.priorities, p],
-    });
+export default function Home({ saved, toggle, openNotebook }) {
+  const [current, setCurrent] = useState(0),
+    [indexOpen, setIndexOpen] = useState(false),
+    [detailsOpen, setDetailsOpen] = useState(false),
+    [fullscreen, setFullscreen] = useState(false),
+    [supportsFullscreen, setSupportsFullscreen] = useState(false),
+    [loading, setLoading] = useState(false),
+    [failed, setFailed] = useState(false),
+    [retry, setRetry] = useState(0),
+    [status, setStatus] = useState("");
+  const project = projects[current],
+    env = environments.find((e) => e.slug === project.category),
+    points = photoDetails[project.id] || [];
+  const { stage, camera, ...view } = usePhotoCamera(points);
+  const selected = saved.includes(project.id);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const initial = projects.findIndex((p) => p.id === params.get("projeto"));
+    // The pre-rendered page has no query string; restore it after hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (initial >= 0) setCurrent(initial);
+    setSupportsFullscreen(!!document.documentElement.requestFullscreen);
+    const onFullscreen = () => setFullscreen(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", onFullscreen);
+    return () => document.removeEventListener("fullscreenchange", onFullscreen);
+  }, []);
+  useEffect(() => {
+    if (!status) return;
+    const id = setTimeout(() => setStatus(""), 4000);
+    return () => clearTimeout(id);
+  }, [status]);
+  const select = (id) => {
+    const i = projects.findIndex((p) => p.id === id);
+    if (i < 0 || i === current) return;
+    setLoading(true);
+    setFailed(false);
+    setCurrent(i);
+    setDetailsOpen(false);
+    view.resetProject();
+    const url = new URL(window.location.href);
+    url.searchParams.set("projeto", id);
+    history.replaceState(null, "", url);
+  };
+  const next = (direction) =>
+    select(
+      projects[(current + direction + projects.length) % projects.length].id,
+    );
+  const toggleFullscreen = async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch {
+      setStatus("Não foi possível ativar a tela cheia neste navegador.");
+    }
+  };
+  const focus = (i) => {
+    view.focus(i);
+    setDetailsOpen(false);
+  };
+  const keys = (e) => {
+    if (e.target.closest("dialog,input,textarea,select")) return;
+    if (e.key === "Escape") {
+      view.reset();
+      setDetailsOpen(false);
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      next(1);
+    }
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      next(-1);
+    }
+  };
   return (
-    <div className="home-personal">
-      <section className="life-hero">
-        <Photo
-          name={scene.image}
-          alt={scene.caption}
-          className="life-hero-photo"
-          priority
-          sizes="100vw"
-        />
-        <div className="life-hero-shade" aria-hidden="true" />
-        <div className="life-hero-copy">
-          <p>Móveis planejados. O ponto de partida é você.</p>
-          <h1>
-            Ninguém
-            <br />
-            mora como
-            <br />
-            você.
-          </h1>
-          <div className="life-hero-invite">
-            <span>
-              O que faz um espaço ser seu?
-              <br />
-              Vamos descobrir juntos.
-            </span>
-            <a href="#essencia" className="life-start">
-              Começar pelas minhas escolhas <ArrowDown size={19} />
-            </a>
-          </div>
-        </div>
-        <div className="life-scene-caption">
-          <span>{scene.caption}</span>
+    <div className="atlas-home" onKeyDown={keys}>
+      <header className="atlas-header">
+        <Logo light />
+        <h1>Acervo de móveis planejados</h1>
+        <div>
+          <button
+            className="atlas-selection"
+            onClick={openNotebook}
+            aria-label={`Seleção ${saved.length}`}
+          >
+            <Bookmark size={16} />
+            <span>Seleção</span>{" "}
+            <b>{saved.length}</b>
+          </button>
           <a
-            href={`/ambientes/${scene.environment}`}
-            aria-label={`Explorar ${scene.title.toLowerCase()}`}
+            href="/orcamento"
+            className="atlas-quote"
+            aria-label="Solicitar orçamento"
           >
-            <ArrowUpRight size={22} />
+            <span>Orçamento</span>
+            <ArrowUpRight size={16} />
           </a>
-        </div>
-        <div
-          className="life-scenes"
-          role="group"
-          aria-label="O que casa significa para você?"
-        >
-          {scenes.map((s) => (
-            <button
-              key={s.id}
-              className={personal.scene === s.id ? "selected" : ""}
-              aria-pressed={personal.scene === s.id}
-              onClick={() => changePersonal({ ...personal, scene: s.id })}
-            >
-              {s.title}
-              <span>
-                {personal.scene === s.id ? (
-                  <Check size={16} />
-                ) : (
-                  <Plus size={16} />
-                )}
-              </span>
-            </button>
-          ))}
-        </div>
-      </section>
-      <section className="personal-essence" id="essencia">
-        <div className="essence-question">
-          <span>Antes da madeira, a vida.</span>
-          <h2>
-            Sua rotina
-            <br />
-            também
-            <br />
-            tem medidas.
-          </h2>
-          <p>
-            Como você guarda as coisas. Quem você recebe. O lugar em que as
-            ideias aparecem. Um móvel sob medida precisa começar daí.
-          </p>
-        </div>
-        <div className="essence-composition">
-          <p className="essence-prompt">No meu espaço, eu quero…</p>
-          <div
-            className="priority-options"
-            role="group"
-            aria-label="O que importa no seu espaço"
+          <button
+            className="atlas-icon"
+            aria-label="Abrir índice"
+            onClick={() => setIndexOpen(true)}
           >
-            {priorities.map((p) => (
+            <Menu size={21} />
+          </button>
+        </div>
+      </header>
+      <section
+        className={`atlas-stage ${view.zoom ? "is-zoomed" : ""}`}
+        ref={stage}
+        aria-label={`Fotografia: ${project.title}`}
+        tabIndex={0}
+        onPointerDown={view.pointerDown}
+        onPointerMove={view.pointerMove}
+        onPointerUp={view.pointerUp}
+        onPointerCancel={view.pointerUp}
+        onDoubleClick={(e) => {
+          if (e.target.tagName === "IMG") view.toggleZoom();
+        }}
+      >
+        <div
+          className={`atlas-camera ${view.ready ? "is-ready" : ""}`}
+          ref={camera}
+          style={view.style}
+          data-zoom={view.zoom ? "detail" : "overview"}
+        >
+          <Photo
+            key={`${project.id}-${retry}`}
+            name={project.image}
+            alt={project.title}
+            priority
+            sizes={view.imageSize}
+            className="atlas-photo"
+            onLoad={() => setLoading(false)}
+            onError={() => {
+              setLoading(false);
+              setFailed(true);
+            }}
+          />
+          {view.ready &&
+            !failed &&
+            points.map(
+              (point, i) =>
+                view.visible(point) && (
+                  <button
+                    key={`${project.id}-${point.label}`}
+                    className={`atlas-point ${view.detail === i ? "active" : ""}`}
+                    style={{
+                      left: `${point.x * 100}%`,
+                      top: `${point.y * 100}%`,
+                      transform: `translate(-50%,-50%) scale(${view.inverseScale})`,
+                    }}
+                    onClick={() => focus(i)}
+                    aria-label={`${String(i + 1).padStart(2, "0")} — Ampliar detalhe: ${point.label}`}
+                    title={point.label}
+                    aria-pressed={view.detail === i}
+                  >
+                    <span>{String(i + 1).padStart(2, "0")}</span>
+                  </button>
+                ),
+            )}
+        </div>
+        <div className="atlas-scene-label">
+          <span>{env.name}</span>
+          <span>
+            {String(current + 1).padStart(2, "0")} /{" "}
+            {String(projects.length).padStart(2, "0")}
+          </span>
+        </div>
+        <div className="atlas-tools">
+          <button
+            className="atlas-tool"
+            onClick={view.toggleZoom}
+            aria-pressed={view.zoom}
+            aria-label={view.zoom ? "Reduzir" : "Ampliar"}
+          >
+            {view.zoom ? <Minus size={18} /> : <Plus size={18} />}
+            <span>{view.zoom ? "Reduzir" : "Ampliar"}</span>
+          </button>
+          <button
+            className="atlas-tool"
+            onClick={view.toggleWhole}
+            aria-pressed={view.whole}
+            aria-label="Foto inteira"
+          >
+            <Scan size={18} />
+            <span>Foto inteira</span>
+          </button>
+          {supportsFullscreen && (
+            <button
+              className="atlas-tool"
+              onClick={toggleFullscreen}
+              aria-pressed={fullscreen}
+              aria-label={fullscreen ? "Sair da tela cheia" : "Tela cheia"}
+            >
+              {fullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+            </button>
+          )}
+        </div>
+        {loading && (
+          <p className="atlas-loading" role="status">
+            Carregando fotografia…
+          </p>
+        )}
+        {failed && (
+          <div className="atlas-error" role="alert">
+            <p>Não foi possível carregar a fotografia.</p>
+            <button
+              onClick={() => {
+                setLoading(true);
+                setFailed(false);
+                setRetry(retry + 1);
+              }}
+            >
+              Tentar novamente
+            </button>
+          </div>
+        )}
+        {view.detail !== null && !failed && (
+          <aside className={`atlas-detail-note ${points[view.detail].y >= 0.65 ? "is-bottom-detail" : ""}`}>
+            <div>
+              <span>Detalhe {String(view.detail + 1).padStart(2, "0")}</span>
               <button
-                key={p}
-                aria-pressed={personal.priorities.includes(p)}
-                onClick={() => togglePriority(p)}
+                className="atlas-icon"
+                aria-label="Fechar detalhe"
+                onClick={view.reset}
               >
-                {p}
-                <span>
-                  {personal.priorities.includes(p) ? (
-                    <Check size={20} />
-                  ) : (
-                    <Plus size={20} />
-                  )}
-                </span>
+                <X size={18} />
+              </button>
+            </div>
+            <h3>{points[view.detail].label}</h3>
+            <p>{points[view.detail].text}</p>
+            <span className="atlas-drag-hint">
+              Arraste a foto para olhar outros trechos.
+            </span>
+          </aside>
+        )}
+        {detailsOpen && (
+          <aside
+            className="atlas-detail-list"
+            aria-label="Detalhes da fotografia"
+          >
+            <div>
+              <span>Escolha um detalhe</span>
+              <button
+                className="atlas-icon"
+                aria-label="Fechar lista de detalhes"
+                onClick={() => setDetailsOpen(false)}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            {points.map((point, i) => (
+              <button key={point.label} onClick={() => focus(i)}>
+                <small>{String(i + 1).padStart(2, "0")}</small>
+                {point.label}
+                <Plus size={15} />
               </button>
             ))}
-          </div>
-          <div className="essence-note">
-            <BookOpen size={19} />
-            <p>
-              {personal.priorities.length
-                ? `${personal.priorities.length} escolha${personal.priorities.length === 1 ? "" : "s"} no seu caderno. Você pode mudar de ideia a qualquer momento.`
-                : "Escolha o que combina com sua rotina. Essas ideias vão para o seu caderno."}
-            </p>
-          </div>
-          <button className="life-outline-action" onClick={openNotebook}>
-            Ver meu caderno <ArrowUpRight size={21} />
+          </aside>
+        )}
+      </section>
+      <div className="atlas-caption">
+        <div className="atlas-project-title">
+          <span>ART Móveis Interiores</span>
+          <h2 aria-live="polite">{project.title}</h2>
+          <a href={`/projetos/${project.id}`}>
+            Informações do projeto <ArrowUpRight size={13} />
+          </a>
+        </div>
+        <div className="atlas-project-actions">
+          <button
+            className="atlas-detail-toggle"
+            onClick={() => {
+              setDetailsOpen(!detailsOpen);
+              view.reset();
+            }}
+            aria-expanded={detailsOpen}
+          >
+            <List size={17} /> Detalhes
+          </button>
+          <button
+            className={`atlas-save ${selected ? "selected" : ""}`}
+            onClick={() => toggle(project.id)}
+            aria-pressed={selected}
+            aria-label={`${selected ? "Remover" : "Salvar"} referência: ${project.title}`}
+          >
+            <Heart size={17} fill={selected ? "currentColor" : "none"} />
+            <span>{selected ? "Salvo" : "Salvar"}</span>
           </button>
         </div>
-      </section>
-      <ReferenceExplorer saved={saved} toggle={toggle} />
-      <section className="personal-interlude">
-        <div className="interlude-photo">
-          <Photo
-            name="detalhe-madeira"
-            alt="Detalhe de bancada e gavetas de madeira do acervo ART"
-            sizes="(max-width: 760px) 100vw, 40vw"
-          />
-        </div>
-        <div className="interlude-copy">
-          <span>Uma pergunta que muda o projeto.</span>
-          <h2>
-            O que só
-            <br />
-            faz sentido
-            <br />
-            na sua casa?
-          </h2>
-          <p>
-            O armário que precisa receber uma coleção. A bancada que vira mesa
-            de trabalho. O lugar da cafeteira. Conte esses hábitos à equipe.
-            Eles ajudam a decidir a divisão, a posição e o uso de cada móvel.
-          </p>
-          <a href="/orcamento" className="life-text-action">
-            Contar minha ideia <ArrowUpRight size={20} />
-          </a>
-        </div>
-        <span className="interlude-word" aria-hidden="true">
-          particular.
-        </span>
-      </section>
-      <section className="personal-journal">
-        <div className="personal-journal-intro">
-          <p>Para olhar com mais intenção.</p>
-          <h2>
-            Uma boa escolha
-            <br />
-            começa com
-            <br />
-            uma boa pergunta.
-          </h2>
-          <a href="/blog" className="text-link">
-            Abrir o journal <ArrowUpRight size={19} />
-          </a>
-        </div>
-        <div className="personal-reading-list">
-          {articles.slice(0, 3).map((a) => (
-            <a href={`/blog/${a.slug}`} key={a.slug}>
-              <span>
-                {a.category} <small>{a.minutes} min</small>
-              </span>
-              <h3>{a.title}</h3>
-              <ArrowUpRight size={23} />
-            </a>
-          ))}
-        </div>
-      </section>
-      <section className="personal-questions">
-        <h2>
-          A conversa
-          <br />
-          já pode começar.
-        </h2>
-        <div>
-          {faqs.slice(0, 3).map(([q, a]) => (
-            <details key={q}>
-              <summary>
-                {q}
-                <Plus size={18} />
-              </summary>
-              <p>{a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
-      <section className="personal-final">
-        <div>
-          <span>Um projeto começa por quem vai viver nele.</span>
-          <h2>
-            Precisamos
-            <br />
-            entender a sua.
-          </h2>
-        </div>
-        <div>
-          <p>
-            {personal.scene || personal.priorities.length
-              ? "Suas escolhas já estão no caderno. Agora, conte um pouco sobre o espaço que você quer mudar."
-              : "Conte um pouco sobre seu espaço e o que você quer mudar. A primeira conversa começa com um briefing simples."}
-          </p>
-          <a href="/orcamento" className="life-final-action">
-            Vamos pensar no seu projeto <ArrowUpRight size={26} />
-          </a>
-          <button className="life-text-action" onClick={openNotebook}>
-            Revisar meu caderno <BookOpen size={16} />
+        <div className="atlas-navigation">
+          <button
+            onClick={() => next(-1)}
+            aria-label="Projeto anterior"
+            className="atlas-icon"
+          >
+            <ArrowLeft />
+          </button>
+          <button
+            className="atlas-next"
+            onClick={() => next(1)}
+            aria-label="Próximo projeto"
+          >
+            <span>Próximo projeto</span>
+            <ArrowRight size={22} />
           </button>
         </div>
-      </section>
+      </div>
+      <AtlasIndex
+        open={indexOpen}
+        close={() => setIndexOpen(false)}
+        active={project.id}
+        select={select}
+      />
+      {status && (
+        <p className="atlas-status" role="status">
+          {status}
+        </p>
+      )}
+      <noscript>
+        <div className="atlas-noscript">
+          Para ver outras fotos, abra o <a href="/ambientes">acervo em lista</a>
+          .
+        </div>
+      </noscript>
     </div>
   );
 }

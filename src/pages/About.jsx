@@ -1,67 +1,78 @@
+import { ArrowUpRight } from "lucide-react";
 import { Photo } from "../components/Photo";
-import { Breadcrumb, ContactBand } from "../components/SiteLayout";
+import { Breadcrumb } from "../components/SiteLayout";
+import { brand } from "../data/catalog";
+import { whatsappUrl } from "../lib/briefing";
 
 export default function About() {
   return (
     <>
       <section className="about-intro section-space">
         <Breadcrumb items={[["A ART"]]} />
-        <span className="section-kicker">Art Móveis Interiores</span>
         <h1>
-          A casa tem histórias.
+          ART Móveis
           <br />
-          Os móveis fazem parte.
+          Interiores
         </h1>
         <div className="about-lead">
           <p>
-            Planejar um móvel é entender o que precisa caber. No ambiente, na
-            rotina, na vida.
+            Móveis planejados para cozinhas, quartos, salas, banheiros e
+            escritórios.
           </p>
           <p>
-            A ART trabalha com móveis planejados para cozinhas, quartos, salas,
-            banheiros e espaços de trabalho. Nosso ponto de partida é a
-            conversa: o que você precisa, o que valoriza e como quer usar cada
-            espaço.
+            Este acervo reúne fotografias do projeto original da ART. Você pode
+            ampliar os detalhes, selecionar referências e enviá-las junto ao
+            pedido de orçamento.
           </p>
         </div>
       </section>
       <div className="about-photo">
         <Photo
           name="cozinha-aberta"
-          alt="Cozinha e espaço de refeições do acervo ART"
+          alt="Cozinha e área de refeições do acervo ART"
           priority
           sizes="100vw"
         />
       </div>
       <section className="about-principles section-space">
-        <h2>
-          O que orienta
-          <br />
-          cada escolha.
-        </h2>
+        <h2>Contato</h2>
         <div>
-          {[
-            [
-              "Escutar antes de desenhar.",
-              "Nenhuma referência substitui entender a sua rotina. O projeto começa com os hábitos, os objetos e as pessoas que vão usar o espaço.",
-            ],
-            [
-              "Aproveitar com intenção.",
-              "Uma gaveta, uma porta e um nicho precisam ter uma função. Organizar não é ocupar cada centímetro; é fazer o espaço funcionar.",
-            ],
-            [
-              "Combinar cada detalhe.",
-              "Materiais, medidas, acabamentos e execução devem fazer parte de uma conversa clara antes de seguir com o projeto.",
-            ],
-          ].map(([t, p]) => (
-            <section key={t}>
-              <h3>{t}</h3>
-              <p>{p}</p>
-            </section>
-          ))}
+          <a
+            className="text-link"
+            href={whatsappUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp {brand.phone}
+            <ArrowUpRight size={18} />
+          </a>
+          <br />
+          <a
+            className="text-link"
+            href={brand.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Instagram
+            <ArrowUpRight size={18} />
+          </a>
+          <br />
+          <a
+            className="text-link"
+            href={brand.maps}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Localização
+            <ArrowUpRight size={18} />
+          </a>
+          <br />
+          <a className="text-link" href="/orcamento">
+            Solicitar orçamento
+            <ArrowUpRight size={18} />
+          </a>
         </div>
       </section>
-      <ContactBand />
     </>
   );
 }

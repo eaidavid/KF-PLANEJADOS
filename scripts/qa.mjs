@@ -1,293 +1,158 @@
-import { createRequire } from "node:module";
-import { mkdir, writeFile } from "node:fs/promises";
+import { createRequire } from 'node:module';
+import { mkdir, writeFile } from 'node:fs/promises';
 const require = createRequire(import.meta.url);
-const {
-  chromium,
-} = require("C:/Users/David/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright");
-await mkdir("qa", { recursive: true });
-const browser = await chromium.launch({ headless: true, channel: "chrome" });
-const page = await browser.newPage({
-  viewport: { width: 1440, height: 1000 },
-  deviceScaleFactor: 1,
+const { chromium } = require('C:/Users/David/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+await mkdir('qa', { recursive: true });
+const browser = await chromium.launch({ headless: true, channel: 'chrome' });
+const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+const base = process.env.ART_QA_URL || 'http://127.0.0.1:5173';
+const errors = [], checks = [];
+page.on('pageerror', e => errors.push(e.message));
+page.on('console', msg => {
+  const expected404 = msg.location().url.endsWith('/pagina-inexistente') && /status of 404/.test(msg.text());
+  if (msg.type() === 'error' && !expected404) errors.push(msg.text());
 });
-const errors = [];
-page.on("pageerror", (e) => errors.push(e.message));
-page.on("console", (msg) => {
-  const expected404 =
-    msg.location().url.endsWith("/pagina-inexistente") &&
-    /status of 404/.test(msg.text());
-  if (msg.type() === "error" && !expected404) errors.push(msg.text());
-});
-const base = process.env.ART_QA_URL || "http://127.0.0.1:5173";
-const checks = [];
 function verify(condition, label) {
   checks.push({ label, pass: !!condition });
   if (!condition) throw new Error(label);
 }
-async function loadImages() {
-  await page.evaluate(async () => {
-    for (let y = 0; y < document.documentElement.scrollHeight; y += 700) {
-      window.scrollTo({ top: y, behavior: "instant" });
-      await new Promise((r) => setTimeout(r, 100));
-    }
-    await Promise.all(
-      [...document.images].map((img) => img.decode().catch(() => {})),
-    );
-    window.scrollTo({ top: 0, behavior: "instant" });
-  });
-}
-await page.goto(base, { waitUntil: "networkidle" });
-await page.evaluate(() => document.fonts.ready);
-await loadImages();
-verify(
-  await page.evaluate(() =>
-    [...document.images].every((i) => i.complete && i.naturalWidth > 0),
-  ),
-  "All homepage images load",
-);
-await page.screenshot({ path: "qa/home-desktop.png", fullPage: true });
-await page.screenshot({ path: "qa/home-desktop-top.png" });
-for (const width of [320, 390, 768, 1440]) {
-  await page.setViewportSize({ width, height: 960 });
-  await page.goto(base, { waitUntil: "networkidle" });
+async function ready() {
   await page.evaluate(() => document.fonts.ready);
-  await loadImages();
-  verify(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth,
-    ),
-    `Homepage no horizontal overflow: ${width}`,
-  );
-  verify((await page.locator("h1").count()) === 1, `One H1: ${width}`);
-  await page.screenshot({ path: `qa/home-${width}.png`, fullPage: true });
-  if (width === 390) await page.screenshot({ path: "qa/home-mobile-top.png" });
+  await page.locator('.atlas-photo').evaluate(i => i.decode());
 }
-await page.setViewportSize({ width: 1440, height: 1000 });
-await page.getByRole("tab", { name: "Home offices" }).click();
-verify(
-  (await page.getByRole("tabpanel").getByRole("link").getAttribute("href")) ===
-    "/ambientes/escritorios",
-  "Environment tab switches destination",
-);
-await page.getByRole("tab", { name: "Home offices" }).press("ArrowLeft");
-verify(
-  (await page
-    .getByRole("tab", { name: "Salas e painéis" })
-    .getAttribute("aria-selected")) === "true",
-  "Environment keyboard navigation",
-);
-await page.goto(base + "/ambientes");
-await page.getByRole("button", { name: "Cozinhas", exact: true }).click();
-verify(
-  (await page.locator(".project-tile").count()) === 2,
-  "Project category filter",
-);
-await page
-  .getByRole("button", {
-    name: "Salvar referência: Cozinha que reúne",
-    exact: true,
-  })
-  .click();
-await page.reload();
-verify(
-  (await page
-    .getByRole("button", {
-      name: "Remover referência: Cozinha que reúne",
-      exact: true,
-    })
-    .getAttribute("aria-pressed")) === "true",
-  "Favorites survive reload",
-);
-await page.goto(base + "/favoritos");
-verify(
-  (await page.locator(".project-tile").count()) === 1,
-  "Favorites page selection",
-);
-await page.goto(base + "/orcamento?utm_source=qa&utm_campaign=prospeccao");
-await page.getByRole("button", { name: "Continuar", exact: true }).click();
-verify(
-  await page.getByRole("alert").isVisible(),
-  "Briefing requires environment",
-);
-await page.getByRole("checkbox", { name: "Cozinhas", exact: true }).check();
-await page.getByRole("button", { name: "Continuar", exact: true }).click();
-await page
-  .getByRole("textbox", { name: "Seu nome", exact: true })
-  .fill("Visitante de teste");
-await page
-  .getByRole("textbox", { name: "Cidade e estado", exact: true })
-  .fill("Bauru, SP");
-await page
-  .getByRole("textbox", { name: /Telefone com DDD/ })
-  .fill("14999990000");
-await page
-  .getByRole("textbox", { name: /Medidas aproximadas/ })
-  .fill("Parede de 3 m");
-await page
-  .getByRole("textbox", { name: "O que não pode faltar?", exact: true })
-  .fill("Gavetas para organizar utensílios.");
-await page.reload();
-await page.getByRole("button", { name: "Continuar", exact: true }).click();
-verify(
-  (await page
-    .getByRole("textbox", { name: "Seu nome", exact: true })
-    .inputValue()) === "Visitante de teste",
-  "Draft survives reload",
-);
-await page.getByRole("button", { name: "Continuar", exact: true }).click();
-const href = await page
-  .getByRole("link", { name: "Abrir conversa no WhatsApp", exact: true })
-  .getAttribute("href");
-const url = new URL(href);
-const message = url.searchParams.get("text");
-verify(url.pathname === "/5514998515849", "Verified WhatsApp destination");
-verify(
-  message.includes("Visitante de teste") &&
-    message.includes("Cozinha que reúne") &&
-    message.includes("utm_source=qa"),
-  "Briefing includes details, references and attribution",
-);
-await page.screenshot({ path: "qa/briefing-desktop.png", fullPage: true });
-const downloadPromise = page.waitForEvent("download");
-await page.getByRole("button", { name: "Baixar CSV", exact: true }).click();
-const download = await downloadPromise;
-await download.saveAs("qa/lead.csv");
-verify(download.suggestedFilename() === "art-lead.csv", "CSV export downloads");
-await page.getByRole("button", { name: "Voltar", exact: true }).click();
-await page
-  .getByRole("textbox", { name: "Seu nome", exact: true })
-  .fill(
-    "Um nome de visitante bastante longo para testar a apresentação do resumo",
-  );
-await page.getByRole("button", { name: "Continuar", exact: true }).click();
-await page.setViewportSize({ width: 390, height: 844 });
-await page.screenshot({ path: "qa/briefing-mobile.png", fullPage: true });
-verify(
-  await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
-  "Briefing long content mobile",
-);
-await page.goto(base + "/blog");
-await page
-  .getByRole("searchbox", { name: "Buscar no journal" })
-  .fill("cozinha");
-verify(
-  (await page.locator(".blog-grid .article-tile").count()) === 1,
-  "Blog search",
-);
-await page.getByRole("searchbox", { name: "Buscar no journal" }).fill("zzzz");
-verify(
-  await page
-    .getByRole("heading", { name: "Ainda não temos um artigo sobre isso." })
-    .isVisible(),
-  "Blog empty state",
-);
-await page.goto(base + "/blog/cozinha-planejada-por-onde-comecar");
-verify(
-  (await page.locator(".article-body section").count()) === 5,
-  "Complete article body",
-);
-await page.screenshot({ path: "qa/article-mobile.png", fullPage: true });
-verify(
-  await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
-  "Article mobile overflow",
-);
-await page.goto(base);
-await page
-  .getByRole("button", { name: "Abrir navegação", exact: true })
-  .click();
-verify(await page.locator("#mobile-nav").isVisible(), "Mobile menu opens");
-await page.keyboard.press("Escape");
-verify(
-  (await page.locator("#mobile-nav").count()) === 0,
-  "Escape closes mobile menu",
-);
-await page.getByRole("button", { name: "Ter tudo à mão", exact: true }).click();
-verify(
-  (await page.locator(".life-hero-photo").getAttribute("src")).includes(
-    "quarto-madeira",
-  ),
-  "Lifestyle selection changes photographic scene",
-);
-await page
-  .getByRole("button", { name: "Mais lugar para guardar", exact: true })
-  .click();
-await page.getByRole("button", { name: /^Meu caderno/ }).click();
-verify(await page.getByRole("dialog").isVisible(), "Personal notebook opens");
-verify(
-  (await page.locator(".notebook-scene").textContent()) === "Ter tudo à mão.",
-  "Notebook carries selected lifestyle",
-);
-verify(
-  (await page.locator(".notebook-notes li").textContent()) ===
-    "Mais lugar para guardar",
-  "Notebook carries personal priority",
-);
-await page.screenshot({ path: "qa/notebook-mobile.png" });
-await page.keyboard.press("Tab");
-verify(
-  await page.evaluate(() => !!document.activeElement.closest("dialog")),
-  "Notebook retains keyboard focus",
-);
-await page.keyboard.press("Escape");
-verify(!(await page.getByRole("dialog").isVisible()), "Escape closes notebook");
-verify(
-  await page
-    .getByRole("button", { name: /^Meu caderno/ })
-    .evaluate((e) => e === document.activeElement),
-  "Notebook restores trigger focus",
-);
-await page.reload();
-verify(
-  (await page
-    .getByRole("button", { name: "Ter tudo à mão", exact: true })
-    .getAttribute("aria-pressed")) === "true",
-  "Lifestyle survives reload",
-);
-verify(
-  (await page
-    .getByRole("button", { name: "Mais lugar para guardar", exact: true })
-    .getAttribute("aria-pressed")) === "true",
-  "Personal priority survives reload",
-);
-await page.goto(base + "/orcamento");
-await page.getByRole("button", { name: "Continuar", exact: true }).click();
-await page.getByRole("button", { name: "Continuar", exact: true }).click();
-const personalLink = await page
-  .getByRole("link", { name: "Abrir conversa no WhatsApp", exact: true })
-  .getAttribute("href");
-verify(
-  new URL(personalLink).searchParams.get("text").includes("Ter tudo à mão") &&
-    new URL(personalLink).searchParams
-      .get("text")
-      .includes("Mais lugar para guardar"),
-  "Personal choices accompany WhatsApp briefing",
-);
-await page.emulateMedia({ reducedMotion: "reduce" });
-verify(
-  (await page.evaluate(
-    () => getComputedStyle(document.documentElement).scrollBehavior,
-  )) === "auto",
-  "Reduced motion",
-);
-await page.goto(base + "/privacidade");
-await page
-  .getByRole("button", { name: "Apagar dados deste navegador", exact: true })
-  .click();
-verify(
-  await page.evaluate(
-    () =>
-      localStorage.getItem("art-saved") === null &&
-      localStorage.getItem("art-draft") === null &&
-      localStorage.getItem("art-personal") === null,
-  ),
-  "Privacy clears data",
-);
-const response = await page.goto(base + "/pagina-inexistente");
-verify(response.status() === 404, "Unknown route is HTTP 404");
-if (errors.length)
-  console.log(JSON.stringify({ browserErrors: errors }, null, 2));
-verify(errors.length === 0, "No browser errors or hydration failures");
-const report = { base, checks, errors };
-await writeFile("qa/report.json", JSON.stringify(report, null, 2));
-console.log(JSON.stringify(report, null, 2));
-await browser.close();
+async function goto(path = '/') { await page.goto(base + path, { waitUntil: 'networkidle' }); }
+try {
+  for (const width of [320, 390, 768, 1440]) {
+    await page.setViewportSize({ width, height: width < 760 ? 844 : 1000 });
+    await goto(); await ready();
+    verify(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `Home fits ${width}px`);
+    verify(await page.locator('h1').count() === 1, `One H1 at ${width}px`);
+    await page.screenshot({ path: `qa/atlas-${width}.png`, fullPage: true });
+  }
+  verify(await page.locator('.atlas-photo').evaluate(i => /-(1280|1920)\.webp$/.test(i.currentSrc)), 'Large photograph is used on desktop');
+  await page.getByRole('button', { name: 'Ampliar detalhe: Armários superiores' }).click();
+  verify(await page.locator('.atlas-camera').getAttribute('data-zoom') === 'detail', 'Point zooms photograph');
+  verify(await page.locator('.atlas-detail-note h3').textContent() === 'Armários superiores', 'Selected detail is described');
+  await page.waitForTimeout(700);
+  const before = await page.locator('.atlas-camera').evaluate(e => getComputedStyle(e).transform);
+  const stage = await page.locator('.atlas-stage').boundingBox();
+  await page.mouse.move(stage.x + stage.width * 0.75, stage.y + stage.height * 0.7);
+  await page.mouse.down(); await page.mouse.move(stage.x + stage.width * 0.75 - 160, stage.y + stage.height * 0.7 - 70, { steps: 10 }); await page.mouse.up();
+  verify(await page.locator('.atlas-camera').evaluate(e => getComputedStyle(e).transform) !== before, 'Zoomed photograph can be dragged');
+  await page.getByRole('button', { name: 'Fechar detalhe' }).click();
+  verify(await page.locator('.atlas-camera').getAttribute('data-zoom') === 'overview', 'Detail close restores overview');
+  await page.getByRole('button', { name: 'Foto inteira', exact: true }).click();
+  verify(await page.getByRole('button', { name: 'Foto inteira', exact: true }).getAttribute('aria-pressed') === 'true', 'Whole photograph mode');
+  await page.getByRole('button', { name: 'Próximo projeto', exact: true }).click();
+  verify(await page.locator('.atlas-project-title h2').textContent() === 'Painel ripado com estante', 'Next project changes photograph and caption');
+  verify(new URL(page.url()).searchParams.get('projeto') === 'sala-ripada', 'Selected project is in URL');
+  await page.reload(); await ready();
+  verify(await page.locator('.atlas-project-title h2').textContent() === 'Painel ripado com estante', 'Project URL restores after reload');
+  await page.locator('.atlas-stage').focus(); await page.keyboard.press('ArrowLeft');
+  verify(await page.locator('.atlas-project-title h2').textContent() === 'Cozinha com mesa', 'Keyboard changes project');
+  await page.getByRole('button', { name: 'Projeto anterior', exact: true }).click();
+  verify(await page.locator('.atlas-project-title h2').textContent() === 'Gabinete branco', 'Navigation wraps at first photograph');
+  await page.getByRole('button', { name: 'Abrir índice' }).click();
+  const index = page.getByRole('dialog', { name: 'Acervo', exact: true });
+  verify(await index.isVisible(), 'Index opens as modal dialog');
+  await index.getByRole('button', { name: 'Cozinhas', exact: true }).click();
+  verify(await index.locator('.atlas-index-list > button').count() === 2, 'Index filters kitchens');
+  await page.keyboard.press('Tab');
+  verify(await page.evaluate(() => !!document.activeElement.closest('dialog')), 'Index traps keyboard focus');
+  await page.keyboard.press('Escape');
+  verify(!(await index.isVisible()), 'Escape closes index');
+  verify(await page.getByRole('button', { name: 'Abrir índice' }).evaluate(e => e === document.activeElement), 'Index restores trigger focus');
+  await page.getByRole('button', { name: 'Abrir índice' }).click();
+  await index.getByRole('button', { name: 'Abrir Cozinha com mesa Cozinhas', exact: true }).click();
+  verify(await page.locator('.atlas-project-title h2').textContent() === 'Cozinha com mesa' && !(await index.isVisible()), 'Index selection changes photograph and closes');
+  await page.getByRole('button', { name: 'Salvar referência: Cozinha com mesa', exact: true }).click();
+  await page.reload(); await ready();
+  verify(await page.getByRole('button', { name: 'Remover referência: Cozinha com mesa', exact: true }).getAttribute('aria-pressed') === 'true', 'Reference survives reload');
+  await page.getByRole('button', { name: /^Seleção/ }).click();
+  const selection = page.getByRole('dialog', { name: 'Referências salvas', exact: true });
+  verify(await selection.isVisible(), 'Selection opens');
+  verify(await selection.locator('.notebook-references article').count() === 1, 'Selection contains saved photograph');
+  await page.keyboard.press('Tab');
+  verify(await page.evaluate(() => !!document.activeElement.closest('dialog')), 'Selection traps keyboard focus');
+  await page.keyboard.press('Escape');
+  verify(!(await selection.isVisible()), 'Escape closes selection');
+  verify(await page.getByRole('button', { name: /^Seleção/ }).evaluate(e => e === document.activeElement), 'Selection restores trigger focus');
+  const full = page.getByRole('button', { name: 'Tela cheia', exact: true });
+  if (await full.count()) {
+    await full.click();
+    verify(await page.evaluate(() => !!document.fullscreenElement), 'Native fullscreen opens');
+    await page.getByRole('button', { name: 'Sair da tela cheia' }).click();
+    verify(await page.evaluate(() => !document.fullscreenElement), 'Native fullscreen closes');
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await goto(); await ready();
+  verify(await page.locator('.atlas-photo').evaluate(i => /-(1280|1920)\.webp$/.test(i.currentSrc)), 'Mobile cover uses enough image pixels');
+  await page.getByRole('button', { name: 'Detalhes', exact: true }).click();
+  await page.locator('.atlas-detail-list').getByRole('button', { name: /Mesa de refeições/ }).click();
+  await ready(); await page.waitForTimeout(700);
+  verify(await page.locator('.atlas-photo').evaluate(i => /-1920\.webp$/.test(i.currentSrc)), 'Mobile zoom upgrades photograph resolution');
+  await page.screenshot({ path: 'qa/atlas-mobile-detail.png' });
+  const note = await page.locator('.atlas-detail-note').boundingBox();
+  const point = await page.getByRole('button', { name: 'Ampliar detalhe: Mesa de refeições' }).boundingBox();
+  verify(note.y + note.height < point.y, 'Mobile note leaves selected lower detail visible');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  verify(await page.locator('.atlas-camera').evaluate(e => getComputedStyle(e).transitionDuration) === '0s', 'Reduced motion disables camera transition');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await goto('/favoritos');
+  verify(await page.locator('.project-tile').count() === 1, 'References also available in list view');
+  await goto('/orcamento?utm_source=qa&utm_campaign=prospeccao');
+  await page.getByRole('button', { name: 'Continuar', exact: true }).click();
+  verify(await page.getByRole('alert').isVisible(), 'Budget requires environment');
+  await page.getByRole('checkbox', { name: 'Cozinhas', exact: true }).check();
+  await page.getByRole('button', { name: 'Continuar', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Seu nome', exact: true }).fill('Visitante de teste');
+  await page.getByRole('textbox', { name: 'Cidade e estado', exact: true }).fill('Bauru, SP');
+  await page.getByRole('textbox', { name: /Telefone com DDD/ }).fill('14999990000');
+  await page.getByRole('textbox', { name: /Medidas aproximadas/ }).fill('Parede de 3 m');
+  await page.getByRole('textbox', { name: 'O que não pode faltar?', exact: true }).fill('Gavetas para utensílios.');
+  await page.reload();
+  await page.getByRole('button', { name: 'Continuar', exact: true }).click();
+  verify(await page.getByRole('textbox', { name: 'Seu nome', exact: true }).inputValue() === 'Visitante de teste', 'Budget draft survives reload');
+  await page.getByRole('button', { name: 'Continuar', exact: true }).click();
+  const whatsapp = new URL(await page.getByRole('link', { name: 'Abrir conversa no WhatsApp', exact: true }).getAttribute('href'));
+  verify(whatsapp.pathname === '/5514998515849', 'Official WhatsApp destination');
+  const message = whatsapp.searchParams.get('text');
+  verify(message.includes('Visitante de teste') && message.includes('Cozinha com mesa') && message.includes('utm_source=qa'), 'Budget carries details, selection and campaign attribution');
+  verify(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Budget summary fits mobile');
+  await page.screenshot({ path: 'qa/briefing-mobile.png', fullPage: true });
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Baixar CSV', exact: true }).click();
+  const download = await downloadPromise; await download.saveAs('qa/lead.csv');
+  verify(download.suggestedFilename() === 'art-lead.csv', 'Prospection CSV downloads');
+  await goto('/blog');
+  const search = page.getByRole('searchbox', { name: 'Buscar nos guias' });
+  await search.fill('cozinha');
+  verify(await page.locator('.blog-grid .article-tile').count() === 1, 'Guides search filters articles');
+  await search.fill('zzzz');
+  verify(await page.getByRole('heading', { name: 'Ainda não temos um artigo sobre isso.' }).isVisible(), 'Guides have empty state');
+  await goto('/blog/cozinha-planejada-por-onde-comecar');
+  verify(await page.locator('.article-body section').count() === 5, 'Guide has complete content');
+  verify(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Guide fits mobile');
+  await page.screenshot({ path: 'qa/article-mobile.png', fullPage: true });
+  await goto('/privacidade');
+  await page.getByRole('button', { name: 'Apagar dados deste navegador', exact: true }).click();
+  verify(await page.evaluate(() => ['art-saved', 'art-draft', 'art-personal'].every(k => localStorage.getItem(k) === null)), 'Privacy clears stored data');
+  const response = await page.goto(base + '/pagina-inexistente');
+  verify(response.status() === 404, 'Unknown route returns HTTP 404');
+  const failurePage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  failurePage.on('pageerror', e => errors.push(e.message));
+  await failurePage.route('**/images/cozinha-integrada-*.webp', route => route.abort());
+  await failurePage.goto(base, { waitUntil: 'networkidle' });
+  await failurePage.getByRole('button', { name: 'Tentar novamente' }).waitFor({ state: 'visible' });
+  verify(await failurePage.getByRole('alert').isVisible(), 'Failed photograph shows retry state');
+  await failurePage.unroute('**/images/cozinha-integrada-*.webp');
+  await failurePage.getByRole('button', { name: 'Tentar novamente' }).click();
+  await failurePage.locator('.atlas-photo').evaluate(i => i.decode());
+  verify(await failurePage.getByRole('alert').count() === 0, 'Retry restores photograph');
+  await failurePage.close();
+  verify(errors.length === 0, 'No console errors or hydration failures');
+} finally {
+  await writeFile('qa/report.json', JSON.stringify({ base, checks, errors }, null, 2));
+  console.log(JSON.stringify({ base, checks: checks.length, failures: checks.filter(c => !c.pass), errors }, null, 2));
+  await browser.close();
+}

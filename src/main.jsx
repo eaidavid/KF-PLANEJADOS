@@ -3,6 +3,7 @@ import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import "./personal-home.css";
+import "./atlas.css";
 const root = document.getElementById("root");
 const app = (
   <StrictMode>

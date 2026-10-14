@@ -3,7 +3,7 @@ export const articles = [
     slug: "cozinha-planejada-por-onde-comecar",
     category: "Planejamento",
     environment: "cozinhas",
-    title: "Sua cozinha planejada começa antes do desenho.",
+    title: "Cozinha planejada: o que levar para o orçamento",
     description:
       "Uma lista prática para organizar medidas, eletrodomésticos e rotina antes de pedir um orçamento de cozinha planejada.",
     image: "cozinha-linear",
@@ -58,7 +58,7 @@ export const articles = [
     slug: "closet-ou-guarda-roupa-planejado",
     category: "Organização",
     environment: "quartos",
-    title: "Closet ou guarda-roupa: a resposta está na sua rotina.",
+    title: "Closet ou guarda-roupa: como decidir",
     description:
       "Como escolher entre closet e guarda-roupa planejado considerando espaço, organização, portas e hábitos de uso.",
     image: "quarto-madeira",
@@ -113,7 +113,7 @@ export const articles = [
     slug: "o-que-comparar-orcamento-moveis-planejados",
     category: "Escolhas",
     environment: "cozinhas",
-    title: "O que olhar em um orçamento de planejados.",
+    title: "Como comparar orçamentos de móveis planejados",
     description:
       "Materiais, ferragens, medidas, montagem e escopo: um guia para comparar propostas de móveis planejados com clareza.",
     image: "detalhe-madeira",
@@ -168,7 +168,7 @@ export const articles = [
     slug: "home-office-em-espacos-pequenos",
     category: "Ambientes",
     environment: "escritorios",
-    title: "Seu home office não precisa de um cômodo inteiro.",
+    title: "Como planejar um home office em pouco espaço",
     description:
       "Como planejar uma bancada de trabalho em espaços pequenos sem esquecer equipamentos, iluminação e armazenamento.",
     image: "escritorio-bancada",

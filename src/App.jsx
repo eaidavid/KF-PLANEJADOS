@@ -21,6 +21,8 @@ export default function App({ path = "/" }) {
   const [notebookOpen, setNotebookOpen] = useState(false);
   useEffect(() => {
     const initial = readStorage("art-saved", []);
+    // Restore browser-only data after hydrating the server's empty selection.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSaved(
       Array.isArray(initial)
         ? initial.filter((id) => projects.some((p) => p.id === id))
@@ -100,15 +102,15 @@ export default function App({ path = "/" }) {
       <a href="#conteudo" className="skip-link">
         Pular para o conteúdo
       </a>
-      <Header
-        path={cleanPath}
-        count={
-          saved.length + personal.priorities.length + (personal.scene ? 1 : 0)
-        }
-        openNotebook={() => setNotebookOpen(true)}
-      />
+      {cleanPath !== "/" && (
+        <Header
+          path={cleanPath}
+          count={saved.length}
+          openNotebook={() => setNotebookOpen(true)}
+        />
+      )}
       <main id="conteudo">{page}</main>
-      <Footer />
+      {cleanPath !== "/" && <Footer />}
       <PersonalNotebook
         open={notebookOpen}
         close={() => setNotebookOpen(false)}
@@ -127,10 +129,10 @@ export default function App({ path = "/" }) {
         <a
           className="floating-contact"
           href="/orcamento"
-          aria-label="Planejar meu ambiente"
+          aria-label="Solicitar orçamento"
         >
           <MessageCircle size={21} />
-          <span>Seu projeto começa aqui</span>
+          <span>Solicitar orçamento</span>
         </a>
       )}
     </>

@@ -13,9 +13,9 @@ const escape = (text) =>
 const routes = [
   {
     path: "/",
-    title: "ART Móveis Interiores | Ninguém mora como você",
+    title: "ART Móveis Interiores | Acervo de móveis planejados",
     description:
-      "Móveis planejados que começam pelo seu jeito de viver. Escolha o que importa, reúna referências no seu caderno e converse com a ART sobre sua casa.",
+      "Explore fotografias de cozinhas, quartos, salas e escritórios da ART Móveis. Amplie os detalhes e salve referências para seu pedido de orçamento.",
     image: "cozinha-integrada",
   },
   {
@@ -29,19 +29,19 @@ const routes = [
     path: "/sobre",
     title: "Conheça a ART Móveis Interiores | Marcenaria e planejados",
     description:
-      "Conheça o jeito ART de planejar móveis: entender sua rotina, aproveitar o espaço com intenção e conversar sobre cada detalhe do projeto.",
+      "ART Móveis Interiores: móveis planejados para cozinhas, quartos, salas, escritórios e banheiros. Consulte os projetos e os canais de atendimento.",
     image: "cozinha-aberta",
   },
   {
     path: "/blog",
-    title: "Journal ART | Guias para planejar móveis e ambientes",
+    title: "Guias de planejamento | ART Móveis Interiores",
     description:
       "Leia guias sobre cozinha planejada, closet, orçamento e home office. Perguntas e escolhas para planejar sua casa com clareza.",
     image: "cozinha-linear",
   },
   {
     path: "/orcamento",
-    title: "Comece seu projeto | Briefing de móveis planejados ART",
+    title: "Orçamento de móveis planejados | ART Móveis Interiores",
     description:
       "Organize seu projeto de móveis planejados em três etapas. Escolha os ambientes, reúna detalhes e revise o resumo antes de conversar no WhatsApp.",
     image: "cozinha-integrada",
@@ -84,7 +84,7 @@ const routes = [
   })),
   ...articles.map((a) => ({
     path: `/blog/${a.slug}`,
-    title: `${a.title} | Journal ART`,
+    title: `${a.title} | Guias ART`,
     description: a.description,
     image: a.image,
     article: a,
@@ -140,7 +140,7 @@ for (const route of routes) {
               {
                 "@type": "ListItem",
                 position: 2,
-                name: "Journal",
+                name: "Guias",
                 item: `${brand.url}/blog`,
               },
             ]

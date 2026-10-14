@@ -31,7 +31,7 @@ for (const path of paths) {
     axe.run(document, {
       runOnly: {
         type: "tag",
-        values: ["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"],
+        values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"],
       },
     }),
   );
@@ -50,33 +50,18 @@ for (const path of paths) {
   });
 }
 await page.goto(base, { waitUntil: "networkidle" });
-await page
-  .getByRole("button", { name: "Mais lugar para guardar", exact: true })
-  .click();
-await page.getByRole("button", { name: /^Meu caderno/ }).click();
-await page.addScriptTag({ content: axe });
-const notebookAudit = await page.evaluate(() =>
-  axe.run(document, {
-    runOnly: {
-      type: "tag",
-      values: ["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"],
-    },
-  }),
-);
-audit.push({
-  path: "/ [caderno aberto]",
-  violations: notebookAudit.violations.map((v) => ({
-    id: v.id,
-    impact: v.impact,
-    help: v.help,
-    nodes: v.nodes.map((n) => ({
-      target: n.target,
-      summary: n.failureSummary,
-    })),
-  })),
-  passes: notebookAudit.passes.length,
-});
-await page.keyboard.press("Escape");
+for (const [label, name] of [
+  ["índice aberto", "Abrir índice"],
+  ["seleção aberta", /^Seleção/],
+  ["detalhe ampliado", "Ampliar detalhe: Armários superiores"],
+]) {
+  await page.getByRole("button", { name }).click();
+  await page.addScriptTag({ content: axe });
+  const result = await page.evaluate(() => axe.run(document, { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"] } }));
+  audit.push({path: `/ [${label}]`, violations: result.violations.map(v => ({id: v.id, impact: v.impact, help: v.help, nodes: v.nodes.map(n => ({target: n.target, summary: n.failureSummary}))})), passes: result.passes.length});
+  if (label === "detalhe ampliado") await page.getByRole("button", { name: "Fechar detalhe" }).click();
+  else await page.keyboard.press("Escape");
+}
 const seo = [];
 for (const path of [
   ...paths,
@@ -116,7 +101,7 @@ for (const path of [
     ),
   });
   await page.addScriptTag({content:axe});
-  const mobileResult=await page.evaluate(()=>axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}}));
+  const mobileResult=await page.evaluate(()=>axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22a','wcag22aa']}}));
   audit.push({path:`${path} [320 px]`,violations:mobileResult.violations.map(v=>({id:v.id,impact:v.impact,help:v.help,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})),passes:mobileResult.passes.length});
 }
 await browser.close();

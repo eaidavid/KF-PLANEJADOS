@@ -33,28 +33,24 @@ export default function Project({ project, saved, toggle }) {
         </button>
       </div>
       <section className="project-story section-space">
-        <h2>
-          Uma referência.
-          <br />
-          Novas possibilidades.
-        </h2>
+        <h2>Sobre a fotografia</h2>
         <div>
           <p>{project.description}</p>
           <p>
-            O seu ambiente terá medidas, escolhas e necessidades próprias. Use
-            esta ideia como ponto de partida para uma conversa.
+            Para usar esta referência no seu projeto, informe as medidas do
+            imóvel no pedido de orçamento.
           </p>
           <a
             href={`/orcamento?ambiente=${project.category}`}
             className="button"
           >
-            Planejar um ambiente assim <ArrowUpRight size={18} />
+            Solicitar orçamento <ArrowUpRight size={18} />
           </a>
         </div>
       </section>
       <section className="section-space related-section">
         <div className="section-heading">
-          <h2>Outras formas de pensar.</h2>
+          <h2>Outras fotografias</h2>
           <a href={`/ambientes/${project.category}`} className="text-link">
             Explore o ambiente <ArrowUpRight size={18} />
           </a>
