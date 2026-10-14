@@ -185,17 +185,23 @@ try {
     () =>
       document.querySelector(".studio-home")?.dataset.motionEngine === "gsap",
   );
+  // Capture the rendered mask when the project event bubbles, before a busy
+  // browser can skip past the short transition between Playwright calls.
+  await page.evaluate(() => {
+    window.__artPhotoTransitionStart = null;
+    document.addEventListener("art:project", () => {
+      const mask = document.querySelector("[data-project-mask]");
+      window.__artPhotoTransitionStart = new DOMMatrixReadOnly(
+        getComputedStyle(mask).transform,
+      ).m11;
+    }, { once: true });
+  });
   await page
     .getByRole("button", { name: "Próximo projeto", exact: true })
     .click();
-  await page.waitForTimeout(70);
+  await page.waitForFunction(() => window.__artPhotoTransitionStart > 0.05);
   verify(
-    await page
-      .locator("[data-project-mask]")
-      .first()
-      .evaluate(
-        (e) => new DOMMatrixReadOnly(getComputedStyle(e).transform).m11 > 0.05,
-      ),
+    await page.evaluate(() => window.__artPhotoTransitionStart > 0.05),
     "Project click plays GSAP photo transition",
   );
   await settle();

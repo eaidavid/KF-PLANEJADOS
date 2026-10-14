@@ -9,6 +9,11 @@ html:has(.studio-home) {
   --studio-muted: #55584f;
   --studio-line: #bcb9af;
   --studio-brand: #b6202a;
+  --studio-content: 1200px;
+  --studio-gutter: max(32px, calc((100% - var(--studio-content)) / 2));
+  --studio-display: clamp(48px, 4.4vw, 68px);
+  --studio-display-compact: clamp(44px, 4.1vw, 64px);
+  --studio-display-action: clamp(64px, 6vw, 96px);
   background: var(--studio-paper);
   color: var(--studio-ink);
 }
@@ -72,7 +77,7 @@ html:has(.studio-home) {
 .environment-studio,
 .preparation-studio,
 .guide-studio {
-  padding: 64px 5vw 96px;
+  padding: 64px var(--studio-gutter);
 }
 .studio-section-label {
   display: flex;
@@ -98,15 +103,15 @@ html:has(.studio-home) {
 .preparation-heading {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 64px;
+  gap: 48px;
   align-items: end;
-  margin: 64px 0;
+  margin: 40px 0;
 }
-.studio-home h2 {
+.studio-home :where(.environment-heading, .preparation-heading, .guide-studio, .studio-final) h2 {
   font-family: var(--font-body);
   font-weight: 500;
-  font-size: clamp(48px, 7.7vw, 124px);
-  letter-spacing: -0.07em;
+  font-size: var(--studio-display);
+  letter-spacing: -0.06em;
   line-height: 1.03;
 }
 .environment-heading p,
@@ -144,7 +149,7 @@ html:has(.studio-home) {
 .environment-composition {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  gap: 64px;
+  gap: 48px;
   align-items: start;
 }
 .environment-tabs {
@@ -156,7 +161,7 @@ html:has(.studio-home) {
   grid-template-columns: 28px minmax(0, 1fr) 32px;
   gap: 20px;
   align-items: center;
-  min-height: 100px;
+  min-height: 72px;
   width: 100%;
   padding: 16px 0;
   text-align: left;
@@ -173,7 +178,7 @@ html:has(.studio-home) {
   font-variant-numeric: tabular-nums;
 }
 .env-tab-label {
-  font-size: clamp(32px, 4.2vw, 68px);
+  font-size: clamp(28px, 2.8vw, 40px);
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: -0.06em;
@@ -210,7 +215,7 @@ html:has(.studio-home) {
 }
 .environment-photo {
   width: 100%;
-  aspect-ratio: 1.07;
+  aspect-ratio: 1.35;
   object-fit: cover;
 }
 .environment-image-mark {
@@ -255,7 +260,7 @@ html:has(.studio-home) {
   grid-template-columns: minmax(0, 1fr) 280px;
 }
 .preparation-studio h2 {
-  font-size: clamp(48px, 6.9vw, 108px);
+  font-size: var(--studio-display-compact);
 }
 .preparation-heading p {
   color: var(--atlas-muted);
@@ -263,7 +268,7 @@ html:has(.studio-home) {
 .preparation-composition {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
-  gap: 64px;
+  gap: 48px;
   align-items: start;
 }
 .space-diagram {
@@ -351,11 +356,11 @@ html:has(.studio-home) {
   border-bottom-color: var(--atlas-text);
 }
 .preparation-panel {
-  min-height: 380px;
-  padding-top: 40px;
+  min-height: 340px;
+  padding-top: 32px;
 }
 .preparation-panel h3 {
-  font-size: clamp(25px, 2.5vw, 37px);
+  font-size: clamp(25px, 2.2vw, 32px);
   line-height: 1.24;
   font-weight: 500;
   letter-spacing: -0.045em;
@@ -424,7 +429,7 @@ html:has(.studio-home) {
 }
 .environment-question {
   border-top: 1px solid var(--atlas-line);
-  margin-top: 64px;
+  margin-top: 48px;
 }
 .environment-question > button {
   display: flex;
@@ -453,15 +458,15 @@ html:has(.studio-home) {
   color: var(--atlas-muted);
 }
 .guide-studio {
-  padding-bottom: 112px;
+  padding-bottom: 80px;
 }
 .guide-studio > h2 {
-  margin: 64px 0;
+  margin: 40px 0;
 }
 .guide-composition {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
-  gap: 80px;
+  gap: 48px;
 }
 .guide-feature-image {
   overflow: hidden;
@@ -486,7 +491,7 @@ html:has(.studio-home) {
   margin-top: 24px;
 }
 .guide-feature h3 {
-  font-size: clamp(28px, 3vw, 46px);
+  font-size: clamp(28px, 2.4vw, 36px);
   font-weight: 500;
   line-height: 1.22;
   letter-spacing: -0.05em;
@@ -517,7 +522,7 @@ html:has(.studio-home) {
   padding-top: 6px;
 }
 .guide-index h3 {
-  font-size: clamp(22px, 2.3vw, 34px);
+  font-size: clamp(22px, 1.8vw, 28px);
   font-weight: 500;
   letter-spacing: -0.035em;
   line-height: 1.35;
@@ -527,14 +532,14 @@ html:has(.studio-home) {
   color: var(--studio-brand);
 }
 .studio-final {
-  padding: 48px 5vw 64px;
+  padding: 48px var(--studio-gutter);
   background: var(--studio-brand);
   color: var(--atlas-text);
 }
 .studio-final > span {
   display: block;
   font-size: 10px;
-  margin-bottom: 64px;
+  margin-bottom: 40px;
 }
 .studio-final > a {
   display: flex;
@@ -545,11 +550,11 @@ html:has(.studio-home) {
   border-bottom: 1px solid #e68c9273;
 }
 .studio-final h2 {
-  font-size: clamp(64px, 11vw, 180px);
+  font-size: var(--studio-display-action);
 }
 .studio-final > a > svg {
   flex-shrink: 0;
-  width: clamp(56px, 9vw, 140px);
+  width: clamp(48px, 5vw, 72px);
   height: auto;
   margin-bottom: 12px;
 }
@@ -569,13 +574,19 @@ html:has(.studio-home) {
 .studio-home .footer-top > p {
   font-size: 24px;
 }
-@media (min-width: 1700px) {
-  .environment-studio,
-  .preparation-studio,
-  .guide-studio,
-  .studio-final {
-    padding-left: max(5vw, calc((100vw - 1700px) / 2));
-    padding-right: max(5vw, calc((100vw - 1700px) / 2));
+@media (min-width: 761px) {
+  .studio-home .atlas-home {
+    height: min(calc(100svh - 56px), 760px);
+    min-height: 560px;
+  }
+  .studio-home .atlas-stage {
+    width: min(calc(100% - 48px), 1440px);
+    margin: 16px auto 0;
+  }
+  .studio-home .atlas-header,
+  .studio-home .atlas-caption {
+    padding-left: max(32px, calc((100% - 1440px) / 2));
+    padding-right: max(32px, calc((100% - 1440px) / 2));
   }
 }
 @media (max-width: 1100px) {
@@ -584,15 +595,15 @@ html:has(.studio-home) {
     gap: 40px;
     grid-template-columns: minmax(0, 1fr) 240px;
   }
-  .studio-home h2 {
-    font-size: clamp(48px, 7.5vw, 88px);
+  .studio-home :where(.environment-heading, .preparation-heading, .guide-studio, .studio-final) h2 {
+    font-size: clamp(44px, 4.8vw, 56px);
   }
   .environment-composition,
   .preparation-composition {
     gap: 40px;
   }
   .environment-tabs > button {
-    min-height: 85px;
+    min-height: 72px;
     gap: 12px;
     grid-template-columns: 20px minmax(0, 1fr) 26px;
   }
@@ -606,7 +617,7 @@ html:has(.studio-home) {
     font-size: 10px;
   }
   .preparation-panel {
-    min-height: 420px;
+    min-height: 380px;
   }
   .guide-composition {
     gap: 48px;
@@ -615,7 +626,7 @@ html:has(.studio-home) {
     gap: 16px;
   }
   .studio-final h2 {
-    font-size: 11vw;
+    font-size: clamp(56px, 6.5vw, 72px);
   }
 }
 @media (max-width: 760px) {
@@ -647,7 +658,7 @@ html:has(.studio-home) {
     display: block;
     margin: 40px 0 32px;
   }
-  .studio-home h2 {
+  .studio-home :where(.environment-heading, .preparation-heading, .guide-studio, .studio-final) h2 {
     font-size: clamp(40px, 10.5vw, 76px);
     line-height: 1.08;
     letter-spacing: -0.06em;
@@ -839,7 +850,7 @@ html:has(.studio-home) {
     padding-left: 20px;
     padding-right: 20px;
   }
-  .studio-home h2 {
+  .studio-home :where(.environment-heading, .preparation-heading, .guide-studio, .studio-final) h2 {
     font-size: 38px;
   }
   .environment-tabs {

@@ -2,7 +2,7 @@
 
 Produção: https://artmoveis.vercel.app
 
-Publicação validada: `dpl_FZhpgKsr3fRiBdvHnw89ySydWh8F` (revisão da linguagem).
+Publicação validada: `dpl_6G8qR4xH7Q7LUEaknAUXQPStM8jq` (escala no desktop). Revisão da linguagem: `dpl_FZhpgKsr3fRiBdvHnw89ySydWh8F`.
 
 ## Entregue
 
@@ -36,6 +36,16 @@ Foram corrigidos três padrões observáveis: vocabulário de catálogo/sistema 
 O diagnóstico considera esses padrões de texto e composição, sem atribuir autoria. A apresentação institucional ainda tem pouca informação exclusiva: faltam histórias documentadas dos projetos e detalhes próprios do atendimento da ART. Não foram inventados relatos, depoimentos, garantias ou uma história da empresa para preencher essa lacuna. A galeria com fotografias reais, as ideias salvas e a preparação por ambiente mantêm a experiência ligada ao produto.
 
 Nesta revisão, build e ESLint passaram. As 86 verificações de interação, 31 estados de acessibilidade e 28 visitas de rota passaram localmente e no endereço público https://artmoveis.vercel.app, sem erros de navegador, violações axe, falhas de SEO ou overflow horizontal detectados. Capturas da home em 320 px, da seção de ambientes em desktop e do orçamento em mobile foram inspecionadas. A medição Lighthouse acima pertence à edição anterior de movimento; não foi repetida para a alteração de texto.
+
+## Ajuste da escala no desktop
+
+A largura útil das seções passou de até 1.700 px para 1.200 px. Títulos de até 124 px passaram a um máximo de 68 px; a chamada de orçamento passou de 180 px para até 96 px. A lista de ambientes, os títulos dos guias, os espaçamentos e as proporções das imagens foram reduzidos em conjunto. A galeria tem limite de 1.440 px de largura e 760 px de altura no desktop, mantendo zoom, detalhes e navegação. As regras dos títulos agora se aplicam apenas às seções editoriais.
+
+Comparação renderizada em 1366, 1440, 1920 e 2560 px; tablet em 768 px e celular em 390 px, sem overflow horizontal detectado. Capturas de desktop antes/depois inspecionadas. A escala mobile dos títulos permanece igual à versão anterior.
+
+Build, 86 verificações de interação, 31 estados axe e 28 visitas de rota passaram localmente após o ajuste, sem erros de navegador ou falhas detectadas no escopo automatizado. Lighthouse não foi repetido nesta alteração de CSS.
+
+No endereço público, confirmados os limites de escala nas seis larguras medidas e as 33 verificações da home. A checagem da máscara GSAP foi ajustada para registrar seu estado renderizado no evento de troca, em vez de tentar capturar uma janela fixa de 70 ms; os quadros da transição e seu retorno a zero foram conferidos. Sem mudança no motor de animação.
 
 ## Manutenção
 

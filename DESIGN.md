@@ -28,6 +28,8 @@ Desktop prioriza a imagem larga e a legenda inferior. Mobile mantém uma janela 
 
 ## Engenharia e estados
 
+Escala de desktop: conteúdo das seções limitado a 1.200 px, com margens externas que crescem em telas largas. Títulos de seção variam até 68 px, preparação até 64 px e chamada final até 96 px. A galeria usa uma janela de até 1.440 px de largura e 760 px de altura; a câmera continua permitindo ampliar e inspecionar detalhes. A escala mobile permanece própria. O tamanho da tela não deve transformar títulos e controles em cartazes ou alongar o percurso sem necessidade.
+
 Vite/React da base; 28 rotas pré-renderizadas com React DOM Server. Hidratação adiciona interações sem depender de conteúdo carregado por API. Conteúdo separado em catalog.js, articles.js e atlas.js. Câmera no hook usePhotoCamera; índice, seleção e orçamento em componentes próprios. Home compõe ProjectExplorer, StudioJourney e rodapé. Lettering mantém texto semântico separado dos glifos visuais. Estado de projeto no parâmetro URL `projeto`; seleção e rascunho no navegador; UTM na sessão. Preferências salvas na versão anterior são preservadas e exibidas apenas quando existem.
 
 Fotografias WebP locais responsivas, fontes locais e dimensões declaradas. GSAP Core e ScrollTrigger, sem bibliotecas adicionais de smooth scroll ou split de texto. O desenho de observação não tem escala nem dimensões inventadas. Estados de foto pendente, falha e nova tentativa; validação do formulário; busca sem resultados; seleção vazia; dados removíveis; 404 real. HTML individual com canonical, descrição, Open Graph, schema, sitemap e robots. A seleção segue no resumo do WhatsApp e no CSV do sistema de prospecção; não existe envio automático ao CRM.
