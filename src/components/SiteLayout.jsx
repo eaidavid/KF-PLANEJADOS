@@ -1,0 +1,199 @@
+import { useState, useEffect } from "react";
+import { ArrowUpRight, Menu, X, Heart } from "lucide-react";
+import { brand } from "../data/catalog";
+import { whatsappUrl } from "../lib/briefing";
+
+export function Logo({ light = false }) {
+  return (
+    <a
+      className={`brand ${light ? "brand-light" : ""}`}
+      href="/"
+    >
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M4 17 17 11v25L4 39z" fill="currentColor" opacity=".45" />
+        <path d="m20 9 13-6 4 2v30l-17-5z" fill="var(--primary)" />
+        <path d="M18 11v25l-5-2V13z" fill="currentColor" opacity=".75" />
+      </svg>
+      <span className="brand-words">
+        art móveis<span>interiores</span>
+      </span>
+      <span className="sr-only"> — início</span>
+    </a>
+  );
+}
+export function Header({ path, count }) {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        document.getElementById("menu-toggle")?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+  return (
+    <header className="site-header">
+      <div className="header-inner">
+        <Logo />
+        <nav className="desktop-nav" aria-label="Principal">
+          {[
+            ["Ambientes", "/ambientes"],
+            ["A ART", "/sobre"],
+            ["Journal", "/blog"],
+          ].map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              aria-current={path.startsWith(href) ? "page" : undefined}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+        <div className="header-actions">
+          <a
+            className="favorite-nav"
+            href="/favoritos"
+            aria-label={`Referências salvas: ${count}`}
+          >
+            <Heart size={19} />
+            <span>{count > 0 ? count : "Salvar ideias"}</span>
+          </a>
+          <a className="button button-small" href="/orcamento">
+            Vamos planejar <ArrowUpRight size={16} />
+          </a>
+          <button
+            className="menu-toggle icon-button"
+            id="menu-toggle"
+            aria-label={open ? "Fechar navegação" : "Abrir navegação"}
+            aria-controls="mobile-nav"
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
+      </div>
+      {open && (
+        <nav
+          className="mobile-nav"
+          id="mobile-nav"
+          aria-label="Navegação móvel"
+        >
+          {[
+            ["Início", "/"],
+            ["Ambientes", "/ambientes"],
+            ["A ART", "/sobre"],
+            ["Journal", "/blog"],
+            ["Minhas referências", "/favoritos"],
+            ["Começar meu projeto", "/orcamento"],
+          ].map(([label, href]) => (
+            <a key={href} href={href}>
+              {label}
+              <ArrowUpRight size={18} />
+            </a>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+}
+export function Footer() {
+  return (
+    <footer className="site-footer">
+      <div className="footer-top">
+        <Logo light />
+        <p>
+          A sua vida dá as medidas.
+          <br />A gente dá forma.
+        </p>
+        <a className="text-link light-link" href="/orcamento">
+          Converse sobre seu projeto <ArrowUpRight size={20} />
+        </a>
+      </div>
+      <div className="footer-links">
+        <div>
+          <span>Explore</span>
+          <a href="/ambientes">Ambientes e projetos</a>
+          <a href="/sobre">Conheça a ART</a>
+          <a href="/blog">Journal de interiores</a>
+          <a href="/favoritos">Referências salvas</a>
+        </div>
+        <div>
+          <span>Vamos conversar</span>
+          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
+            WhatsApp {brand.phone}
+            <ArrowUpRight size={14} />
+          </a>
+          <a href={brand.instagram} target="_blank" rel="noopener noreferrer">
+            Instagram <ArrowUpRight size={14} />
+          </a>
+          <a href={brand.maps} target="_blank" rel="noopener noreferrer">
+            Como chegar <ArrowUpRight size={14} />
+          </a>
+        </div>
+        <div className="footer-note">
+          <span>Feito para o seu espaço</span>
+          <p>
+            Cozinhas, quartos, salas, banheiros e espaços de trabalho. Móveis
+            planejados a partir do que você precisa.
+          </p>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <span>© 2026 Art Móveis Interiores</span>
+        <a href="/privacidade">Privacidade</a>
+        <a href="/link-bio">Todos os nossos links</a>
+        <span>Design que cabe na vida.</span>
+      </div>
+    </footer>
+  );
+}
+export function ContactBand() {
+  return (
+    <section className="contact-band">
+      <div>
+        <span className="section-kicker">Agora, o seu espaço.</span>
+        <h2>
+          O próximo ambiente
+          <br />
+          pode ser o seu.
+        </h2>
+      </div>
+      <div>
+        <p>
+          Conte como você vive, o que precisa guardar e o que quer mudar. Vamos
+          começar por aí.
+        </p>
+        <a className="button" href="/orcamento">
+          Começar meu projeto <ArrowUpRight size={18} />
+        </a>
+        <span className="contact-footnote">
+          Um briefing simples. Uma conversa de verdade.
+        </span>
+      </div>
+    </section>
+  );
+}
+export function Breadcrumb({ items }) {
+  return (
+    <nav className="breadcrumb" aria-label="Localização">
+      <a href="/">Início</a>
+      {items.map(([text, href], i) => (
+        <span key={text}>
+          <span aria-hidden="true">/</span>
+          {href ? (
+            <a href={href}>{text}</a>
+          ) : (
+            <span aria-current={i === items.length - 1 ? "page" : undefined}>
+              {text}
+            </span>
+          )}
+        </span>
+      ))}
+    </nav>
+  );
+}

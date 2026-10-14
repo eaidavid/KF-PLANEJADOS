@@ -8,6 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.ssr
+.vercel
+qa
 dist
 dist-ssr
 *.local
@@ -24,3 +27,4 @@ dist-ssr
 *.sw?
 
 .vercel
+.env*

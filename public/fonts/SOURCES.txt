@@ -1,0 +1,5 @@
+Google Fonts: Literata and Manrope
+https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400&family=Manrope:wght@400;500;600;700;800&display=swap
+SIL Open Font License
+https://github.com/google/fonts/tree/main/ofl/literata
+https://github.com/google/fonts/tree/main/ofl/manrope

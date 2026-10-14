@@ -1,0 +1,9 @@
+qa
+.ssr
+node_modules
+.git
+.env*
+scripts/inspect-assets.py
+scripts/optimize-assets.py
+scripts/qa.mjs
+scripts/quality.mjs
