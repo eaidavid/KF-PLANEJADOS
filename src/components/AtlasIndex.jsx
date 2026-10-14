@@ -28,7 +28,7 @@ export default function AtlasIndex({ open, close, active, select }) {
       onClose={close}
     >
       <div className="atlas-index-heading">
-        <h2 id="atlas-index-title">Acervo</h2>
+        <h2 id="atlas-index-title">Projetos</h2>
         <button
           onClick={close}
           aria-label="Fechar índice"
@@ -37,7 +37,7 @@ export default function AtlasIndex({ open, close, active, select }) {
           <X />
         </button>
       </div>
-      <div className="atlas-filters" role="group" aria-label="Filtrar acervo">
+      <div className="atlas-filters" role="group" aria-label="Filtrar projetos">
         {[{ slug: "todos", name: "Todos" }, ...environments].map((env) => (
           <button
             key={env.slug}
@@ -59,7 +59,7 @@ export default function AtlasIndex({ open, close, active, select }) {
                 select(p.id);
                 close();
               }}
-              aria-label={`Abrir ${p.title} ${environments.find(e => e.slug === p.category)?.name}`}
+              aria-label={`Abrir ${p.title} ${environments.find((e) => e.slug === p.category)?.name}`}
             >
               <Photo name={p.image} alt="" sizes="110px" />
               <span>
@@ -78,7 +78,7 @@ export default function AtlasIndex({ open, close, active, select }) {
       </div>
       <div className="atlas-index-links">
         <a href="/ambientes">
-          Ver acervo em lista <ArrowUpRight size={16} />
+          Ver todos os projetos <ArrowUpRight size={16} />
         </a>
         <a href="/blog">
           Guias <ArrowUpRight size={16} />

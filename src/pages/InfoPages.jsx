@@ -13,12 +13,12 @@ export function Privacy() {
       <p>Atualizado em 14 de outubro de 2026.</p>
       <h2>Seleção e rascunho do orçamento</h2>
       <p>
-        As escolhas de rotina, as referências salvas e o rascunho do briefing
-        ficam no armazenamento local deste navegador. Eles não são enviados
+        As escolhas de rotina, as ideias salvas e o rascunho do orçamento ficam
+        no armazenamento local deste navegador. Eles não são enviados
         automaticamente à ART. O rascunho pode conter nome, cidade, telefone
         opcional e detalhes do projeto. Use “Apagar rascunho” na página do
-        briefing para removê-lo. Você pode limpar as escolhas de rotina no
-        caderno ou remover todos os dados pelo controle abaixo.
+        orçamento para removê-lo. Você pode limpar as escolhas de rotina em suas
+        ideias ou remover todos os dados pelo controle abaixo.
       </p>
       <h2>Conversa pelo WhatsApp</h2>
       <p>
@@ -30,15 +30,15 @@ export function Privacy() {
       <h2>Origem de campanhas</h2>
       <p>
         Parâmetros de campanha (UTM) podem ser guardados durante a sessão para
-        identificar de onde veio a visita. Eles aparecem no resumo do briefing.
+        identificar de onde veio a visita. Eles aparecem no resumo do orçamento.
         Não utilizamos cookies de publicidade ou pixels de rastreamento nesta
         versão.
       </p>
       <h2>Arquivos e outros serviços</h2>
       <p>
-        Você pode baixar o briefing em texto ou CSV. Esses arquivos são criados
-        no navegador. Ao visitar Instagram, WhatsApp ou Maps, você acessa
-        serviços externos, sujeitos às suas próprias políticas.
+        Você pode baixar o resumo do orçamento em texto ou CSV. Esses arquivos
+        são criados no navegador. Ao visitar Instagram, WhatsApp ou Maps, você
+        acessa serviços externos, sujeitos às suas próprias políticas.
       </p>
       <h2>Remover informações deste navegador</h2>
       <p>
@@ -88,7 +88,7 @@ function ClearData() {
       </button>
       {cleared && (
         <p role="status">
-          Caderno, referências, rascunho e origem de campanha removidos.
+          Anotações, ideias salvas, rascunho e origem de campanha removidos.
         </p>
       )}
     </div>
@@ -132,10 +132,7 @@ export function NotFound() {
     <section className="not-found section-space">
       <span className="section-kicker">Página não encontrada</span>
       <h1>Página não encontrada</h1>
-      <p>
-        Este endereço não está no nosso acervo. Você pode explorar os ambientes
-        ou começar pela página inicial.
-      </p>
+      <p>Volte ao início para ver os projetos ou começar seu orçamento.</p>
       <a href="/" className="button">
         Voltar ao início <ArrowUpRight size={18} />
       </a>

@@ -90,7 +90,7 @@ for (const path of paths) {
 await page.goto(base, { waitUntil: "networkidle" });
 for (const [label, name] of [
   ["índice aberto", "Abrir índice"],
-  ["seleção aberta", /^Seleção/],
+  ["seleção aberta", /^Suas ideias/],
   ["detalhe ampliado", "Ampliar detalhe: Armários superiores"],
 ]) {
   await page.getByRole("button", { name }).click();
@@ -206,7 +206,7 @@ await page.goto(base, { waitUntil: "networkidle" });
 for (const id of ["ambientes", "preparar", "guias"]) {
   await page.locator(`#${id}`).scrollIntoViewIfNeeded();
   await page.waitForTimeout(1800);
-  if (id === "preparar") await page.getByRole("tab", { name: "As referências", exact: true }).click();
+  if (id === "preparar") await page.getByRole("tab", { name: "Suas ideias", exact: true }).click();
   await auditStudioState(`/ [${id}, 320 px]`);
 }
 await page.emulateMedia({ reducedMotion: "reduce" });

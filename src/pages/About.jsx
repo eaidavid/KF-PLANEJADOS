@@ -20,16 +20,16 @@ export default function About() {
             escritórios.
           </p>
           <p>
-            Este acervo reúne fotografias do projeto original da ART. Você pode
-            ampliar os detalhes, selecionar referências e enviá-las junto ao
-            pedido de orçamento.
+            Veja os projetos, olhe os detalhes e guarde as fotos que você
+            gostaria de mostrar pra gente. Na conversa, conte o que precisa
+            caber no seu móvel e como você usa esse espaço.
           </p>
         </div>
       </section>
       <div className="about-photo">
         <Photo
           name="cozinha-aberta"
-          alt="Cozinha e área de refeições do acervo ART"
+          alt="Cozinha e área de refeições ART"
           priority
           sizes="100vw"
         />
@@ -68,7 +68,7 @@ export default function About() {
           </a>
           <br />
           <a className="text-link" href="/orcamento">
-            Solicitar orçamento
+            Pedir um orçamento
             <ArrowUpRight size={18} />
           </a>
         </div>

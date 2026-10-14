@@ -52,7 +52,7 @@ export function buildBriefing(data, saved, attribution = {}, personal = {}) {
     ...(references.length
       ? [
           "",
-          "Referências salvas:",
+          "Projetos que salvei:",
           ...references.map((p) => `${p.title}: ${brand.url}/projetos/${p.id}`),
         ]
       : []),

@@ -12,7 +12,7 @@ export default function Project({ project, saved, toggle }) {
         <Breadcrumb
           items={[[env.name, `/ambientes/${env.slug}`], [project.title]]}
         />
-        <span className="section-kicker">{env.name} / acervo ART</span>
+        <span className="section-kicker">{env.name} / ART Móveis</span>
         <h1>{project.title}</h1>
         <p>{project.subtitle}</p>
       </div>
@@ -27,32 +27,33 @@ export default function Project({ project, saved, toggle }) {
           className={`save-button ${saved.includes(project.id) ? "is-saved" : ""}`}
           onClick={() => toggle(project.id)}
           aria-pressed={saved.includes(project.id)}
-          aria-label={`${saved.includes(project.id) ? "Remover" : "Salvar"} referência: ${project.title}`}
+          aria-label={`${saved.includes(project.id) ? "Remover" : "Salvar"} foto: ${project.title}`}
         >
           <Heart fill={saved.includes(project.id) ? "currentColor" : "none"} />
         </button>
       </div>
       <section className="project-story section-space">
-        <h2>Sobre a fotografia</h2>
+        <h2>Detalhes desse ambiente</h2>
         <div>
           <p>{project.description}</p>
           <p>
-            Para usar esta referência no seu projeto, informe as medidas do
-            imóvel no pedido de orçamento.
+            Se algum detalhe servir de ideia para o seu móvel, salve a foto e
+            conte isso no orçamento. As medidas podem ser aproximadas nesta
+            primeira conversa.
           </p>
           <a
             href={`/orcamento?ambiente=${project.category}`}
             className="button"
           >
-            Solicitar orçamento <ArrowUpRight size={18} />
+            Quero um orçamento <ArrowUpRight size={18} />
           </a>
         </div>
       </section>
       <section className="section-space related-section">
         <div className="section-heading">
-          <h2>Outras fotografias</h2>
+          <h2>Mais ideias</h2>
           <a href={`/ambientes/${project.category}`} className="text-link">
-            Explore o ambiente <ArrowUpRight size={18} />
+            Ver projetos desse ambiente <ArrowUpRight size={18} />
           </a>
         </div>
         <div className="project-grid">

@@ -9,20 +9,20 @@ export const articles = [
     image: "cozinha-linear",
     minutes: 5,
     intro:
-      "Antes de escolher a cor das portas, pense em como a cozinha funciona hoje. Onde falta apoio? O que fica difícil de alcançar? Onde duas pessoas acabam disputando espaço? Essas respostas ajudam a fazer um projeto que resolve problemas reais.",
+      "Pense na última vez que você cozinhou. Faltou bancada para cortar os alimentos? Alguma panela ficou difícil de alcançar? Anote o que atrapalha hoje e o que precisa de lugar nos armários.",
     sections: [
       {
-        title: "Comece pelo uso, não pelo acabamento",
+        title: "Conte como você usa a cozinha",
         paragraphs: [
           "Anote quem cozinha, com que frequência e o que costuma preparar. Uma cozinha usada para refeições rápidas pede uma organização diferente de uma que recebe família e amigos no fim de semana.",
-          "Liste o que precisa guardar: panelas grandes, pequenos eletrodomésticos, louças, alimentos, produtos de limpeza. O volume desses itens ajuda a definir a divisão dos armários. Não é necessário ter uma solução pronta; é necessário mostrar o que precisa caber.",
+          "Liste o que precisa guardar: panelas grandes, pequenos eletrodomésticos, louças, alimentos, produtos de limpeza. Essa lista ajuda a decidir quantas gavetas e prateleiras você vai precisar.",
         ],
       },
       {
-        title: "Registre o espaço e as interferências",
+        title: "Mostre a parede e o que fica ao redor",
         paragraphs: [
           "Meça aproximadamente as paredes e registre portas, janelas, pilares e rodapés. Tire fotos que mostrem cada lado do ambiente, incluindo as áreas que parecem menos importantes.",
-          "Marque os pontos de água, esgoto, gás e energia. Se houver mudança nessas instalações, combine a avaliação com os profissionais responsáveis antes da fabricação. Medidas preliminares servem para conversar; a confirmação do local faz parte da preparação para executar.",
+          "Marque os pontos de água, esgoto, gás e energia. Se essas instalações forem mudar, converse com os profissionais responsáveis antes da fabricação dos móveis. As medidas aproximadas ajudam no primeiro contato; as medidas finais precisam ser conferidas no local.",
         ],
       },
       {
@@ -33,23 +33,20 @@ export const articles = [
         ],
       },
       {
-        title: "Compare propostas pelo escopo",
+        title: "Confira o que cada orçamento inclui",
         paragraphs: [
           "Veja se o orçamento identifica materiais, acabamento, ferragens, organização interna, transporte e montagem. Duas propostas com o mesmo número de portas podem incluir soluções muito diferentes.",
           "Pergunte quais itens estão incluídos e quais dependem de outro fornecedor. Bancadas, iluminação e alterações nas instalações devem estar claramente descritas. Assim, a comparação parte de entregas equivalentes.",
         ],
       },
       {
-        title: "Leve um briefing simples para a primeira conversa",
+        title: "Separe o que já tem para a conversa",
         list: [
           "Fotos e medidas aproximadas do ambiente.",
           "Modelos dos eletrodomésticos e seus manuais.",
           "Lista do que precisa guardar.",
           "Referências do que você gosta e do que quer evitar.",
           "Situação da obra e momento desejado para a instalação.",
-        ],
-        paragraphs: [
-          "Com essas informações, a conversa deixa de ser apenas “quanto custa uma cozinha?” e passa a ser sobre a cozinha que você realmente precisa.",
         ],
       },
     ],
@@ -64,7 +61,7 @@ export const articles = [
     image: "quarto-madeira",
     minutes: 4,
     intro:
-      "O melhor armazenamento não é o que tem mais divisórias. É o que facilita guardar, encontrar e usar suas coisas. Antes de decidir entre closet e guarda-roupa, faça um pequeno inventário do que precisa de espaço.",
+      "Abra o armário e olhe o que está apertado ou sem lugar. Roupas de cabide, peças dobradas, sapatos e malas pedem espaços diferentes. Essa lista ajuda a escolher entre closet e guarda-roupa.",
     sections: [
       {
         title: "Olhe para o que você já possui",
@@ -74,17 +71,17 @@ export const articles = [
         ],
       },
       {
-        title: "O espaço precisa funcionar com você dentro dele",
+        title: "Deixe espaço para abrir portas e circular",
         paragraphs: [
           "Considere não apenas a profundidade do móvel, mas também o espaço à frente dele. É preciso abrir portas, acessar gavetas e circular. No closet, a passagem entre módulos e o lugar para se vestir entram na mesma conta.",
           "Leve para a conversa a posição da cama, das janelas, das tomadas e das portas do quarto. Um armário que cabe na parede pode ainda atrapalhar a circulação ou a entrada de luz.",
         ],
       },
       {
-        title: "Aberto ou fechado é uma escolha de uso",
+        title: "Decida o que você prefere deixar à vista",
         paragraphs: [
           "Um closet aberto deixa as peças visíveis e favorece o acesso. Também exige atenção à organização e à limpeza. Portas permitem esconder o conteúdo e podem se integrar visualmente ao quarto.",
-          "Portas de correr e de abrir usam o espaço de formas diferentes. Converse sobre acesso aos compartimentos, posição das gavetas e interferências com outros móveis. A escolha deve ser avaliada no seu layout.",
+          "Portas de correr e de abrir usam o espaço de formas diferentes. Confira se você consegue alcançar as prateleiras e abrir as gavetas sem esbarrar na cama ou em outro móvel.",
         ],
       },
       {
@@ -101,10 +98,9 @@ export const articles = [
         ],
       },
       {
-        title: "Salve referências com uma intenção",
+        title: "Conte o que você gostou nas fotos",
         paragraphs: [
           "Ao salvar uma foto, anote o que você gostou: a organização, as portas, a cor ou a integração com a cabeceira. Isso ajuda a separar a preferência visual da necessidade prática.",
-          "O briefing é o lugar para reunir essas referências e conversar sobre uma solução própria para o quarto.",
         ],
       },
     ],
@@ -115,11 +111,11 @@ export const articles = [
     environment: "cozinhas",
     title: "Como comparar orçamentos de móveis planejados",
     description:
-      "Materiais, ferragens, medidas, montagem e escopo: um guia para comparar propostas de móveis planejados com clareza.",
+      "O que conferir nos materiais, nas ferragens, nas medidas e na montagem antes de aprovar seus móveis planejados.",
     image: "detalhe-madeira",
     minutes: 5,
     intro:
-      "Comparar apenas o total da proposta pode esconder diferenças importantes. Um orçamento de móveis planejados deve ajudar você a entender o que será entregue, como será executado e quais decisões ainda precisam ser tomadas.",
+      "Dois orçamentos podem mostrar móveis parecidos e incluir coisas diferentes. Coloque as propostas lado a lado e confira materiais, ferragens, medidas e montagem antes de comparar o preço final.",
     sections: [
       {
         title: "Peça a descrição de cada ambiente",
@@ -136,7 +132,7 @@ export const articles = [
         ],
       },
       {
-        title: "Ferragens fazem parte da experiência diária",
+        title: "Confira como portas e gavetas vão abrir",
         paragraphs: [
           "Dobradiças, corrediças e mecanismos de abertura influenciam como você usa o móvel. Verifique o que está previsto, quais são as características de operação e o que pode ser substituído no futuro.",
           "Pergunte também sobre os acessórios internos. Uma gaveta comum, um organizador e um mecanismo especial são itens diferentes. Compare propostas com a mesma composição.",
@@ -158,9 +154,6 @@ export const articles = [
           "Condições de pagamento e prazo combinado.",
           "Orientações de conservação e atendimento após a instalação.",
         ],
-        paragraphs: [
-          "Se alguma informação estiver vaga, peça esclarecimento. Um orçamento bem entendido é a base para decidir com mais segurança e acompanhar a execução.",
-        ],
       },
     ],
   },
@@ -174,7 +167,7 @@ export const articles = [
     image: "escritorio-bancada",
     minutes: 4,
     intro:
-      "Um trecho de parede, um canto do quarto ou uma área da sala podem receber um espaço de trabalho. A primeira decisão é entender o que essa bancada precisa fazer e como ela convive com o restante da casa.",
+      "Comece pelo tamanho do seu equipamento e pelo lugar da cadeira. No quarto ou na sala, a bancada também precisa deixar espaço para quem passa.",
     sections: [
       {
         title: "Descreva um dia de trabalho",
@@ -184,7 +177,7 @@ export const articles = [
         ],
       },
       {
-        title: "A bancada precisa conversar com a cadeira",
+        title: "Teste a bancada junto com a cadeira",
         paragraphs: [
           "Avalie o conjunto com a cadeira que será usada. O espaço sob a bancada precisa permitir movimento e acomodar as pernas. Gavetas e módulos laterais não devem disputar esse espaço.",
           "Teste a posição dos equipamentos antes de aprovar o desenho. Uma simulação simples no ambiente pode revelar interferências que não aparecem em uma foto de referência.",
@@ -200,7 +193,7 @@ export const articles = [
       {
         title: "Quando o espaço tem mais de uma função",
         paragraphs: [
-          "No quarto, o trabalho divide espaço com descanso e armazenamento. Na sala, a bancada precisa conviver com circulação e convivência. Defina o que permanece exposto e o que você quer guardar ao terminar o dia.",
+          "No quarto, pense na distância até a cama e até o armário. Na sala, confira se a cadeira deixa passagem quando está em uso. Defina o que fica sobre a bancada e o que você quer guardar ao terminar o dia.",
           "Portas, nichos e gavetas podem ajudar nessa transição, mas devem responder aos objetos que você possui. Evite copiar uma composição apenas porque ela parece bonita vazia.",
         ],
       },
@@ -214,7 +207,7 @@ export const articles = [
           "Referências de acabamento e de organização.",
         ],
         paragraphs: [
-          "Um bom espaço de trabalho começa com as condições reais da casa. Use o briefing para reunir essas informações e discutir as possibilidades.",
+          "Se puder, tire uma foto com a cadeira no lugar e os equipamentos sobre uma mesa. Ela ajuda a mostrar quanto espaço você usa para trabalhar.",
         ],
       },
     ],

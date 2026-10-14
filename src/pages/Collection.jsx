@@ -24,24 +24,24 @@ export default function Collection({
           items={
             environment
               ? [["Ambientes", "/ambientes"], [environment.name]]
-              : [[favorites ? "Referências salvas" : "Ambientes"]]
+              : [[favorites ? "Suas ideias salvas" : "Ambientes"]]
           }
         />
         <span className="section-kicker">
-          {favorites ? "Sua seleção" : "Móveis planejados"}
+          {favorites ? "Para o seu projeto" : "Móveis planejados"}
         </span>
         <h1>
           {favorites
-            ? "Referências salvas"
+            ? "Suas ideias salvas"
             : environment
               ? environment.title
-              : "Acervo de projetos"}
+              : "Projetos e ambientes"}
         </h1>
         <p>
           {favorites
-            ? "Fotografias selecionadas para acompanhar seu pedido de orçamento."
+            ? "Estas são as fotos que você guardou. Você pode comparar as ideias e levá-las para a conversa sobre o seu móvel."
             : (environment?.description ??
-              "Filtre as fotografias por ambiente ou abra o explorador em tela cheia.")}
+              "Veja os projetos e guarde as ideias que você quer levar para o seu orçamento.")}
         </p>
       </div>
       <section className="collection-section">
@@ -68,8 +68,7 @@ export default function Collection({
           )}
         </div>
         <p className="result-count" role="status">
-          {list.length} {list.length === 1 ? "referência" : "referências"} no
-          acervo
+          {list.length} {list.length === 1 ? "projeto" : "projetos"}
         </p>
         {list.length ? (
           <div className="project-grid">
@@ -85,14 +84,14 @@ export default function Collection({
         ) : (
           <div className="empty-state">
             <Heart size={30} />
-            <h2>Nenhuma referência salva.</h2>
+            <h2>Suas ideias vão aparecer aqui.</h2>
             <p>
               {favorites
-                ? "Salve as fotos que chamarem sua atenção usando o coração ao lado de cada projeto."
-                : "Ainda não há referências salvas neste ambiente. Explore os projetos e marque suas ideias favoritas."}
+                ? "Use o coração nos projetos que gostar. Assim, você reúne as fotos para olhar de novo e conversar com a gente."
+                : "Você ainda não guardou fotos desse ambiente. Use o coração nos projetos que gostar."}
             </p>
             <a href="/ambientes" className="button">
-              Explorar ambientes <ArrowUpRight size={18} />
+              Ver os projetos <ArrowUpRight size={18} />
             </a>
           </div>
         )}

@@ -45,8 +45,8 @@ export function Journal() {
         <Breadcrumb items={[["Guias"]]} />
         <h1>Guias de planejamento</h1>
         <p>
-          Medidas, materiais e informações para preparar um pedido de móveis
-          planejados.
+          Veja o que conferir nas medidas, nos armários e no orçamento antes de
+          escolher seus móveis.
         </p>
       </section>
       <section className="blog-list section-space">
@@ -161,12 +161,13 @@ export function Article({ article }) {
             </section>
           ))}
           <div className="article-end">
-            <h2>Preparar o orçamento</h2>
+            <h2>Vamos falar do seu espaço?</h2>
             <p>
-              Reúna necessidades, medidas e referências em um briefing simples.
+              Conte o que você quer fazer e leve as fotos de que gostou. As
+              medidas podem ser aproximadas para a primeira conversa.
             </p>
             <a href={`/orcamento?ambiente=${env.slug}`} className="button">
-              Preencher pedido <ArrowUpRight size={18} />
+              Pedir um orçamento <ArrowUpRight size={18} />
             </a>
           </div>
           <a href="/blog" className="text-link">

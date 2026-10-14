@@ -1,8 +1,8 @@
-# ART Móveis — home expandida e movimento
+# ART Móveis — home, movimento e linguagem
 
 Produção: https://artmoveis.vercel.app
 
-Publicação validada: `dpl_FeNunRsm1Z3JnebyGKEUdkXCxuK8`.
+Publicação validada: `dpl_FZhpgKsr3fRiBdvHnw89ySydWh8F` (revisão da linguagem).
 
 ## Entregue
 
@@ -23,9 +23,19 @@ Blog com quatro guias, acervo em lista, seleção persistente, rascunho, orçame
 - 28 visitas de rota verificadas para HTML, H1, descrição, canonical e schema. Build gera 28 páginas e sitemap de 24 URLs indexáveis.
 - Falha do chunk GSAP testada: conteúdo e seleção de ambientes continuam disponíveis. Preferência de movimento pode mudar durante a visita.
 - Bundle principal comprimido em aproximadamente 85 KB, CSS em 11 KB e chunk GSAP em 45 KB. O chunk de movimento é separado do carregamento principal. Instalação npm sem vulnerabilidades reportadas.
-- Lighthouse mobile final: desempenho 99, acessibilidade 100, boas práticas 100, SEO 100. LCP 1,8 s, CLS 0,002 e TBT 100 ms. A primeira medição da extensão tinha desempenho 89 e TBT 410 ms; carregar o motor mediante intenção removeu esse trabalho da abertura, mantendo os efeitos disponíveis nas interações.
+- Lighthouse mobile da edição de movimento (`dpl_FeNunRsm1Z3JnebyGKEUdkXCxuK8`): desempenho 99, acessibilidade 100, boas práticas 100, SEO 100. LCP 1,8 s, CLS 0,002 e TBT 100 ms. A primeira medição da extensão tinha desempenho 89 e TBT 410 ms; carregar o motor mediante intenção removeu esse trabalho da abertura, mantendo os efeitos disponíveis nas interações.
 
 Relatórios e capturas em `qa/`, ignorado pelo Git. Código de validação em `scripts/qa.mjs`, `scripts/studio-qa.mjs` e `scripts/quality.mjs`. Medição sintética final em `qa/studio-lighthouse-final.json`; não representa métricas de campo ou promessa de posicionamento em busca.
+
+## Revisão da linguagem
+
+A home, os projetos, o formulário, as ideias salvas, os quatro guias e as descrições de busca receberam uma revisão voltada a quem está planejando os móveis da casa. A linguagem parte do cômodo, das fotos, do que precisa ser guardado e das informações necessárias para conversar sobre o orçamento.
+
+Foram corrigidos três padrões observáveis: vocabulário de catálogo/sistema em chamadas para clientes; explicações da própria interface em lugar de orientação útil; e contrastes, metáforas e conclusões repetitivas nos guias. Exemplos: “seleção” passou a “suas ideias”; “briefing” passou a “resumo do orçamento”; “a bancada precisa conversar com a cadeira” passou a uma instrução para testar a bancada junto com a cadeira. Nomes e descrições factuais dos projetos foram preservados.
+
+O diagnóstico considera esses padrões de texto e composição, sem atribuir autoria. A apresentação institucional ainda tem pouca informação exclusiva: faltam histórias documentadas dos projetos e detalhes próprios do atendimento da ART. Não foram inventados relatos, depoimentos, garantias ou uma história da empresa para preencher essa lacuna. A galeria com fotografias reais, as ideias salvas e a preparação por ambiente mantêm a experiência ligada ao produto.
+
+Nesta revisão, build e ESLint passaram. As 86 verificações de interação, 31 estados de acessibilidade e 28 visitas de rota passaram localmente e no endereço público https://artmoveis.vercel.app, sem erros de navegador, violações axe, falhas de SEO ou overflow horizontal detectados. Capturas da home em 320 px, da seção de ambientes em desktop e do orçamento em mobile foram inspecionadas. A medição Lighthouse acima pertence à edição anterior de movimento; não foi repetida para a alteração de texto.
 
 ## Manutenção
 

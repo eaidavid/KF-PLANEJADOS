@@ -51,9 +51,9 @@ export default function App({ path = "/" }) {
     setNotice(
       stored
         ? next.includes(id)
-          ? "Referência salva para o seu projeto."
-          : "Referência removida."
-        : "Seleção atualizada. Este navegador não permitiu salvar para depois.",
+          ? "Foto salva nas suas ideias."
+          : "Foto removida das suas ideias."
+        : "Sua lista foi atualizada. O navegador não conseguiu salvá-la para depois.",
     );
   };
   const changePersonal = (value) => {

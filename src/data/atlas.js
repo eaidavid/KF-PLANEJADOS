@@ -55,7 +55,7 @@ export const photoDetails = {
     },
     {
       label: "Apoio lateral",
-      text: "Um módulo de apoio se integra à composição do quarto.",
+      text: "O apoio lateral fica ao lado da cabeceira.",
       x: 0.38,
       y: 0.73,
     },
@@ -97,7 +97,7 @@ export const photoDetails = {
     },
     {
       label: "Portas",
-      text: "As portas acompanham o gabinete ao lado das gavetas.",
+      text: "Portas do gabinete ao lado das gavetas.",
       x: 0.43,
       y: 0.43,
     },
@@ -124,7 +124,7 @@ export const photoDetails = {
       y: 0.57,
     },
     {
-      label: "Armazenamento lateral",
+      label: "Armários sob a bancada",
       text: "Os armários ficam sob o lado esquerdo da bancada.",
       x: 0.2,
       y: 0.73,
@@ -139,7 +139,7 @@ export const photoDetails = {
     },
     {
       label: "Portas claras",
-      text: "As frentes claras acompanham a altura do móvel.",
+      text: "Portas claras acima das gavetas.",
       x: 0.61,
       y: 0.39,
     },

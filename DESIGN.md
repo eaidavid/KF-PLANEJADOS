@@ -37,3 +37,9 @@ Referências técnicas: [GSAP context](https://gsap.com/docs/v3/GSAP/gsap.contex
 ## Revisão
 
 Verificar fotos e coordenadas, enquadramento mobile, teclado, foco, reduced-motion, falha de imagem, persistência e pedido revisável. Auditar rotas e estados com axe, testar 320/390/768/1440 px e medir desempenho em produção. Critérios internos: identidade, hierarquia, tipografia, composição, especificidade, interação, responsividade, acessibilidade, engenharia e desempenho; mínimo 8/10 por categoria. Notas internas não substituem evidências técnicas nem a avaliação do cliente.
+
+## Voz da ART
+
+Falar com quem está escolhendo os móveis: o que quer guardar, onde o móvel vai ficar e o que gostou nas fotos. Usar "projetos", "suas ideias" e "orçamento" na interface. Reservar nomes técnicos de arquivos e integração para o código e a documentação. "Pra gente" cabe em convites pontuais; labels, instruções de medida e mensagens de erro continuam diretos.
+
+Preservar descrições que identificam as peças da fotografia. Trocar abstrações como "a bancada precisa conversar com a cadeira" por uma ação que o cliente consegue executar. Cortar contrastes publicitários e conclusões que apenas repetem o guia. A copy pode acolher dúvidas sobre medidas sem prometer preço, visita, prazo ou condições comerciais que não foram confirmados.

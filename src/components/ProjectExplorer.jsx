@@ -108,15 +108,15 @@ export default function ProjectExplorer({ saved, toggle, openNotebook }) {
     <div className="atlas-home" id="acervo" onKeyDown={keys}>
       <header className="atlas-header">
         <Logo light />
-        <h1>Acervo de móveis planejados</h1>
+        <h1>Projetos de móveis planejados</h1>
         <div>
           <button
             className="atlas-selection"
             onClick={openNotebook}
-            aria-label={`Seleção ${saved.length}`}
+            aria-label={`Suas ideias ${saved.length}`}
           >
             <Bookmark size={16} />
-            <span>Seleção</span> <b>{saved.length}</b>
+            <span>Suas ideias</span> <b>{saved.length}</b>
           </button>
           <a
             href="/orcamento"
@@ -324,7 +324,7 @@ export default function ProjectExplorer({ saved, toggle, openNotebook }) {
             data-motion-press
             onClick={() => toggle(project.id)}
             aria-pressed={selected}
-            aria-label={`${selected ? "Remover" : "Salvar"} referência: ${project.title}`}
+            aria-label={`${selected ? "Remover" : "Salvar"} foto: ${project.title}`}
           >
             <Heart size={17} fill={selected ? "currentColor" : "none"} />
             <span>{selected ? "Salvo" : "Salvar"}</span>
@@ -363,7 +363,7 @@ export default function ProjectExplorer({ saved, toggle, openNotebook }) {
       )}
       <noscript>
         <div className="atlas-noscript">
-          Para ver outras fotos, abra o <a href="/ambientes">acervo em lista</a>
+          Para ver outras fotos, abra <a href="/ambientes">todos os projetos</a>
           .
         </div>
       </noscript>

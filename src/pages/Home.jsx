@@ -62,7 +62,7 @@ export default function Home({ saved, toggle, openNotebook }) {
           Guias
         </a>
         <a href="#acervo" className="wayfinder-return" data-motion-hover>
-          Acervo <ArrowUpRight size={14} />
+          Projetos <ArrowUpRight size={14} />
         </a>
       </nav>
       <StudioJourney saved={saved} openNotebook={openNotebook} />

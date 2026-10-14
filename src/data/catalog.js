@@ -15,7 +15,8 @@ export const environments = [
     singular: "Cozinha",
     image: "cozinha-integrada",
     title: "Cozinhas planejadas",
-    description: "Projetos com armários, bancadas e áreas de refeições.",
+    description:
+      "Ideias de armários e bancadas para o que você guarda e prepara na cozinha.",
     considerations: [
       "Onde ficam os pontos de água, gás e energia?",
       "Quais eletrodomésticos precisam entrar no projeto?",
@@ -28,7 +29,8 @@ export const environments = [
     singular: "Quarto e closet",
     image: "quarto-madeira",
     title: "Quartos e closets",
-    description: "Referências de armários, gavetas e painéis para quartos.",
+    description:
+      "Pense no que precisa guardar e veja ideias de armários, gavetas e painéis para o quarto.",
     considerations: [
       "Você prefere portas de abrir ou de correr?",
       "Quanto espaço precisa para cabides, gavetas e sapatos?",
@@ -41,7 +43,8 @@ export const environments = [
     singular: "Sala",
     image: "sala-ripada",
     title: "Salas e painéis",
-    description: "Painéis de TV, estantes e módulos de armazenamento.",
+    description:
+      "Painéis de TV, prateleiras e armários para o que você quer expor ou guardar na sala.",
     considerations: [
       "Qual é o tamanho da TV e a distância até o sofá?",
       "Quais equipamentos e cabos precisam ficar acessíveis?",
@@ -54,7 +57,8 @@ export const environments = [
     singular: "Home office",
     image: "escritorio-musica",
     title: "Escritórios e home offices",
-    description: "Bancadas de trabalho e armazenamento para escritórios.",
+    description:
+      "Uma bancada para trabalhar e lugar para os equipamentos, livros e papéis que ficam por perto.",
     considerations: [
       "Quantas pessoas vão usar a bancada?",
       "Quais equipamentos, livros e materiais precisam de espaço?",
@@ -67,7 +71,8 @@ export const environments = [
     singular: "Banheiro",
     image: "banheiro-escuro",
     title: "Gabinetes para banheiros",
-    description: "Projetos com portas e gavetas sob a bancada.",
+    description:
+      "Portas e gavetas para pensar onde guardar seus produtos de higiene e limpeza.",
     considerations: [
       "Onde ficam o sifão e os pontos hidráulicos?",
       "Qual bancada e cuba serão utilizadas?",
@@ -172,7 +177,7 @@ export const projects = [
 export const faqs = [
   [
     "Como começo meu projeto?",
-    "Escolha os ambientes e conte um pouco sobre o imóvel no briefing. Depois, abra a conversa no WhatsApp com o resumo pronto. A equipe poderá avaliar suas referências, medidas e necessidades.",
+    "Escolha os ambientes e conte o que quer fazer no formulário de orçamento. Depois, abra o WhatsApp com o resumo pronto. As fotos que você salvou aparecem junto para mostrar suas ideias à equipe.",
   ],
   [
     "Preciso ter todas as medidas?",
@@ -180,14 +185,14 @@ export const faqs = [
   ],
   [
     "Quanto custa um móvel planejado?",
-    "O valor depende do tamanho, dos materiais, das ferragens, da divisão interna e da instalação. Por isso, o site não apresenta preços por metro ou estimativas automáticas. O orçamento deve descrever o escopo do seu projeto.",
+    "O valor depende do tamanho, dos materiais, das ferragens, da divisão interna e da instalação. Por isso, o site não apresenta preços por metro ou estimativas automáticas. Peça um orçamento que mostre o que está incluído em cada móvel.",
   ],
   [
     "Posso usar os projetos como referência?",
-    "Sim. Salve os ambientes que chamarem sua atenção. Eles vão aparecer no seu briefing como referências, para conversar sobre o que faz sentido no seu espaço. Cada projeto precisa de avaliação própria.",
+    "Sim. Salve as fotos de que gostar e conte qual detalhe você imagina no seu móvel. Os projetos salvos aparecem no resumo do orçamento.",
   ],
   [
     "Como são combinados prazo e instalação?",
-    "Esses detalhes são definidos durante o orçamento. Confirme o escopo, a sequência da obra, a medição, o transporte e a montagem antes de aprovar a proposta.",
+    "Esses detalhes são definidos durante o orçamento. Confira os móveis e serviços incluídos, a sequência da obra, a medição, o transporte e a montagem antes de aprovar a proposta.",
   ],
 ];

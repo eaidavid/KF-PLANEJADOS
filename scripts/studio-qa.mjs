@@ -118,7 +118,7 @@ try {
   await settle();
   verify(
     (await page.locator(".preparation-panel h3").textContent()) ===
-      "Largura, altura e pontos fixos",
+      "Meça o espaço que você tem",
     "Preparation click changes instruction",
   );
   verify(
@@ -131,13 +131,13 @@ try {
     .press("ArrowRight");
   verify(
     (await prepTabs()
-      .getByRole("tab", { name: "As referências", exact: true })
+      .getByRole("tab", { name: "Suas ideias", exact: true })
       .getAttribute("aria-selected")) === "true",
     "Preparation tabs support keyboard",
   );
   await page
     .getByRole("button", {
-      name: "Perguntas para salas e painéis",
+      name: "O que pensar para salas e painéis",
       exact: true,
     })
     .click();
@@ -147,7 +147,7 @@ try {
   );
   await page
     .getByRole("button", {
-      name: "Perguntas para salas e painéis",
+      name: "O que pensar para salas e painéis",
       exact: true,
     })
     .click();
@@ -156,11 +156,11 @@ try {
     "Questions collapse",
   );
   await page
-    .getByRole("button", { name: "Abrir seleção de referências", exact: true })
+    .getByRole("button", { name: "Ver suas ideias salvas", exact: true })
     .click();
   verify(
     await page
-      .getByRole("dialog", { name: "Referências salvas", exact: true })
+      .getByRole("dialog", { name: "Suas ideias salvas", exact: true })
       .isVisible(),
     "Preparation opens real selection dialog",
   );

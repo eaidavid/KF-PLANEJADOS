@@ -15,14 +15,14 @@ const routes = [
     path: "/",
     title: "ART Móveis Interiores | Móveis planejados e projetos",
     description:
-      "Projetos de móveis planejados da ART: explore os detalhes, reúna referências, prepare seu pedido de orçamento e consulte os guias de planejamento.",
+      "Veja ideias de cozinhas, quartos e outros ambientes. Guarde as fotos de que gostar e conte à ART o que imagina para seus móveis planejados.",
     image: "cozinha-integrada",
   },
   {
     path: "/ambientes",
     title: "Ambientes e projetos de móveis planejados | ART Móveis",
     description:
-      "Explore o acervo ART: cozinhas planejadas, quartos e closets, salas e painéis, home offices e banheiros. Salve referências para o seu projeto.",
+      "Veja projetos de cozinhas, quartos, salas, escritórios e banheiros. Guarde as ideias que você quer levar para o orçamento dos seus móveis.",
     image: "cozinha-integrada",
   },
   {
@@ -36,7 +36,7 @@ const routes = [
     path: "/blog",
     title: "Guias de planejamento | ART Móveis Interiores",
     description:
-      "Leia guias sobre cozinha planejada, closet, orçamento e home office. Perguntas e escolhas para planejar sua casa com clareza.",
+      "O que conferir nas medidas, nos armários e no orçamento antes de escolher seus móveis planejados. Guias de cozinha, quarto e home office.",
     image: "cozinha-linear",
   },
   {
@@ -51,7 +51,7 @@ const routes = [
     path: "/favoritos",
     title: "Minhas referências de móveis planejados | ART Móveis",
     description:
-      "As referências que você salvou no acervo ART. Reúna suas ideias favoritas e leve a seleção para o briefing do seu projeto.",
+      "As fotos que você guardou para olhar de novo e conversar com a ART sobre os móveis que imagina para o seu espaço.",
     image: "sala-ripada",
     noindex: true,
   },
@@ -66,7 +66,7 @@ const routes = [
     path: "/link-bio",
     title: "ART Móveis Interiores | Site, projetos e contato",
     description:
-      "Encontre os links oficiais da ART Móveis: ambientes, briefing, WhatsApp, Instagram e localização.",
+      "Encontre os projetos e os canais oficiais da ART Móveis: orçamento, WhatsApp, Instagram e localização.",
     image: "cozinha-integrada",
     noindex: true,
   },

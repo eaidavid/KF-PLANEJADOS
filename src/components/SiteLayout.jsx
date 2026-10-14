@@ -54,10 +54,10 @@ export function Header({ path, count, openNotebook }) {
           <button
             className="favorite-nav"
             onClick={openNotebook}
-            aria-label={`Seleção${count > 0 ? ` (${count})` : ""}`}
+            aria-label={`Suas ideias${count > 0 ? ` (${count})` : ""}`}
           >
             <BookOpen size={19} />
-            <span>Seleção{count > 0 ? ` (${count})` : ""}</span>
+            <span>Suas ideias{count > 0 ? ` (${count})` : ""}</span>
           </button>
           <a className="button button-small" href="/orcamento">
             Orçamento <ArrowUpRight size={16} />
@@ -85,8 +85,8 @@ export function Header({ path, count, openNotebook }) {
             ["Ambientes", "/ambientes"],
             ["A ART", "/sobre"],
             ["Guias", "/blog"],
-            ["Minhas referências", "/favoritos"],
-            ["Solicitar orçamento", "/orcamento"],
+            ["Suas ideias salvas", "/favoritos"],
+            ["Pedir um orçamento", "/orcamento"],
           ].map(([label, href]) => (
             <a key={href} href={href}>
               {label}
@@ -105,16 +105,16 @@ export function Footer() {
         <Logo light />
         <p>Móveis planejados</p>
         <a className="text-link light-link" href="/orcamento">
-          Solicitar orçamento <ArrowUpRight size={20} />
+          Pedir um orçamento <ArrowUpRight size={20} />
         </a>
       </div>
       <div className="footer-links">
         <div>
-          <span>Explore</span>
+          <span>Veja também</span>
           <a href="/ambientes">Ambientes e projetos</a>
           <a href="/sobre">Conheça a ART</a>
           <a href="/blog">Guias de planejamento</a>
-          <a href="/favoritos">Referências salvas</a>
+          <a href="/favoritos">Suas ideias salvas</a>
         </div>
         <div>
           <span>Vamos conversar</span>
@@ -138,7 +138,7 @@ export function Footer() {
         <span>© 2026 Art Móveis Interiores</span>
         <a href="/privacidade">Privacidade</a>
         <a href="/link-bio">Todos os nossos links</a>
-        <a href="/">Explorar acervo</a>
+        <a href="/">Ver projetos</a>
       </div>
     </footer>
   );
@@ -147,18 +147,18 @@ export function ContactBand() {
   return (
     <section className="contact-band">
       <div>
-        <h2>Solicitar orçamento</h2>
+        <h2>Vamos falar do seu móvel?</h2>
       </div>
       <div>
         <p>
-          Informe o ambiente, a cidade e as medidas disponíveis. Revise o resumo
-          antes de abrir a conversa no WhatsApp.
+          Conte onde ele vai ficar e o que você precisa guardar. Se já tiver
+          fotos e medidas, leve para a conversa.
         </p>
         <a className="button" href="/orcamento">
-          Preencher pedido <ArrowUpRight size={18} />
+          Pedir um orçamento <ArrowUpRight size={18} />
         </a>
         <span className="contact-footnote">
-          As referências salvas acompanham o pedido.
+          As fotos que você salvou vão no resumo do orçamento.
         </span>
       </div>
     </section>

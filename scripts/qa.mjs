@@ -53,7 +53,7 @@ try {
   await page.getByRole('button', { name: 'Projeto anterior', exact: true }).click();
   verify(await page.locator('.atlas-project-title h2').textContent() === 'Gabinete branco', 'Navigation wraps at first photograph');
   await page.getByRole('button', { name: 'Abrir índice' }).click();
-  const index = page.getByRole('dialog', { name: 'Acervo', exact: true });
+  const index = page.getByRole('dialog', { name: 'Projetos', exact: true });
   verify(await index.isVisible(), 'Index opens as modal dialog');
   await index.getByRole('button', { name: 'Cozinhas', exact: true }).click();
   verify(await index.locator('.atlas-index-list > button').count() === 2, 'Index filters kitchens');
@@ -65,18 +65,18 @@ try {
   await page.getByRole('button', { name: 'Abrir índice' }).click();
   await index.getByRole('button', { name: 'Abrir Cozinha com mesa Cozinhas', exact: true }).click();
   verify(await page.locator('.atlas-project-title h2').textContent() === 'Cozinha com mesa' && !(await index.isVisible()), 'Index selection changes photograph and closes');
-  await page.getByRole('button', { name: 'Salvar referência: Cozinha com mesa', exact: true }).click();
+  await page.getByRole('button', { name: 'Salvar foto: Cozinha com mesa', exact: true }).click();
   await page.reload(); await ready();
-  verify(await page.getByRole('button', { name: 'Remover referência: Cozinha com mesa', exact: true }).getAttribute('aria-pressed') === 'true', 'Reference survives reload');
-  await page.getByRole('button', { name: /^Seleção/ }).click();
-  const selection = page.getByRole('dialog', { name: 'Referências salvas', exact: true });
+  verify(await page.getByRole('button', { name: 'Remover foto: Cozinha com mesa', exact: true }).getAttribute('aria-pressed') === 'true', 'Reference survives reload');
+  await page.getByRole('button', { name: /^Suas ideias/ }).click();
+  const selection = page.getByRole('dialog', { name: 'Suas ideias salvas', exact: true });
   verify(await selection.isVisible(), 'Selection opens');
   verify(await selection.locator('.notebook-references article').count() === 1, 'Selection contains saved photograph');
   await page.keyboard.press('Tab');
   verify(await page.evaluate(() => !!document.activeElement.closest('dialog')), 'Selection traps keyboard focus');
   await page.keyboard.press('Escape');
   verify(!(await selection.isVisible()), 'Escape closes selection');
-  verify(await page.getByRole('button', { name: /^Seleção/ }).evaluate(e => e === document.activeElement), 'Selection restores trigger focus');
+  verify(await page.getByRole('button', { name: /^Suas ideias/ }).evaluate(e => e === document.activeElement), 'Selection restores trigger focus');
   const full = page.getByRole('button', { name: 'Tela cheia', exact: true });
   if (await full.count()) {
     await full.click();

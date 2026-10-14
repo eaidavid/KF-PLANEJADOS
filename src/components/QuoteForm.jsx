@@ -102,10 +102,10 @@ export default function QuoteForm({ saved, personal }) {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(text);
-      setStatus("Briefing copiado.");
+      setStatus("Resumo copiado.");
     } catch {
       setStatus(
-        "Não foi possível copiar. Use “Baixar briefing” para guardar o texto.",
+        "Não foi possível copiar. Use “Baixar resumo” para guardar o texto.",
       );
     }
   };
@@ -115,21 +115,21 @@ export default function QuoteForm({ saved, personal }) {
         <a href="/ambientes" className="text-link">
           <ArrowLeft size={16} /> Voltar aos ambientes
         </a>
-        <h1>Orçamento</h1>
+        <h1>Seu orçamento</h1>
         <p>
-          Informe os ambientes e os detalhes do imóvel. O resumo será aberto no
-          WhatsApp para você conferir e enviar.
+          Conte o que você precisa e o que já sabe sobre o espaço. No fim, você
+          confere o resumo e envia pra gente pelo WhatsApp.
         </p>
         {(personal.scene || personal.priorities.length > 0) && (
           <div className="quote-personal-note">
-            <span>Do seu caderno</span>
+            <span>Suas anotações</span>
             {personalSummary(personal).map((line) => (
               <p key={line}>{line}</p>
             ))}
           </div>
         )}
-        <ol className="steps" aria-label="Etapas do briefing">
-          {["Seu espaço", "Os detalhes", "Revisar & conversar"].map((t, i) => (
+        <ol className="steps" aria-label="Etapas do orçamento">
+          {["Ambientes", "Seu espaço", "Conferir e enviar"].map((t, i) => (
             <li
               key={t}
               className={
@@ -146,8 +146,8 @@ export default function QuoteForm({ saved, personal }) {
           <Heart size={18} />
           <p>
             {saved.length
-              ? `${saved.length} referência${saved.length === 1 ? "" : "s"} salva${saved.length === 1 ? "" : "s"} acompanha${saved.length === 1 ? "" : "m"} seu briefing.`
-              : "Você pode salvar ideias no acervo e voltar a este briefing."}
+              ? `${saved.length} foto${saved.length === 1 ? "" : "s"} salva${saved.length === 1 ? "" : "s"} acompanha${saved.length === 1 ? "" : "m"} seu orçamento.`
+              : "Você pode salvar as fotos dos projetos e incluí-las no orçamento."}
           </p>
         </div>
         <p className="draft-note">
@@ -193,7 +193,7 @@ export default function QuoteForm({ saved, personal }) {
                 ))}
               </fieldset>
               <label className="field-label" htmlFor="property">
-                Seu imóvel é…
+                Onde os móveis vão ficar?
               </label>
               <select
                 id="property"
@@ -228,10 +228,10 @@ export default function QuoteForm({ saved, personal }) {
           {step === 2 && (
             <>
               <h2 id="step-title" tabIndex={-1}>
-                Dados do imóvel
+                Sobre você e o espaço
               </h2>
               <p className="form-description">
-                O que você já sabe ajuda a primeira conversa.
+                Conte o que quer fazer. As medidas e o telefone são opcionais.
               </p>
               <div className="field-row">
                 <label>
@@ -291,19 +291,18 @@ export default function QuoteForm({ saved, personal }) {
                 />
               </label>
               <p className="input-help">
-                Fotos e plantas podem ser compartilhadas diretamente na conversa
-                com a equipe.
+                Você pode enviar fotos e a planta do cômodo pelo WhatsApp.
               </p>
             </>
           )}
           {step === 3 && (
             <>
               <h2 id="step-title" tabIndex={-1}>
-                Revise o pedido
+                Confira antes de enviar
               </h2>
               <p className="form-description">
-                Revise o resumo. Ao abrir o WhatsApp, você decide quando enviar
-                a mensagem.
+                Confira seus dados e as ideias salvas. Ao abrir o WhatsApp, a
+                mensagem fica pronta para você enviar.
               </p>
               <dl className="briefing-summary">
                 <div>
@@ -332,7 +331,7 @@ export default function QuoteForm({ saved, personal }) {
                 </div>
                 {personalSummary(personal).length > 0 && (
                   <div>
-                    <dt>Seu caderno</dt>
+                    <dt>Suas anotações</dt>
                     <dd>{personalSummary(personal).join("\n")}</dd>
                   </div>
                 )}
@@ -344,7 +343,7 @@ export default function QuoteForm({ saved, personal }) {
                 )}
                 {saved.length > 0 && (
                   <div>
-                    <dt>Referências</dt>
+                    <dt>Suas ideias</dt>
                     <dd>
                       {projects
                         .filter((p) => saved.includes(p.id))
@@ -374,8 +373,7 @@ export default function QuoteForm({ saved, personal }) {
                 Abrir conversa no WhatsApp <ArrowUpRight size={20} />
               </a>
               <p className="send-note">
-                O pedido chega à equipe depois que você enviar a mensagem no
-                WhatsApp.
+                Envie a mensagem no WhatsApp para a ART receber seu pedido.
               </p>
               <div className="briefing-exports">
                 <button type="button" className="text-link" onClick={copy}>
@@ -386,7 +384,7 @@ export default function QuoteForm({ saved, personal }) {
                   className="text-link"
                   onClick={() => downloadText("meu-projeto-art.txt", text)}
                 >
-                  <Download size={16} /> Baixar briefing
+                  <Download size={16} /> Baixar resumo
                 </button>
                 <button
                   type="button"

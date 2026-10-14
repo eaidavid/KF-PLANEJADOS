@@ -22,7 +22,7 @@ export default function ProjectTile({ project, saved, toggle, large = false }) {
           className={`save-button ${saved.includes(project.id) ? "is-saved" : ""}`}
           onClick={() => toggle(project.id)}
           aria-pressed={saved.includes(project.id)}
-          aria-label={`${saved.includes(project.id) ? "Remover" : "Salvar"} referência: ${project.title}`}
+          aria-label={`${saved.includes(project.id) ? "Remover" : "Salvar"} foto: ${project.title}`}
         >
           <Heart
             size={19}

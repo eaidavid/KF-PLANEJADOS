@@ -7,19 +7,19 @@ import Lettering from "./Lettering";
 
 const prepSteps = [
   {
-    name: "O imóvel",
-    title: "Planta ou fotos do espaço",
-    text: "Mostre a parede inteira e o que fica ao redor. Porta, janela e passagem também entram na conversa.",
+    name: "Seu espaço",
+    title: "Mostre o cômodo inteiro",
+    text: "Uma foto de frente e outra dos cantos ajudam a mostrar onde o móvel vai ficar. Inclua portas, janelas e a passagem de quem usa o ambiente.",
     items: [
-      "Cidade e tipo de imóvel",
-      "Ambientes que receberão os móveis",
-      "Fotos de frente e dos cantos",
+      "Casa, apartamento ou espaço comercial",
+      "Cômodos que você quer planejar",
+      "Fotos da parede inteira e dos cantos",
     ],
   },
   {
     name: "As medidas",
-    title: "Largura, altura e pontos fixos",
-    text: "Medidas aproximadas ajudam na primeira conversa. Confira também tomadas, tubulações e rodapés; a medição final precisa ser confirmada com a equipe.",
+    title: "Meça o espaço que você tem",
+    text: "Anote a largura e a altura da parede, além da posição das tomadas e dos canos. Se houver eletrodomésticos, tenha o modelo em mãos. A equipe precisa confirmar as medidas antes da fabricação.",
     items: [
       "Largura e altura disponíveis",
       "Posição de água, gás e tomadas",
@@ -27,13 +27,13 @@ const prepSteps = [
     ],
   },
   {
-    name: "As referências",
-    title: "O que você quer guardar",
-    text: "Uma foto ajuda a mostrar uma escolha. Conte quais peças chamaram sua atenção e o que precisa de lugar: louças, roupas, livros ou equipamentos.",
+    name: "Suas ideias",
+    title: "Mostre o que você gostou",
+    text: "Salve as fotos que chamarem sua atenção. Depois, conte o que você gostou nelas e o que precisa guardar no móvel.",
     items: [
-      "Fotografias escolhidas no acervo",
-      "Objetos e equipamentos de uso diário",
-      "Preferências sobre portas e gavetas",
+      "Fotos que você salvou",
+      "O que vai guardar ou apoiar no móvel",
+      "Preferências de portas, gavetas e acabamentos",
     ],
   },
 ];
@@ -69,17 +69,17 @@ function EnvironmentStudio({ active, setActive }) {
       <div className="studio-section-label">
         <span>01 / AMBIENTES</span>
         <a href="/ambientes" data-motion-hover>
-          Ver todo o acervo <ArrowUpRight size={16} />
+          Ver todos os projetos <ArrowUpRight size={16} />
         </a>
       </div>
       <div className="environment-heading">
         <h2>
-          <Lettering text="Planejados" />
-          <Lettering text="por ambiente." />
+          <Lettering text="Qual ambiente" />
+          <Lettering text="vamos planejar?" />
         </h2>
         <p>
-          Veja os projetos por ambiente e leve a escolha para o pedido de
-          orçamento.
+          Escolha um cômodo para ver ideias de móveis. Depois, conte o que você
+          quer guardar ou mudar nesse espaço.
         </p>
       </div>
       <div className="environment-composition">
@@ -154,7 +154,7 @@ function EnvironmentStudio({ active, setActive }) {
               className="studio-inline-action"
               data-motion-hover
             >
-              Orçar este ambiente <ArrowRight size={17} />
+              Quero um orçamento <ArrowRight size={17} />
             </a>
           </div>
         </div>
@@ -166,7 +166,9 @@ function EnvironmentStudio({ active, setActive }) {
 function SpaceDiagram({ step }) {
   return (
     <div className={`space-diagram step-${step}`}>
-      <span className="diagram-caption">O que observar no imóvel</span>
+      <span className="diagram-caption">
+        Olhe também para portas, janelas e tomadas
+      </span>
       <svg
         viewBox="0 0 620 460"
         role="img"
@@ -239,9 +241,9 @@ function SpaceDiagram({ step }) {
         <i aria-hidden="true" />
         <span>
           {step === 0
-            ? "Registre o espaço e as passagens."
+            ? "Mostre onde o móvel vai ficar."
             : step === 1
-              ? "Anote medidas e pontos fixos."
+              ? "Confira as medidas e a posição das tomadas."
               : "Liste o que precisa caber no móvel."}
         </span>
       </div>
@@ -259,7 +261,7 @@ function PreparationStudio({ environment, saved, openNotebook }) {
   return (
     <section className="preparation-studio" id="preparar" ref={root}>
       <div className="studio-section-label">
-        <span>02 / PARA ORÇAR</span>
+        <span>02 / SEU ESPAÇO</span>
         <span>{environment.name}</span>
       </div>
       <div className="preparation-heading">
@@ -268,8 +270,8 @@ function PreparationStudio({ environment, saved, openNotebook }) {
           <Lettering text="para o orçamento." />
         </h2>
         <p>
-          Você pode começar com o que já tem. Este roteiro ajuda a organizar a
-          primeira conversa.
+          Traga o que você já sabe sobre o espaço. As medidas podem ser
+          aproximadas nesta primeira conversa.
         </p>
       </div>
       <div className="preparation-composition">
@@ -340,8 +342,8 @@ function PreparationStudio({ environment, saved, openNotebook }) {
                 <button onClick={openNotebook} data-motion-hover>
                   <Bookmark size={16} />
                   {selected.length
-                    ? `Ver seleção (${selected.length})`
-                    : "Abrir seleção de referências"}
+                    ? `Ver suas ideias (${selected.length})`
+                    : "Ver suas ideias salvas"}
                   <ArrowUpRight size={16} />
                 </button>
               </div>
@@ -353,7 +355,7 @@ function PreparationStudio({ environment, saved, openNotebook }) {
             data-motion-hover
             data-motion-press
           >
-            <span>Preparar pedido para {environment.name.toLowerCase()}</span>
+            <span>Pedir orçamento para {environment.name.toLowerCase()}</span>
             <ArrowUpRight size={25} />
           </a>
         </div>
@@ -365,7 +367,7 @@ function PreparationStudio({ environment, saved, openNotebook }) {
           aria-controls="environment-questions"
           data-motion-hover
         >
-          <span>Perguntas para {environment.name.toLowerCase()}</span>
+          <span>O que pensar para {environment.name.toLowerCase()}</span>
           {questionsOpen ? <Minus size={20} /> : <Plus size={20} />}
         </button>
         {questionsOpen && (
@@ -390,8 +392,8 @@ function GuideStudio() {
         </a>
       </div>
       <h2>
-        <Lettering text="Guias de" />
-        <Lettering text="planejamento." />
+        <Lettering text="O que conferir" />
+        <Lettering text="antes de escolher." />
       </h2>
       <div className="guide-composition">
         <a
@@ -440,21 +442,21 @@ export default function StudioJourney({ saved, openNotebook }) {
       />
       <GuideStudio />
       <section className="studio-final">
-        <span>04 / SEU PEDIDO</span>
+        <span>04 / VAMOS CONVERSAR</span>
         <a
           href={`/orcamento?ambiente=${environments[active].slug}`}
           data-motion-hover
           data-motion-press
         >
           <h2>
-            <Lettering text="Solicitar" />
+            <Lettering text="Pedir um" />
             <Lettering text="orçamento." />
           </h2>
           <ArrowUpRight size={120} />
         </a>
         <p>
-          Escolha os ambientes, informe os dados do imóvel e revise o resumo
-          antes de abrir o WhatsApp.
+          Conte pra gente qual móvel você precisa e o que imagina para ele. Suas
+          ideias salvas vão junto no resumo para o WhatsApp.
         </p>
       </section>
     </>

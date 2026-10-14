@@ -46,19 +46,20 @@ export default function PersonalNotebook({
     >
       <div className="notebook-header">
         <span>
-          <BookOpen size={17} /> Seleção
+          <BookOpen size={17} /> Suas ideias
         </span>
         <button
           className="icon-button"
           onClick={close}
-          aria-label="Fechar seleção"
+          aria-label="Fechar ideias salvas"
         >
           <X size={22} />
         </button>
       </div>
-      <h2 id="notebook-title">Referências salvas</h2>
+      <h2 id="notebook-title">Suas ideias salvas</h2>
       <p className="notebook-intro">
-        As fotografias selecionadas acompanham seu pedido de orçamento.
+        Guarde as fotos que você quer mostrar pra gente. Os projetos salvos
+        aparecem no resumo do seu orçamento.
       </p>
       {(scene || personal.priorities.length > 0) && (
         <section className="notebook-notes">
@@ -78,7 +79,7 @@ export default function PersonalNotebook({
       )}
       <section className="notebook-references">
         <h3>
-          Fotografias <span>{references.length}</span>
+          Fotos que você guardou <span>{references.length}</span>
         </h3>
         {references.length ? (
           <div>
@@ -92,7 +93,7 @@ export default function PersonalNotebook({
                   <button
                     onClick={() => toggle(p.id)}
                     className="text-link"
-                    aria-label={`Remover referência: ${p.title}`}
+                    aria-label={`Remover foto: ${p.title}`}
                   >
                     <X size={12} /> Remover
                   </button>
@@ -102,19 +103,19 @@ export default function PersonalNotebook({
           </div>
         ) : (
           <p>
-            Nenhuma referência salva. Use “Salvar” na fotografia que quiser
-            incluir.
+            Quando uma foto chamar sua atenção, use “Salvar”. Ela vai aparecer
+            aqui.
           </p>
         )}
       </section>
       <div className="notebook-bottom">
         <a href="/orcamento" className="button">
-          Solicitar orçamento <ArrowUpRight size={18} />
+          Pedir um orçamento <ArrowUpRight size={18} />
         </a>
         <a href="/favoritos" className="text-link">
-          <Heart size={16} /> Ver minhas referências
+          <Heart size={16} /> Ver todas as minhas ideias
         </a>
-        <p>A seleção fica salva neste navegador.</p>
+        <p>Suas fotos ficam guardadas neste navegador.</p>
         {(personal.scene || personal.priorities.length > 0) && (
           <button className="text-link notebook-clear" onClick={clear}>
             <Trash2 size={13} /> Limpar escolhas de rotina
