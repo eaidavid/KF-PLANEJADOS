@@ -23,6 +23,37 @@ const paths = [
   "/link-bio",
 ];
 const audit = [];
+async function auditStudioState(label) {
+  await page.addScriptTag({ content: axe });
+  const result = await page.evaluate(() =>
+    axe.run(document, {
+      runOnly: {
+        type: "tag",
+        values: [
+          "wcag2a",
+          "wcag2aa",
+          "wcag21a",
+          "wcag21aa",
+          "wcag22a",
+          "wcag22aa",
+        ],
+      },
+    }),
+  );
+  audit.push({
+    path: label,
+    violations: result.violations.map((v) => ({
+      id: v.id,
+      impact: v.impact,
+      help: v.help,
+      nodes: v.nodes.map((n) => ({
+        target: n.target,
+        summary: n.failureSummary,
+      })),
+    })),
+    passes: result.passes.length,
+  });
+}
 for (const path of paths) {
   await page.goto(base + path, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
@@ -31,7 +62,14 @@ for (const path of paths) {
     axe.run(document, {
       runOnly: {
         type: "tag",
-        values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"],
+        values: [
+          "wcag2a",
+          "wcag2aa",
+          "wcag21a",
+          "wcag21aa",
+          "wcag22a",
+          "wcag22aa",
+        ],
       },
     }),
   );
@@ -57,12 +95,46 @@ for (const [label, name] of [
 ]) {
   await page.getByRole("button", { name }).click();
   await page.addScriptTag({ content: axe });
-  const result = await page.evaluate(() => axe.run(document, { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"] } }));
-  audit.push({path: `/ [${label}]`, violations: result.violations.map(v => ({id: v.id, impact: v.impact, help: v.help, nodes: v.nodes.map(n => ({target: n.target, summary: n.failureSummary}))})), passes: result.passes.length});
-  if (label === "detalhe ampliado") await page.getByRole("button", { name: "Fechar detalhe" }).click();
+  const result = await page.evaluate(() =>
+    axe.run(document, {
+      runOnly: {
+        type: "tag",
+        values: [
+          "wcag2a",
+          "wcag2aa",
+          "wcag21a",
+          "wcag21aa",
+          "wcag22a",
+          "wcag22aa",
+        ],
+      },
+    }),
+  );
+  audit.push({
+    path: `/ [${label}]`,
+    violations: result.violations.map((v) => ({
+      id: v.id,
+      impact: v.impact,
+      help: v.help,
+      nodes: v.nodes.map((n) => ({
+        target: n.target,
+        summary: n.failureSummary,
+      })),
+    })),
+    passes: result.passes.length,
+  });
+  if (label === "detalhe ampliado")
+    await page.getByRole("button", { name: "Fechar detalhe" }).click();
   else await page.keyboard.press("Escape");
 }
 const seo = [];
+for (const id of ["ambientes", "preparar", "guias"]) {
+  await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+  await page.waitForTimeout(1800);
+  if (id === "preparar")
+    await page.getByRole("tab", { name: "As medidas", exact: true }).click();
+  await auditStudioState(`/ [${id}, desktop]`);
+}
 for (const path of [
   ...paths,
   ...environments.map((e) => `/ambientes/${e.slug}`),
@@ -100,10 +172,46 @@ for (const path of [
       () => document.documentElement.scrollWidth > innerWidth,
     ),
   });
-  await page.addScriptTag({content:axe});
-  const mobileResult=await page.evaluate(()=>axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22a','wcag22aa']}}));
-  audit.push({path:`${path} [320 px]`,violations:mobileResult.violations.map(v=>({id:v.id,impact:v.impact,help:v.help,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})),passes:mobileResult.passes.length});
+  await page.addScriptTag({ content: axe });
+  const mobileResult = await page.evaluate(() =>
+    axe.run(document, {
+      runOnly: {
+        type: "tag",
+        values: [
+          "wcag2a",
+          "wcag2aa",
+          "wcag21a",
+          "wcag21aa",
+          "wcag22a",
+          "wcag22aa",
+        ],
+      },
+    }),
+  );
+  audit.push({
+    path: `${path} [320 px]`,
+    violations: mobileResult.violations.map((v) => ({
+      id: v.id,
+      impact: v.impact,
+      help: v.help,
+      nodes: v.nodes.map((n) => ({
+        target: n.target,
+        summary: n.failureSummary,
+      })),
+    })),
+    passes: mobileResult.passes.length,
+  });
 }
+await page.goto(base, { waitUntil: "networkidle" });
+for (const id of ["ambientes", "preparar", "guias"]) {
+  await page.locator(`#${id}`).scrollIntoViewIfNeeded();
+  await page.waitForTimeout(1800);
+  if (id === "preparar") await page.getByRole("tab", { name: "As referências", exact: true }).click();
+  await auditStudioState(`/ [${id}, 320 px]`);
+}
+await page.emulateMedia({ reducedMotion: "reduce" });
+await page.waitForFunction(() => document.querySelector('.studio-home')?.dataset.motionMode === 'reduced');
+await auditStudioState('/ [movimento reduzido, 320 px]');
 await browser.close();
 const report = { base, audit, seo, responsive };
 await writeFile("qa/quality.json", JSON.stringify(report, null, 2));

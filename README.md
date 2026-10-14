@@ -1,6 +1,6 @@
 # ART Móveis Interiores
 
-Site de móveis planejados com explorador fotográfico, seleção de referências, guias e orçamento. Produção: https://artmoveis.vercel.app. Mantém a base Vite/React e gera HTML completo das 28 páginas.
+Site de móveis planejados com explorador fotográfico, apresentação de ambientes, roteiro de preparação, seleção de referências, guias e orçamento. Produção: https://artmoveis.vercel.app. Mantém a base Vite/React e gera HTML completo das 28 páginas.
 
 ## Executar
 
@@ -17,12 +17,18 @@ O servidor estático em http://127.0.0.1:5173 corresponde à saída publicada. P
 
 ## Experiência e edição
 
-A home exibe uma fotografia por vez, com zoom, arraste, pontos de detalhe, foto inteira, tela cheia quando disponível e navegação anterior/próxima. O índice filtra por ambiente. A seleção acompanha o pedido de orçamento. `?projeto=sala-ripada` abre uma referência específica; as UTMs são preservadas ao mudar de foto. As páginas internas têm acervo em lista e quatro guias completos com busca.
+A home começa pelo explorador e segue por uma seleção tipográfica de ambientes, um roteiro interativo para o orçamento, desenho orientativo, guias e acesso ao pedido. A seleção de ambiente alimenta o roteiro e o formulário por `?ambiente=salas`. GSAP e ScrollTrigger fazem o lettering, as transições de clique e os hovers; o chunk de movimento é carregado só pela home, no primeiro gesto ou numa visita por âncora. Reduced-motion e falha do chunk preservam a interface estática.
+
+O explorador mantém zoom, arraste, pontos de detalhe, foto inteira, tela cheia quando disponível e navegação anterior/próxima. O índice filtra por ambiente. A seleção acompanha o pedido de orçamento. `?projeto=sala-ripada` abre uma referência específica; as UTMs são preservadas ao mudar de foto. As páginas internas têm acervo em lista e quatro guias completos com busca.
 
 - `src/data/catalog.js`: marca, contato, categorias e projetos.
 - `src/data/atlas.js`: rótulos e posições dos detalhes nas fotografias.
 - `src/data/articles.js`: guias e conteúdo editorial.
 - `src/lib/usePhotoCamera.js`: enquadramento, limites, zoom e arraste.
+- `src/components/ProjectExplorer.jsx`: abertura com o acervo.
+- `src/components/StudioJourney.jsx`: ambientes, preparação e leitura.
+- `src/lib/studioMotion.js`: contexto GSAP, ScrollTrigger, media queries e cleanup.
+- `src/studio.css`: composição da home expandida e lettering.
 - `src/atlas.css`: explorador e tokens da direção atual.
 - `src/personal-home.css`: seleção, formulário e páginas editoriais; mantém o nome de arquivo da versão anterior.
 - `scripts/prerender.mjs`: páginas, SEO, schema, sitemap e robots.
@@ -45,4 +51,4 @@ O CSV utiliza as 19 colunas posicionais do importador de `eaidavid/SAAS---LEADS`
 
 `scripts/qa.mjs` testa navegador, câmera, zoom, arraste, URL, índice, seleção, tela cheia, orçamento, exportação, UTM, busca, privacidade, falha de foto/nova tentativa e HTTP 404. `scripts/quality.mjs` audita HTML/SEO, overflow e WCAG A/AA com axe. Ambos usam Chrome e Playwright disponíveis no computador. Axe e Lighthouse ficam no diretório ignorado `qa`; não entram no bundle. `ART_QA_URL` permite validar a publicação.
 
-Capturas e relatórios ficam em `qa/`. O relatório de entrega identifica medições da versão atual. Fontes locais sob SIL Open Font License, com fontes documentadas em `public/fonts/SOURCES.txt`. Sem pixels de publicidade nem credenciais no cliente.
+`scripts/studio-qa.mjs` verifica GSAP em execução, lettering, hover, transições de clique, âncoras, tabs, propagação do ambiente, quatro viewports, preferência de movimento e falha do chunk. Capturas e relatórios ficam em `qa/`. O relatório de entrega identifica medições da versão atual. Fontes locais sob SIL Open Font License, com fontes documentadas em `public/fonts/SOURCES.txt`. Sem pixels de publicidade nem credenciais no cliente.

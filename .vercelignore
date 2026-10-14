@@ -7,3 +7,4 @@ scripts/inspect-assets.py
 scripts/optimize-assets.py
 scripts/qa.mjs
 scripts/quality.mjs
+scripts/studio-qa.mjs

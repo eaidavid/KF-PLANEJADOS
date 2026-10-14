@@ -1,27 +1,32 @@
-# ART Móveis — explorador de projetos
+# ART Móveis — home expandida e movimento
 
 Produção: https://artmoveis.vercel.app
 
-## Revisão entregue
+Publicação validada: `dpl_FeNunRsm1Z3JnebyGKEUdkXCxuK8`.
 
-A home agora é uma janela de exploração do acervo. Dez fotografias, troca anterior/próxima, teclado, índice por ambiente, pontos de detalhe, zoom, arraste, foto inteira e tela cheia nativa quando disponível. Os títulos descrevem o mobiliário. As anotações ficam sobre peças visíveis e não atribuem medidas físicas aos pontos. A home anterior, seus slogans, escolhas de rotina e seções promocionais foram removidos.
+## Entregue
 
-A seleção de fotos persiste e acompanha o orçamento em três etapas. Rascunho, revisão antes de abrir o WhatsApp oficial, exportação em texto e CSV de prospecção, atribuição UTM e remoção de dados locais continuam funcionando. Preferências guardadas na versão anterior são preservadas. O site não confirma recebimento e não envia dados automaticamente ao CRM.
+A abertura mantém o explorador de projetos, com zoom, arraste, detalhes e seleção. A home continua por ambientes, roteiro de preparação, guias e pedido de orçamento. Uma barra de âncoras permite navegar pelo percurso. Escolher um ambiente atualiza a referência, as perguntas de preparação e a URL que preenche o formulário.
 
-Acervo em lista, cinco categorias e quatro guias completos com busca. As 28 rotas têm HTML pré-renderizado, metadados próprios, canonical e schema; sitemap com 24 URLs indexáveis e 404 real. Fontes e imagens locais, sem scripts de marketing.
+GSAP Core e ScrollTrigger fazem lettering por glifo, resposta de hover/foco, pressão de clique, revelação da fotografia e traçado do desenho orientativo. O motor é carregado num chunk próprio apenas pela home, no primeiro gesto de navegação ou exploração. Linhas já visíveis não são ocultadas quando o motor chega. A câmera mantém seu movimento CSS, sem duas bibliotecas disputando propriedades. Contextos, eventos e media queries são revertidos ao desmontar. Reduced-motion preserva a interface estática; falha do chunk não impede os controles.
 
-## Verificação
+O desenho explica o que observar no imóvel e não apresenta escala ou medidas inventadas. Fotografias continuam vindo do acervo original. Sem fabricação de clientes, materiais específicos ou promessas de obra entregue. Os textos descrevem ambientes e instruções de preparação.
 
-- Build local e na Vercel; produção READY.
-- 53 verificações de fluxo com Chrome/Playwright no endereço público: câmera, arraste, índice, URL, seleção e persistência, foco/Escape, tela cheia, resolução do zoom mobile, orçamento, rascunho, WhatsApp/UTM, CSV, busca, privacidade, erro de foto/nova tentativa e 404. Sem erros de navegador ou hidratação.
-- Home conferida em 320/390/768/1440 px; oito rotas verificadas em 320 px; sem overflow horizontal. Capturas da publicação inspecionadas.
-- axe em 24 combinações de rota/estado/viewport, incluindo índice, seleção e detalhe aberto. Escopo WCAG 2.0/2.1/2.2 A/AA: zero violações nas verificações automatizadas da revisão. Não substitui uma avaliação completa com tecnologias assistivas.
-- HTML/SEO conferido em 28 visitas de rota, sem falhas de H1, canonical, descrição ou conteúdo.
-- ESLint e revisão de whitespace passaram. CSS da home anterior removido; CSS de produção comprimido em aproximadamente 9 KB e JavaScript em 81 KB.
-- Lighthouse mobile na publicação final: desempenho 99, acessibilidade 100, boas práticas 100, SEO 100. LCP 1,7 s, CLS 0,003 e TBT 110 ms. A verificação de correspondência entre rótulos visíveis e nomes acessíveis passou.
+Blog com quatro guias, acervo em lista, seleção persistente, rascunho, orçamento revisável, WhatsApp oficial, exportação em texto/CSV e atribuição UTM preservados. A integração com prospecção continua pelo CSV posicional do SAAS---LEADS; não existe envio automático ao CRM.
 
-Relatórios e capturas ficam em `qa/`, ignorado pelo Git. Os scripts de validação ficam em `scripts/`. A medição sintética de desempenho está em `qa/atlas-lighthouse-final.json`; não representa dados de campo nem promessa de posicionamento em busca. Publicação validada: `dpl_8vCrQdKiWh4KCEHJTKsmQUPveLGo`.
+## Evidências da publicação
 
-## Continuidade
+- Vercel READY, build local e remoto concluídos; ESLint e whitespace sem erros.
+- Chrome/Playwright: 53 verificações do acervo/orçamento e 33 da extensão, total de 86. Lettering, hover, clique, troca de ambiente, teclado, âncoras, propagação do ambiente para o formulário, seleção, tela cheia, zoom, arraste, rascunho, WhatsApp/UTM, CSV, busca, privacidade, erro de fotografia/nova tentativa e 404 exercitados. Sem erros de navegador ou hidratação.
+- Quatro larguras da home completa: 320, 390, 768 e 1440 px, com imagens carregadas e sem overflow horizontal. Capturas inspecionadas.
+- axe em 31 combinações de rota/estado/viewport, incluindo as novas seções e movimento reduzido: zero violações no escopo automatizado WCAG 2.0/2.1/2.2 A/AA. A auditoria automática não substitui avaliação completa com tecnologias assistivas.
+- 28 visitas de rota verificadas para HTML, H1, descrição, canonical e schema. Build gera 28 páginas e sitemap de 24 URLs indexáveis.
+- Falha do chunk GSAP testada: conteúdo e seleção de ambientes continuam disponíveis. Preferência de movimento pode mudar durante a visita.
+- Bundle principal comprimido em aproximadamente 85 KB, CSS em 11 KB e chunk GSAP em 45 KB. O chunk de movimento é separado do carregamento principal. Instalação npm sem vulnerabilidades reportadas.
+- Lighthouse mobile final: desempenho 99, acessibilidade 100, boas práticas 100, SEO 100. LCP 1,8 s, CLS 0,002 e TBT 100 ms. A primeira medição da extensão tinha desempenho 89 e TBT 410 ms; carregar o motor mediante intenção removeu esse trabalho da abertura, mantendo os efeitos disponíveis nas interações.
 
-Conteúdo em `src/data/`; câmera em `src/lib/usePhotoCamera.js`; direção visual em `src/atlas.css`. Executar `npm run build` atualiza páginas e sitemap. O CSV segue o contrato posicional do importador SAAS---LEADS. Integração automática requer um destino autenticado de armazenamento; nenhuma chave deve ir para o cliente.
+Relatórios e capturas em `qa/`, ignorado pelo Git. Código de validação em `scripts/qa.mjs`, `scripts/studio-qa.mjs` e `scripts/quality.mjs`. Medição sintética final em `qa/studio-lighthouse-final.json`; não representa métricas de campo ou promessa de posicionamento em busca.
+
+## Manutenção
+
+Home compõe ProjectExplorer e StudioJourney. Lettering preserva o texto semântico; studioMotion concentra GSAP e seus eventos. Conteúdo em `src/data/`, estilos da extensão em `src/studio.css`, direção e storyboard em `DESIGN.md`. Executar `npm run build` atualiza rotas, metadados e sitemap.

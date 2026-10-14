@@ -13,9 +13,9 @@ const escape = (text) =>
 const routes = [
   {
     path: "/",
-    title: "ART Móveis Interiores | Acervo de móveis planejados",
+    title: "ART Móveis Interiores | Móveis planejados e projetos",
     description:
-      "Explore fotografias de cozinhas, quartos, salas e escritórios da ART Móveis. Amplie os detalhes e salve referências para seu pedido de orçamento.",
+      "Projetos de móveis planejados da ART: explore os detalhes, reúna referências, prepare seu pedido de orçamento e consulte os guias de planejamento.",
     image: "cozinha-integrada",
   },
   {
